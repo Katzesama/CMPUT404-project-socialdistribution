@@ -18,12 +18,12 @@ class Post(models.Model):
         ('image/png;base64', 'image/png;base64'),
         ('image/jpeg;base64', 'image/jpeg;base64'),
     )
-    image = models.ImageField(null=True, blank=True)
+    image = models.TextField(null=True, blank=True)
     contentType = models.CharField(max_length=2000, choices=contentType_choice)
-    content = models.TextField(max_length =10000)
-    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    published = models.DateTimeField(default=datetime.now)#auto_now=True)
-    categories = models.CharField(max_length =100, blank=True)
+    content = models.TextField()
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    published = models.DateTimeField(default=datetime.now)
+    categories = models.TextField(null=True, blank=True)
 
     visibility_choice = (
         ('PUBLIC', 'PUBLIC'),
@@ -33,7 +33,7 @@ class Post(models.Model):
         ('SERVERONLY', 'SERVERONLY'),
     )
     visibility = models.CharField(default ="PUBLIC", max_length=20, choices=visibility_choice)
-    visibleTo = models.CharField(max_length=500, blank=True)
+    visibleTo = models.TextField(null=True, blank=True)
     unlisted = models.BooleanField(default=False)
 
     def __str__(self):
@@ -42,7 +42,7 @@ class Post(models.Model):
 
 class Images(models.Model):
 	associated_post = models.ForeignKey(Post, on_delete=models.CASCADE)
-	img = models.ImageField(null=True, blank=True)
+	img = models.TextField(null=True, blank=True)
 
 class Comment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -57,12 +57,11 @@ class Comment(models.Model):
         ('image/jpeg;base64', 'image/jpeg;base64'),
     )
     contentType = models.CharField(max_length=2000, default='text/plain', choices=contentType_choice)
-    publi = models.DateTimeField(auto_now=True)
+    published = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.author.displayName + ": " + self.comment
 
-# Friends
 class Friend(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     displayName = models.CharField(max_length=200,blank=True)
