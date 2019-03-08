@@ -89,12 +89,13 @@ class PostSerializer(serializers.ModelSerializer):
         return obj.author.host + '/freeridersocial/posts/' + str(obj.id) + '/comments'
 
     def create(self, validated_data):
-        post = Post.objects.create(author=self.context['author'], origin=self.context['origin'], source=origin, **validated_data)
-        new_post = Post.objects.get(postid=post.postid)
-        new_post.origin=post.origin+"/posts/"+str(post.postid)
-        new_post.source=post.source+"/posts/"+str(post.postid)
-        new_post.save()
-        return new_post
+        post = Post.objects.create(author=self.context['author'], origin=self.context['origin'], source=self.context['source'], **validated_data)
+        temp_origin = post.origin+"/posts/"+str(post.postid)
+        temp_source = post.source+"/posts/"+str(post.postid)
+        post.origin = temp_origin
+        post.source = temp_source
+        post.save()
+        return post
 
 
 class CommentSerializer(serializers.ModelSerializer):
