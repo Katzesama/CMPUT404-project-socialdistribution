@@ -55,8 +55,6 @@ class AuthorSerializer(serializers.ModelSerializer):
         return instance
 
 class FriendSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer(read_only=True)
-
     class Meta:
         model = Friend
         fields = "__all__"
@@ -73,7 +71,7 @@ class PostSerializer(serializers.ModelSerializer):
     	model = Post
         fields = ("title", "source", "origin", "description", "contentType", "content",
                   "author", "categories", "count", "size", "next", "comments", "published", "id", "visibility",
-                  "visibleTo", "unlisted")
+                  "visibleTo", "image","unlisted")
 
     def get_comments(self, obj):
         comments = Comment.objects.filter(postid=obj.post_id).order_by('published')
@@ -91,22 +89,13 @@ class PostSerializer(serializers.ModelSerializer):
         return obj.author.host + '/freeridersocial/posts/' + str(obj.id) + '/comments'
 
     def create(self, validated_data):
-        post = Post.objects.create(author=self.context['author'], origin=self.context['origin'], source=origin, **validated_data)
-        newPost = Post.objects.get(postid=post.postid)
-        newPost.origin=post.origin+"/posts/"+str(post.postid)
-        newPost.source=post.source+"/posts/"+str(post.postid)
-        newPost.save()
-        return newPost
-
-    def update(self, instance, validated_data):
-        instance.title = validated_data.get('title', instance.title)
-        instance.origin = validated_data.get('origin', instance.origin)
-        instance.source = validated_data.get('source', instance.source)
-        instance.content = validated_data.get('content', instance.content)
-        instance.contentType = validated_data.get('contentType', instance.contentType)
-        instance.visibility = validated_data.get('visibility', instance.visibility)
-        instance.save()
-        return instance
+        post = Post.objects.create(author=self.context['author'], origin=self.context['origin'], source=self.context['source'], **validated_data)
+        temp_origin = post.origin+"/posts/"+str(post.postid)
+        temp_source = post.source+"/posts/"+str(post.postid)
+        post.origin = temp_origin
+        post.source = temp_source
+        post.save()
+        return post
 
 
 class CommentSerializer(serializers.ModelSerializer):
