@@ -8,15 +8,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sign Up</title>
   
-  <link rel="stylesheet" type="text/css" href={% static 'signup.css' %}
+  <link rel="stylesheet" type="text/css" href="{% static 'signup.css' %}">
 </head>
 
 <body>
-<div id="header" class = "header">
-  <div id = "cont" class = "cont">
-    <h1>Freerider</h1>
-  </div> 
-</div>
+  <h1>Freerider</h1>
   <div id ="signup">
     <form method="POST">
         {% csrf_token %}
