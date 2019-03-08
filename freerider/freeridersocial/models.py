@@ -77,7 +77,7 @@ class Author(models.Model):
     host = models.URLField()
     displayName = models.CharField(max_length=200,blank=False,null=False)
     url = models.URLField()
-    github = models.CharField(max_length=200,blank=True,default='')
+    github = models.URLField(null=True, blank=False)
     firstName = models.CharField(max_length=200,blank=True,default='')
     lastName = models.CharField(max_length=200,blank=True,default='')
     email = models.CharField(max_length=400,blank=True,default='')

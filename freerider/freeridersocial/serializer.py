@@ -44,15 +44,9 @@ class PaginationModel(PageNumberPagination):
         return response_body
 
 class AuthorSerializer(serializers.ModelSerializer):
-    url = serializers.SerializerMethodField()
-
     class Meta:
         model = Author
         fields = "__all__"
-
-    def get_url(self, obj):
-        url = obj.host+"/freeridersocial/author/"+str(obj.id)
-        return url
 
     def update(self, instance, validated_data):
         instance.displayName = validated_data.get('displayName', instance.displayName)
