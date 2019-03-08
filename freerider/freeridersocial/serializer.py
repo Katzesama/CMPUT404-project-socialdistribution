@@ -96,16 +96,6 @@ class PostSerializer(serializers.ModelSerializer):
         new_post.save()
         return new_post
 
-    def update(self, instance, validated_data):
-        instance.title = validated_data.get('title', instance.title)
-        instance.origin = validated_data.get('origin', instance.origin)
-        instance.source = validated_data.get('source', instance.source)
-        instance.content = validated_data.get('content', instance.content)
-        instance.contentType = validated_data.get('contentType', instance.contentType)
-        instance.visibility = validated_data.get('visibility', instance.visibility)
-        instance.save()
-        return instance
-
 
 class CommentSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)
