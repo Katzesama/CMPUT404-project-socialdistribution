@@ -1,11 +1,46 @@
 from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
+# reference: https://medium.freecodecamp.org/user-authentication-in-django-bae3a387f77d
+# https://docs.djangoproject.com/en/2.1/ref/contrib/auth/
+# https://overiq.com/django-1-10/django-creating-users-using-usercreationform/
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            userObj = form.cleaned_data
+            username = userObj['username']
+            password =  userObj['password']
+            if not (User.objects.filter(username=username).exists()):
+                User.objects.create_user(username, password)
+                user = authenticate(username = username, password = password, is_active = False) # set is_active false, so approval from server admin is needed
+                return HttpResponseRedirect('/')
+            else:
+                raise forms.ValidationError('Looks like the username with that password already exists.')
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'Templates/sign_up.html', {'form' : form})
+
+def signup_done(request):
+    return render(request, 'Templates/signup_done.html', {})
 
 # http://service/author/{AUTHOR_ID}/posts (all posts made by {AUTHOR_ID} visible to the currently authenticated user)
 # http://service/author/posts (posts that are visible to the currently authenticated user)
 # http://service/posts (all posts marked as public on the server)
 # http://service/posts/{POST_ID} access to a single post with id = {POST_ID}
+def upload_post():
+    return
+def edit_post():
+    return
+def del_post():
+    return
+def get_post():
+    return
 
 # http://service/posts/{post_id}/comments access to the comments in a post
 # "query": "addComment"
