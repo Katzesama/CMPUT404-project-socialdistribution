@@ -24,10 +24,10 @@ def signup(request):
     else:
         form = UserCreationForm()
 
-    return render(request, 'Templates/sign_up.html', {'form' : form})
+    return render(request, 'registration/signup.html', {'form' : form})
 
 def signup_done(request):
-    return render(request, 'Templates/signup_done.html', {})
+    return render(request, 'registration/signup_done.html', {})
 
 # http://service/author/{AUTHOR_ID}/posts (all posts made by {AUTHOR_ID} visible to the currently authenticated user)
 # http://service/author/posts (posts that are visible to the currently authenticated user)
