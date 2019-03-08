@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'freeridersocial.apps.freeridersocialConfig'
+    'freeridersocial',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [

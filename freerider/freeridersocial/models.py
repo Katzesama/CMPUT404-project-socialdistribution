@@ -5,6 +5,22 @@ from datetime import datetime
 import uuid
 import json
 
+# Profile With User
+class Author(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, editable=False)
+    host = models.URLField()
+    displayName = models.CharField(max_length=200,blank=False,null=False)
+    url = models.URLField()
+    github = models.URLField(null=True, blank=False)
+    firstName = models.CharField(max_length=200,blank=True,default='')
+    lastName = models.CharField(max_length=200,blank=True,default='')
+    email = models.CharField(max_length=400,blank=True,default='')
+    bio = models.CharField(max_length=2000,blank=True,default='')
+
+    def __str__(self):  # __unicode__ for Python 2
+        return self.user.username
+        
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length = 100, default='No Title')
@@ -69,19 +85,3 @@ class Friend(models.Model):
     url = models.URLField()
     def __str__(self):
         return self.displayName
-
-# Profile With User
-class Author(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, editable=False)
-    host = models.URLField()
-    displayName = models.CharField(max_length=200,blank=False,null=False)
-    url = models.URLField()
-    github = models.URLField(null=True, blank=False)
-    firstName = models.CharField(max_length=200,blank=True,default='')
-    lastName = models.CharField(max_length=200,blank=True,default='')
-    email = models.CharField(max_length=400,blank=True,default='')
-    bio = models.CharField(max_length=2000,blank=True,default='')
-
-    def __str__(self):  # __unicode__ for Python 2
-        return self.user.username

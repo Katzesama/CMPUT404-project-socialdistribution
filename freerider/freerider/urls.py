@@ -14,14 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
+import freeridersocial.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', auth_views.login, name='login'),
-    url(r'^login/$', auth_views.login, name='login'),
-    url(r'^signup/$', 'freeridersocial.views.signup', name='register'),
-    url(r'^signup/done/$', 'freeridersocial.views.signup_done', name='registration_complete'),
-    url(r'^logout/$', auth_views.logout),
+    path('/', auth_views.LoginView, name='login'),
+    path('login/', auth_views.LoginView, name='login'),
+    path('signup/', freeridersocial.views.signup, name='register'),
+    path('signup/done/', freeridersocial.views.signup_done, name='registration_complete'),
+    path('logout/', auth_views.LogoutView, name='logout'),
 ]
