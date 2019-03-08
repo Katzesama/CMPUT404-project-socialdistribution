@@ -20,7 +20,7 @@ import freeridersocial.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('/', auth_views.LoginView, name='login'),
+    path('', auth_views.LoginView, name='login'),
     path('login/', auth_views.LoginView, name='login'),
     path('signup/', freeridersocial.views.signup, name='register'),
     path('signup/done/', freeridersocial.views.signup_done, name='registration_complete'),
