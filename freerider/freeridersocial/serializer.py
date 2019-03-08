@@ -55,8 +55,6 @@ class AuthorSerializer(serializers.ModelSerializer):
         return instance
 
 class FriendSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer(read_only=True)
-
     class Meta:
         model = Friend
         fields = "__all__"
@@ -73,7 +71,7 @@ class PostSerializer(serializers.ModelSerializer):
     	model = Post
         fields = ("title", "source", "origin", "description", "contentType", "content",
                   "author", "categories", "count", "size", "next", "comments", "published", "id", "visibility",
-                  "visibleTo", "unlisted")
+                  "visibleTo", "image","unlisted")
 
     def get_comments(self, obj):
         comments = Comment.objects.filter(postid=obj.post_id).order_by('published')
@@ -92,11 +90,11 @@ class PostSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         post = Post.objects.create(author=self.context['author'], origin=self.context['origin'], source=origin, **validated_data)
-        newPost = Post.objects.get(postid=post.postid)
-        newPost.origin=post.origin+"/posts/"+str(post.postid)
-        newPost.source=post.source+"/posts/"+str(post.postid)
-        newPost.save()
-        return newPost
+        new_post = Post.objects.get(postid=post.postid)
+        new_post.origin=post.origin+"/posts/"+str(post.postid)
+        new_post.source=post.source+"/posts/"+str(post.postid)
+        new_post.save()
+        return new_post
 
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
