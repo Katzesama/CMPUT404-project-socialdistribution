@@ -83,5 +83,6 @@ class Friend(models.Model):
     displayName = models.CharField(max_length=200,blank=True)
     host = models.URLField()
     url = models.URLField()
+    friend_with = ForeignKey(Author, on_delete=models.CASCADE)
     def __str__(self):
         return self.displayName
