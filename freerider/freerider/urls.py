@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', auth_views.login, name='login'),
+    url(r'^login/$', auth_views.login, name='login'),
+    url(r'^signup/$', 'freeridersocial.views.signup', name='register'),
+    url(r'^signup/done/$', 'freeridersocial.views.signup_done', name='registration_complete'),
+    url(r'^logout/$', auth_views.logout),
 ]
