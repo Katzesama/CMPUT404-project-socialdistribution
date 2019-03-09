@@ -25,5 +25,5 @@ urlpatterns = [
     path('signup/', freeridersocial.views.signup, name='signup'),
     path('signup/done/', freeridersocial.views.signup_done, name='registration_complete'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('posts/<uuid:postid>/add_comments/', freeridersocial.views.addComment , name='comment')
+    path('posts/<uuid:postid>/add_comments/', freeridersocial.views.addComment , name='addcomment')
 ]

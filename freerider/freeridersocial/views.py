@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .serializer import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
+
 
 # Create your views here.
 # reference: https://medium.freecodecamp.org/user-authentication-in-django-bae3a387f77d
@@ -61,7 +62,18 @@ def addComment(request, post_id):
                 "message": "Comment Added"
             }
             return Response(comment_data, status=Response.status.HTTP_200_OK)
-        return Response({"query":"addComment", "success": False, "message": "Invalid Comment"}, status=Response.status.HTTP_400_BAD_REQUEST)
+    return Response({"query":"addComment", "success": False, "message": "Invalid Comment"}, status=Response.status.HTTP_400_BAD_REQUEST)
+
+def deleteComment(request, comment_id):
+    if request.method == "DELETE":
+        try:
+            comment = Comment.objects.get(id = comment_id)
+            comment.delete()
+            return HttpResponse(200)
+        except:
+            return HttpResponse(400)
+
+
 # http://service/posts/{post_id}/comments access to the comments in a post
 # "query": "addComment"
 
