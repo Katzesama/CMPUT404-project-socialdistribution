@@ -47,6 +47,7 @@ html
       margin-left: 45%;
       width: 22%;
       font-family: Optima, sans-serif;
+      box-shadow: 0 1px #999;
     }
     #signup button:hover {background-color: #7C9EE1}
 
@@ -60,16 +61,24 @@ html
     font-weight: bold;
     font-family:Optima, sans-serif;
     }
-    
+  input[type="text"]{
+    font-weight: bold;
+    font-family:Optima, sans-serif;
+    border-radius: 4px;    
+    }
   input[type="password"]{
     font-weight: bold;
     font-family:Optima, sans-serif;
+    border-radius: 4px;    
     }
+
   span{
       white-space: nowrap;
       font-size: 13px;
       color:#4060A1;
+      margin-left: 15px;
     }
   li {
     font-size: 15px;
+  
     color:#4060A1;}
