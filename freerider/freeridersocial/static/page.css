@@ -30,7 +30,7 @@ body{
     background-size: cover;
 }
 
-h1
+div
 {
     display: block;
     font-family: Snell Roundhand, cursive;
@@ -52,6 +52,13 @@ p
     text-align: center;
 
 }
+
+div a {
+    font-weight: bold;
+    color:white;}
+div a:hover, div a.current {
+    font-weight: bold;
+    color: white;}
 
 button {
 
