@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from .serializer import *
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 # Create your views here.
 # reference: https://medium.freecodecamp.org/user-authentication-in-django-bae3a387f77d
@@ -42,6 +45,23 @@ def del_post():
 def get_post():
     return
 
+
+def addComment(request, post_id):
+    post = Post.objects.get(pk = post_id)
+    current_user = request.user
+    if request.method == "POST":
+        #data = request.data
+        comment = CommentSerializer(data=request.data['comment'], context={'author': current_user, 'postid':post_id})
+
+        if comment.is_valid():
+            comment.save()
+            comment_data = {
+                "query":"addComment",
+                "success": True,
+                "message": "Comment Added"
+            }
+            return Response(comment_data, status=Response.status.HTTP_200_OK)
+        return Response({"query":"addComment", "success": False, "message": "Invalid Comment"}, status=Response.status.HTTP_400_BAD_REQUEST)
 # http://service/posts/{post_id}/comments access to the comments in a post
 # "query": "addComment"
 
