@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .serializer import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.contrib.auth import authenticate
 
 
 # Create your views here.
@@ -16,13 +17,12 @@ def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            userObj = form.cleaned_data
-            username = userObj['username']
-            password =  userObj['password']
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
             if not (User.objects.filter(username=username).exists()):
-                User.objects.create_user(username, password)
-                user = authenticate(username = username, password = password, is_active = False) # set is_active false, so approval from server admin is needed
-                return HttpResponseRedirect('/')
+                user = User.objects.create_user(username=username, password=password, is_active=False) # set is_active false, so approval from server admin is needed
+
+                return HttpResponseRedirect('/signup/done/')
             else:
                 raise forms.ValidationError('Looks like the username with that password already exists.')
     else:
@@ -37,14 +37,15 @@ def signup_done(request):
 # http://service/author/posts (posts that are visible to the currently authenticated user)
 # http://service/posts (all posts marked as public on the server)
 # http://service/posts/{POST_ID} access to a single post with id = {POST_ID}
+def get_post():
+    return
 def upload_post():
     return
 def edit_post():
     return
 def del_post():
     return
-def get_post():
-    return
+
 
 
 def addComment(request, post_id):
