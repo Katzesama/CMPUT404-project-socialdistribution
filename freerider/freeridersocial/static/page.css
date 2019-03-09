@@ -20,6 +20,16 @@ html
     margin: 0px;
 }
 
+body{
+    background-position: center;
+    line-height: 1.5em;
+    margin: 0px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 h1
 {
     display: block;
@@ -31,7 +41,8 @@ h1
     margin-top: 0px;
     left:0;
     text-align: center;
-    
+    line-height: 1.5em;
+    margin: 0px;
 }
 
 p

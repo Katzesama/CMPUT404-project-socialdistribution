@@ -46,3 +46,10 @@
       transform: translateY(4px);
       }
 
+    label{
+      font-weight: bold;
+    }
+    
+    span{
+      white-space: nowrap;
+    }
