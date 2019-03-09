@@ -41,8 +41,15 @@ html
       margin-top: 80px;
       width: 50%;
     }
-    #signup button {
-
+    #button1,#button2 {
+      display:inline-block;
+      
+    }
+    #buttons{
+      text-align: center;
+      padding: 60px 70px;
+    }
+    #button1{
       font-size:14pt;
       background-color: #7C9EE1;
       color: white;
@@ -50,14 +57,28 @@ html
       border: 2px solid white;
       text-align: center;
       margin-top:10%;
-      margin-left: 45%;
+      margin-right: 100px;
+      /* margin-left: 40%; */
       width: 22%;
       font-family: Optima, sans-serif;
       box-shadow: 0 1px #999;
     }
-    #signup button:hover {background-color: #7C9EE1}
+    #button2{
+      font-size:14pt;
+      background-color: #7C9EE1;
+      color: white;
+      border-radius: 12px;
+      border: 2px solid white;
+      text-align: center;
+      margin-top:10%;
+      /* margin-left: 48%; */
+      width: 22%;
+      font-family: Optima, sans-serif;
+      box-shadow: 0 1px #999;
+    }
+    #button1:hover ,#button2:hover {background-color: #7C9EE1}
 
-    #signup button:active {
+    #button1:active ,#button2:active {
       background-color: #84A5E6;
       box-shadow: 0 3px #666;
       transform: translateY(4px);
