@@ -53,7 +53,36 @@ p
 
 }
 
-button
-{
-    margin-left: 48%;
-}
+button {
+
+    font-size:14pt;
+    background-color: #7C9EE1;
+    color: white;
+    border-radius: 12px;
+    border: 2px solid white;
+    text-align: center;
+    margin-top: 40px;
+    margin-left: 45%;
+    width: 10%;
+    font-family:Optima, sans-serif;
+  }
+button:hover {background-color: #7C9EE1}
+
+button:active {
+    background-color: #84A5E6;
+    box-shadow: 0 3px #666;
+    transform: translateY(4px);
+    }
+a {
+    color:#5482DE;}
+a:hover, a.current {
+    color: #88B0FE;}
+
+label{
+    font-weight: bold;
+    font-family:Optima, sans-serif;
+    }
+input[type="password"]{
+    font-weight: bold;
+    font-family:Optima, sans-serif;
+    }
