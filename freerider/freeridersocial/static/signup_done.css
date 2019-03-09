@@ -29,27 +29,19 @@ body{
     height:200px;
   }
 
+  a{
+    margin-left: 15%;
+  }
+
 
   h2{
     font-family:"Arial Black", Gadget, sans-serif;
     color: black;
     margin-left: 100px;
     margin-top: 10px;
-    font-size: 50px;
+    font-size: 20px;
     font-style: bold;
     display: block;
 
   }
-
-  h3{
-    font-family:"Arial Black", Gadget, sans-serif;
-    color:black;
-    margin-left: 100px;
-    margin-top: 10px;
-    font-size: 50px;
-    font-style: bold;
-    display: block;
-
-  }
-
 
