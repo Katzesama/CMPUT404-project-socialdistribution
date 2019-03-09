@@ -68,10 +68,10 @@ class PostSerializer(serializers.ModelSerializer):
     next = serializers.SerializerMethodField()
 
     class Meta:
-    	model = Post
+        model = Post
         fields = ("title", "source", "origin", "description", "contentType", "content",
-                  "author", "categories", "count", "size", "next", "comments", "published", "id", "visibility",
-                  "visibleTo", "image","unlisted")
+            "author", "categories", "count", "size", "next", "comments", "published", "id", "visibility",
+            "visibleTo", "image","unlisted")
 
     def get_comments(self, obj):
         comments = Comment.objects.filter(postid=obj.post_id).order_by('published')
