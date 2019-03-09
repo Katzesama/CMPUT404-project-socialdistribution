@@ -7,6 +7,7 @@ from .serializer import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
+from  django.contrib.auth.hashers import make_password
 
 
 # Create your views here.
@@ -18,10 +19,10 @@ def signup(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
+            password = make_password(form.cleaned_data.get('password1'), salt=None, hasher='default')
             if not (User.objects.filter(username=username).exists()):
-                user = User.objects.create_user(username=username, password=password, is_active=False) # set is_active false, so approval from server admin is needed
-
+                user = User.objects.create(username=username, password=password, is_active=False) # set is_active false, so approval from server admin is needed
+                author = Author.objects.create(user=user)
                 return HttpResponseRedirect('/signup/done/')
             else:
                 raise forms.ValidationError('Looks like the username with that password already exists.')
@@ -33,12 +34,18 @@ def signup(request):
 def signup_done(request):
     return render(request, 'registration/signup_done.html', {})
 
+def home(request):
+    return render(request, 'home.html', {'user_id':request.user.author.id})
 # http://service/author/{AUTHOR_ID}/posts (all posts made by {AUTHOR_ID} visible to the currently authenticated user)
 # http://service/author/posts (posts that are visible to the currently authenticated user)
 # http://service/posts (all posts marked as public on the server)
 # http://service/posts/{POST_ID} access to a single post with id = {POST_ID}
-def get_post():
-    return
+def visible_post(request):
+    if 'author' in request.path:
+        posts = Post.objects.filter(visibility='PUBLIC')
+    else:
+        posts = Post.objects.filter(visibility='PUBLIC')
+    return render(request, 'visible_posts.html', {'posts': posts})
 def upload_post():
     return
 def edit_post():
@@ -100,3 +107,5 @@ def deleteComment(request, comment_id):
 # Profile API calls
 # GET http://service/author/9de17f29c12e8f97bcbbd34cc908f1baba40658e
 # Enables viewing of foreign author's profiles
+def view_profile(request):
+    return render(request, 'profile.html', {})

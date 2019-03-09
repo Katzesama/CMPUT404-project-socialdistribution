@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>freeridersocial Home Page</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  </head>
+<body>
+
+<!--sidebar-->
+  <div id="sidebar" class="w3-sidebar w3-bar-block" style="width:25%; background-color:#5F9EA0;
+  overflow-x: hidden;">
+                <ul>
+                    <li><a href="{% url 'get_post_for_user' %}">Posts</a></li>
+                    <li><a href="freeridersocial/author/{{user_id}}/">Profile</a></li>
+                </ul>
+  </div>
+
+<!-- section container -->
+<div id="container" class="w3-container">
+    </div>
+    </body>
+</html>

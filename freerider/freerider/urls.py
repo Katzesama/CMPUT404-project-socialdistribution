@@ -25,5 +25,10 @@ urlpatterns = [
     path('signup/', freeridersocial.views.signup, name='signup'),
     path('signup/done/', freeridersocial.views.signup_done, name='registration_complete'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('freeridersocial/posts/<uuid:postid>/add_comments/', freeridersocial.views.addComment , name='addcomment')
+    path('home/', freeridersocial.views.home, name='home'),
+    path('author/<uuid:user_id>/', freeridersocial.views.view_profile, name='profile'),
+    path('author/posts/', freeridersocial.views.visible_post, name='get_post_for_user'),
+    path('posts/<uuid:postid>/add_comments/', freeridersocial.views.addComment , name='addcomment'),
+    path('posts/', freeridersocial.views.visible_post, name='public_posts')
+
 ]
