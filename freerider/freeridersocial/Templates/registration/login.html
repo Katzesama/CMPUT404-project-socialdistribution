@@ -6,12 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Login</title>
-  <link rel="stylesheet" type="text/css" href="{% static 'page.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
 
 </head>
 <STYLE>A {text-decoration: none;} </STYLE>
 <body>
-    <div><a href="{% url 'login' %}">Freerider</a></div>
+    <div><a href="{% url 'login' %}">Natto</a></div>
 
     <form method="POST" action="{% url 'login' %}?next=/freeridersocial/home/">
       {% csrf_token %}

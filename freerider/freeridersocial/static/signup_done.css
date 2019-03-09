@@ -1,3 +1,11 @@
+html
+{
+    width: 100%;
+    height: 100%;
+    background-color:#F7F9FE;
+    margin: 0px;
+}
+
 body{
     background-position: center;
     line-height: 1.5em;
@@ -10,7 +18,7 @@ body{
   {
       display: block;
       font-family: Snell Roundhand, cursive;
-      font-size: 40px;
+      size: 60px;
       background-color: #7C9EE1;
       color: white;
       height: 80px;
