@@ -1,0 +1,55 @@
+body{
+    background-position: center;
+    line-height: 1.5em;
+    margin: 0px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;}
+  h1
+  {
+      display: block;
+      font-family: Snell Roundhand, cursive;
+      font-size: 40px;
+      background-color: #7C9EE1;
+      color: white;
+      height: 80px;
+      margin-top: 0px;
+      left:0;
+      text-align: center;
+      line-height: 1.5em;
+      margin: 0px;
+
+      
+  }
+  #signupdone {
+    margin: auto;
+    margin-top: 80px;
+    width: 50%;
+    height:200px;
+  }
+
+
+  h2{
+    font-family:"Arial Black", Gadget, sans-serif;
+    color: black;
+    margin-left: 100px;
+    margin-top: 10px;
+    font-size: 50px;
+    font-style: bold;
+    display: block;
+
+  }
+
+  h3{
+    font-family:"Arial Black", Gadget, sans-serif;
+    color:black;
+    margin-left: 100px;
+    margin-top: 10px;
+    font-size: 50px;
+    font-style: bold;
+    display: block;
+
+  }
+
+
