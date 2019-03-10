@@ -22,7 +22,10 @@ def signup(request):
             password = make_password(form.cleaned_data.get('password1'), salt=None, hasher='default')
             if not (User.objects.filter(username=username).exists()):
                 user = User.objects.create(username=username, password=password, is_active=False) # set is_active false, so approval from server admin is needed
-                author = Author.objects.create(user=user)
+                author = Author.objects.create(user=user, host="http://natto.herokuapp.com")
+                url_str = "http://natto.herokuapp.com/author/" + str(author.id)
+                author.url = json.dumps(url_str)
+                author.save()
                 return HttpResponseRedirect('/signup/done/')
             else:
                 raise forms.ValidationError('Looks like the username with that password already exists.')
@@ -41,8 +44,10 @@ def home(request):
 # http://service/posts (all posts marked as public on the server)
 # http://service/posts/{POST_ID} access to a single post with id = {POST_ID}
 def visible_post(request):
+    posts = []
     if 'author' in request.path:
         posts = Post.objects.filter(visibility='PUBLIC')
+        posts_only_visible = Post.objects.filter()
     else:
         posts = Post.objects.filter(visibility='PUBLIC')
     return render(request, 'visible_posts.html', {'posts': posts})
