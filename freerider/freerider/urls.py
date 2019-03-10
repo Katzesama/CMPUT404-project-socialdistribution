@@ -14,8 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
+from django.contrib.auth import views as auth_views
+import freeridersocial.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', auth_views.LoginView.as_view(), name='login'),
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('signup/', freeridersocial.views.signup, name='signup'),
+    path('signup/done/', freeridersocial.views.signup_done, name='registration_complete'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('home/', freeridersocial.views.home, name='home'),
+    path('author/<uuid:user_id>/', freeridersocial.views.view_profile, name='profile'),
+    path('author/posts/', freeridersocial.views.visible_post, name='get_post_for_user'),
+    path('posts/<uuid:postid>/add_comments/', freeridersocial.views.addComment , name='addcomment'),
+    path('posts/', freeridersocial.views.visible_post, name='public_posts')
+
 ]
