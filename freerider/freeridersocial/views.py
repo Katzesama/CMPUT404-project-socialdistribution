@@ -81,6 +81,16 @@ def deleteComment(request, comment_id):
         except:
             return HttpResponse(400)
 
+#https://www.django-rest-framework.org/topics/html-and-forms/
+# Check if user exist, if so get author queryset
+def view_profile(request):
+    try:
+        current_user = request.user
+    except:
+        Response("Author does not exist", status=404)
+    if request.method == "GET":
+        serializers = AuthorSerializer(current_user)
+        return Response(serializers.data)
 
 # http://service/posts/{post_id}/comments access to the comments in a post
 # "query": "addComment"
