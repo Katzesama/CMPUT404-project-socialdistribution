@@ -57,7 +57,7 @@ ROOT_URLCONF = 'freerider.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, '../freeridersocial/Templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'freeridersocial/Templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
