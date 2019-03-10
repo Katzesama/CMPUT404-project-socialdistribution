@@ -1,1 +1,1 @@
-web: gunicorn freerider.wsgi
+web: gunicorn --pythonpath freerider freerider.wsgi
