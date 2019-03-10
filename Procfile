@@ -1,1 +1,1 @@
-web: gunicorn freerider/freerider.wsgi
+web: gunicorn freerider/freerider/freerider.wsgi
