@@ -84,6 +84,7 @@ def deleteComment(request, comment_id):
 #https://www.django-rest-framework.org/topics/html-and-forms/
 # Check if user exist, if so get author queryset
 def view_profile(request):
+    print(request)
     try:
         current_user = request.user
     except:
