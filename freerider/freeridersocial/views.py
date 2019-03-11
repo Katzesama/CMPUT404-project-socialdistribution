@@ -22,7 +22,10 @@ def signup(request):
             password = make_password(form.cleaned_data.get('password1'), salt=None, hasher='default')
             if not (User.objects.filter(username=username).exists()):
                 user = User.objects.create(username=username, password=password, is_active=False) # set is_active false, so approval from server admin is needed
-                author = Author.objects.create(user=user)
+                author = Author.objects.create(user=user, host="http://natto.herokuapp.com")
+                url_str = "http://natto.herokuapp.com/author/" + str(author.id)
+                author.url = json.dumps(url_str)
+                author.save()
                 return HttpResponseRedirect('/signup/done/')
             else:
                 raise forms.ValidationError('Looks like the username with that password already exists.')
@@ -36,54 +39,6 @@ def signup_done(request):
 
 def home(request):
     return render(request, 'home.html', {'user_id':request.user.author.id})
-# http://service/author/{AUTHOR_ID}/posts (all posts made by {AUTHOR_ID} visible to the currently authenticated user)
-# http://service/author/posts (posts that are visible to the currently authenticated user)
-# http://service/posts (all posts marked as public on the server)
-# http://service/posts/{POST_ID} access to a single post with id = {POST_ID}
-def visible_post(request):
-    if 'author' in request.path:
-        posts = Post.objects.filter(visibility='PUBLIC')
-    else:
-        posts = Post.objects.filter(visibility='PUBLIC')
-    return render(request, 'visible_posts.html', {'posts': posts})
-def upload_post():
-    return
-def edit_post():
-    return
-def del_post():
-    return
-
-
-
-def addComment(request, post_id):
-    post = Post.objects.get(pk = post_id)
-    current_user = request.user
-    if request.method == "POST":
-        #data = request.data
-        comment = CommentSerializer(data=request.data['comment'], context={'author': current_user, 'postid':post_id})
-
-        if comment.is_valid():
-            comment.save()
-            comment_data = {
-                "query":"addComment",
-                "success": True,
-                "message": "Comment Added"
-            }
-            return Response(comment_data, status=Response.status.HTTP_200_OK)
-    return Response({"query":"addComment", "success": False, "message": "Invalid Comment"}, status=Response.status.HTTP_400_BAD_REQUEST)
-
-def deleteComment(request, comment_id):
-    if request.method == "DELETE":
-        try:
-            comment = Comment.objects.get(id = comment_id)
-            comment.delete()
-            return HttpResponse(200)
-        except:
-            return HttpResponse(400)
-
-
-# http://service/posts/{post_id}/comments access to the comments in a post
-# "query": "addComment"
 
 # a reponse if friends or not
 # GET http://service/author/<authorid>/friends/
