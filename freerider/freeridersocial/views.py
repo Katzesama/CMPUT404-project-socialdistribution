@@ -40,6 +40,7 @@ def signup_done(request):
 def home(request):
     return render(request, 'home.html', {'user_id':request.user.author.id})
 
+
 # a reponse if friends or not
 # GET http://service/author/<authorid>/friends/
 # Ask if 2 authors are friends
@@ -62,5 +63,5 @@ def home(request):
 # Profile API calls
 # GET http://service/author/9de17f29c12e8f97bcbbd34cc908f1baba40658e
 # Enables viewing of foreign author's profiles
-def view_profile(request):
-    return render(request, 'profile.html', {})
+# def view_profile(request):
+#     return render(request, 'profile.html', {})
