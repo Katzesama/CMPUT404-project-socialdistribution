@@ -17,12 +17,18 @@ class ProfileDetail(APIView):
         return Response(serializer.data)
 
 class EditProfile(APIView):
-    def post(self, request):
+    def put(self, request, userid):
         try:
-            serializer = AuthorSerializer(data = request.data)
+            current_user_profile = request.user.author
+            author = get_object_or_404(Author.objects.get(id=userid))
+            if author == current_user_profile:
+                serializer = AuthorSerializer(current_user_profile, data = request.data)
+                if serializer.is_valid(raise_exception=ValueError):
+                    serializer.save()
+                    return Response(serializer.data, status=200)
+                return Response("serializer error", status=400)
+            else:
+                return Response(status=404)
         except:
-            return Response("Invalid profile data", status = 400)
-        if serializer.is_valid(raise_exception=ValueError):
-            serializer.create(validated_data=request.data)
-            return Response(serializer.data, status=200)
+            return Response(status = 400)
 

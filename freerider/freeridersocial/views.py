@@ -123,5 +123,5 @@ def view_profile(request):
 # Profile API calls
 # GET http://service/author/9de17f29c12e8f97bcbbd34cc908f1baba40658e
 # Enables viewing of foreign author's profiles
-def view_profile(request):
-    return render(request, 'profile.html', {})
+# def view_profile(request):
+#     return render(request, 'profile.html', {})
