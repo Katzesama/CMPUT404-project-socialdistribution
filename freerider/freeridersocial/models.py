@@ -17,9 +17,10 @@ class Author(models.Model):
     lastName = models.CharField(max_length=200,blank=True,default='')
     email = models.CharField(max_length=400,blank=True,default='')
     bio = models.CharField(max_length=2000,blank=True,default='')
+    image = models.ImageField(default='default.img', upload_to="profile_pics")
 
     def __str__(self):  # __unicode__ for Python 2
-        return self.user.username
+        return f'{self.user.username} Profile'
         
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -86,3 +87,4 @@ class Friend(models.Model):
     friend_with = models.ForeignKey(Author, on_delete=models.CASCADE)
     def __str__(self):
         return self.displayName
+
