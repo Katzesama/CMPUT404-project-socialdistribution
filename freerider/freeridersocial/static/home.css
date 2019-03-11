@@ -44,3 +44,41 @@ div a
     margin: 0px;
     font-weight: bold;
 }
+
+
+.sidebar {
+    width: 160px; 
+    position: fixed; 
+    height: 100%;
+    top: 80px; 
+    left: 0;
+    width: 20%;
+    background-color: #E4E5E5;
+    overflow-x: hidden; 
+    padding-top: 20px;
+  }
+  
+  .sidebar b {
+    padding: 4px 10px 20px 15px;
+    text-decoration: none;
+    font-size: 25px;
+    color:#4060A1;;
+    display: block;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidebar b:hover {
+    color: #7C9EE1;
+  }
+  
+  /* Style page content */
+  .main {
+    margin-left: 160px; /* Same as the width of the sidebar */
+    padding: 0px 10px;
+  }
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar b {font-size: 18px;}
+  }
