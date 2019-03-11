@@ -101,6 +101,7 @@ def view_profile(request):
 # http://service/posts/{post_id}/comments access to the comments in a post
 # "query": "addComment"
 
+
 # a reponse if friends or not
 # GET http://service/author/<authorid>/friends/
 # Ask if 2 authors are friends

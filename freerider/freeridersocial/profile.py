@@ -14,9 +14,8 @@ class ProfileDetail(APIView):
             return Response("Can't find user", status=404)
 
         serializer = AuthorSerializer(current_user_profile)
-        return Response(serializer.data)
+        return Response({'serializer':serializer,'profile':current_user_profile, 'user_id':current_user_profile.id})
 
-class EditProfile(APIView):
     def put(self, request, userid):
         try:
             current_user_profile = request.user.author
