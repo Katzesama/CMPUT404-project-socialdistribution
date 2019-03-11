@@ -49,7 +49,7 @@ div a {
     color:white;
     font-size: 60px;
     float: right;
-    margin-right: 28%;
+    margin-right: 15%;
 
     }
 div a:hover, div a.current {
@@ -99,8 +99,8 @@ div a:hover, div a.current {
   padding: 6px;
   border: none;
   margin-left: 0px;
-  margin-top: 20px;
-  margin-right: 10px;
+  margin-top: 25px;
+  margin-right: 15%;
   font-size: 17px;
   border-radius: 12px;
 }
