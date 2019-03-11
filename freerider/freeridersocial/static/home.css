@@ -48,6 +48,7 @@ div a {
     font-weight: bold;
     color:white;
     font-size: 60px;
+    margin-left: 330px;
     }
 div a:hover, div a.current {
     font-weight: bold;

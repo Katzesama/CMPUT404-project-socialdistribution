@@ -12,18 +12,12 @@
     <div id = "bg">
         
         <div class = "onhead">
-            <div><a href="{% url 'home' %}">
-                <img scr="/defult_head.png" class="image-circle"/> 
-              </a></div>
+              <form  arial-label="profile picture" accept-charset="UTF-8" method="post">
+                  <img src="{% static 'profile.png' %}" class="image-circle">
             <input type="text" placeholder="Search..">
-            <div><a href="{% url 'home' %}">Natto</a></div>
-          
+            <a href="{% url 'home' %}">Natto</a>
           
         </div>
-        
-       
-       
-
     </div>
 
 <div class="sidebar">
