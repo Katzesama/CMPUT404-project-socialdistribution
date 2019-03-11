@@ -48,6 +48,8 @@ div a {
     font-weight: bold;
     color:white;
     font-size: 60px;
+    float: right;
+    margin-right: 28%;
 
     }
 div a:hover, div a.current {
@@ -96,6 +98,7 @@ div a:hover, div a.current {
   float: right;
   padding: 6px;
   border: none;
+  margin-left: 0px;
   margin-top: 20px;
   margin-right: 10px;
   font-size: 17px;
