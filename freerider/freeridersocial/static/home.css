@@ -29,7 +29,7 @@ body{
     background-size: cover;
 }
 
-div a
+#bg
 {
     display: block;
     font-family: Snell Roundhand, cursive;
@@ -44,7 +44,15 @@ div a
     margin: 0px;
     font-weight: bold;
 }
+div a {
+    font-weight: bold;
+    color:white;
+    font-size: 60px;
 
+    }
+div a:hover, div a.current {
+    font-weight: bold;
+    color: white;}
 
 .sidebar {
     width: 160px; 
@@ -88,8 +96,8 @@ div a
   float: right;
   padding: 6px;
   border: none;
-  margin-top: 10px;
-  margin-right: 12%;
+  margin-top: 20px;
+  margin-right: 10px;
   font-size: 17px;
   border-radius: 12px;
 }
