@@ -29,26 +29,6 @@ body{
     background-size: cover;
 }
 
-#bg
-{
-    display: block;
-    font-family: Snell Roundhand, cursive;
-    font-size: 60px;
-    background-color: #7C9EE1;
-    color: white;
-    height: 80px;
-    margin-top: 0px;
-    left:10%;
-    text-align: left;
-    line-height: 1.5em;
-    font-weight: bold;
-    width: 100%;
-}
-
-div a:hover, div a.current {
-    font-weight: bold;
-    color: white;}
-
 nav {
     width: 160px; 
     position: fixed; 
@@ -63,7 +43,20 @@ nav {
     text-align: center;
     font-family:Gill Sans, sans-serif;
   }
-
+.nav a
+{
+    display: block;
+    font-family: Snell Roundhand, cursive;
+    font-size: 60px;
+    background-color: #7C9EE1;
+    color: white;
+    height: 80px;
+    margin-top: 0px;
+    left:0;
+    text-align: center;
+    line-height: 1.5em;
+    font-weight: bold;
+}
 
 nav ul {
     margin: 0px;
@@ -91,30 +84,12 @@ nav li b {
   background:rgba(245, 248, 254, 0.5);
   font-size: 20px;
 }
-.nav a
-{
-    display: block;
-    font-family: Snell Roundhand, cursive;
-    font-size: 60px;
-    background-color: #7C9EE1;
-    color: white;
-    height: 80px;
-    margin-top: 0px;
-    left:0;
-    text-align: center;
-    line-height: 1.5em;
-    font-weight: bold;
-}
-  
+
   .main {
     margin-left: 160px; 
     padding: 0px 10px;
   }
-  
-  @media screen and (max-height: 450px) {
-    .sidebar {padding-top: 15px;}
-    .sidebar b {font-size: 18px;}
-  }
+
 
 nav input[type=text] {
   float: right;
@@ -208,6 +183,7 @@ textarea[name="shares"]{
     width : 700px;
     height:40px;
 }    
+
 
 .limits{
   margin-left: 475px;
