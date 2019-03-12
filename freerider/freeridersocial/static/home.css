@@ -178,25 +178,12 @@ textarea[name="shares"]{
 
 
 .options{
-    margin-left: 10px;
-    margin-bottom: 10px;
-    width : 700px;
+    width : 250px;
     height:40px;
     margin-top:10px;
 }    
-
-
-.limits{
-  margin-left: 320px;
-  width : 200px;
-  height:10px;
-}   
-.bbbb{
-  width : 150px;
-  height:30px;
-  margin-left: 80%;
-
-}   
+ 
+  
 #button_s {
 
     font-size:14pt;

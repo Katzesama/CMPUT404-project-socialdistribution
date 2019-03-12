@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="stylesheet" href="{% static 'home.css' %}">
-    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
-
   </head>
 <STYLE>A {text-decoration: none;} </STYLE>
 <body>
@@ -29,26 +27,6 @@
         </nav>
     </div> 
 
-<!-- section container -->
-<!-- <div id="container" class="w3-container">
-
-    <div id = "share" class="share" >Share what's new with you...</div>
-
-    <div class="input" >
-        <textarea name="shares" cols="30" rows="5"></textarea>
-
-    </div>
-    <div class= "options">
-      
-      <div class = "limits">
-        
-          <button id="button_s" type="submit_share">Share</button> 
-                
-      </div>
-    </div>
- 
-</div>  -->
-
 <form action="{% url 'home' %}" method="POST">
     <div id="container" class="w3-container">
         <div id = "share" class="share" >Share what's new with you...</div>
@@ -56,25 +34,12 @@
           <textarea name="shares" cols="30" rows="5"></textarea>
         </div>
         <div class= "options"><!-- needing opstions of whether the tweet is photo or text -->
-          <div class = "bbbb">
+                        
+          Private:<input name="filling" value="private" type="radio">
+          Public:<input name="filling" value="public" type="radio">
             <input id="button_s" type="submit" value="share">
-          </div>
-          <div class = "limits"><!-- needing a private/public checkbox-->
-            
-            <input name="filling" value="private" type="radio">"Private: "
-            <input name="filling" value="public" type="radio">"Public: "
-            
-            <!-- <button id="button_s" type="submit_share">Share</button>  -->
-                      <!-- not be activated, just a button -->
-
         </div>
 
-          
-        </div>
- 
-          
-        <!-- <input name="filling" value="private" type="radio">"Private: "
-        <input name="filling" value="public" type="radio">"Public: " -->
     </div>
     
 </form>
