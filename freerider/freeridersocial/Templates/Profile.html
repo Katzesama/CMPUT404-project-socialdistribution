@@ -6,7 +6,7 @@
 
 <h1>Profile - {{ serializer.displayName }}</h1>
 
-<form action="../../home" method="GET">
+<form action="{% url 'home' %}" method="GET">
     {% csrf_token %}
     <ul>
 
@@ -16,13 +16,14 @@
         <li>Last Name：{{serializer.lastName}}</li>
         <li>Email：{{serializer.email}}</li>
         <li>Bio：{{serializer.bio}}</li>
+        <input type="submit" value = "Home">
     </ul>
-    <input type="submit" value="Save" readonly>
 </form>
-
+{% if if_author %}
 <form action="{% url 'edit_profile' serializer.id%}" method="GET">
     {% csrf_token %}
     <input type="submit" value = "Edit">
 </form>
+{% endif %}
 
 </body></html>
