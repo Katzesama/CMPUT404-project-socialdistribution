@@ -9,20 +9,22 @@ from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.renderers import JSONRenderer
 
 class ProfileDetail(APIView):
-    # renderer_classes = (JSONRenderer, )
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'Profile.html'
-    def get(self, request,*args, **kwargs):
-        print(*args)
+    def get(self, request, user_id, **kwargs):
         try:
+            #print(user_id)
+
             current_user_profile = request.user.author
-            #author = get_object_or_404(Author, pk = pk)
+            author = get_object_or_404(Author, pk = user_id)
         except:
             return HttpResponse(status=404)
 
-        serializer = AuthorSerializer(current_user_profile)
-        #print(serializer.data)
-        return Response({'serializer':serializer.data})
+        serializer = AuthorSerializer(author)
+        current_author = False
+        if (current_user_profile.id == user_id):
+            current_author = True
+        return Response({'serializer':serializer.data, 'if_author': current_author})
 
 class EditProfile(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -37,7 +39,7 @@ class EditProfile(APIView):
 
         serializer = AuthorSerializer(current_user_profile)
         #print(serializer.data)
-        return JSONResp({'serializer':serializer,'profile':current_user_profile})
+        return Response({'serializer':serializer,'profile':current_user_profile})
 
     def post(self, request, **kwargs):
         #try:
@@ -61,4 +63,6 @@ class EditProfile(APIView):
         #raise Exception as e:
             # print(e)
             # return HttpResponse(status = 400)
+
+
 
