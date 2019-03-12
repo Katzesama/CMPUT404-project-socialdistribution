@@ -12,16 +12,16 @@
 <STYLE>A {text-decoration: none;} </STYLE>
 <body>
     <div><a href="{% url 'login' %}">Natto</a></div>
-
+  
     <form method="POST" action="{% url 'login' %}?next=/home/">
       {% csrf_token %}
         <p>
             <label>Username</label>
-            <input type="text" name="username">
+            <input type="text" placeholder="username" name="username">
         </p>
         <p>
             <label>Password</label>
-            <input type="password" name="password">
+            <input type="password" placeholder="password" name="password">
         </p>
 
         <button type="submit">Login</button>

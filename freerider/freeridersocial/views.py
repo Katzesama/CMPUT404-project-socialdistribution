@@ -102,6 +102,7 @@ def view_profile(request):
 # "query": "addComment"
 
 
+
 # a reponse if friends or not
 # GET http://service/author/<authorid>/friends/
 # Ask if 2 authors are friends
@@ -126,6 +127,3 @@ def view_profile(request):
 # Enables viewing of foreign author's profiles
 # def view_profile(request):
 #     return render(request, 'profile.html', {})
-#
-# def myprofile(request):
-#     return render(request,'Profile.html')

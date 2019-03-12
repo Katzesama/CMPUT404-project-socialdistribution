@@ -1,0 +1,32 @@
+html
+{
+    width: 100%;
+    height: 100%;
+    background-color:#F7F9FE;
+    margin: 0px;
+}
+body{
+    background-position: center;
+    line-height: 1.5em;
+    margin: 0px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#bg
+{
+    display: block;
+    font-family: Snell Roundhand, cursive;
+    font-size: 60px;
+    background-color: #7C9EE1;
+    color: white;
+    height: 80px;
+    margin-top: 0px;
+    left:0;
+    text-align: center;
+    line-height: 1.5em;
+    margin: 0px;
+    font-weight: bold;
+}
