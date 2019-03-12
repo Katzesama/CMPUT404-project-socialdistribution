@@ -4,17 +4,25 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from .serializer import AuthorSerializer
+from django.http import HttpResponse, JsonResponse
+from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.renderers import JSONRenderer
 
 class ProfileDetail(APIView):
+    # renderer_classes = (JSONRenderer, )
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'Profile.html'
+    def get(self, request, **kwargs):
 
-    def get(self, request):
         try:
             current_user_profile = request.user.author
+            #author = get_object_or_404(Author, pk = pk)
         except:
-            return Response("Can't find user", status=404)
+            return HttpResponse(status=404)
 
         serializer = AuthorSerializer(current_user_profile)
-        return Response({'serializer':serializer,'profile':current_user_profile, 'user_id':current_user_profile.id})
+        print(serializer.data)
+        return Response({'serializer':serializer,'profile':current_user_profile})
 
     def put(self, request, userid):
         try:
@@ -24,10 +32,10 @@ class ProfileDetail(APIView):
                 serializer = AuthorSerializer(current_user_profile, data = request.data)
                 if serializer.is_valid(raise_exception=ValueError):
                     serializer.save()
-                    return Response(serializer.data, status=200)
-                return Response("serializer error", status=400)
+                    return Response({'serializer':serializer, 'profile': current_user_profile})
+                return HttpResponse(status=400)
             else:
-                return Response(status=404)
+                return HttpResponse(status=404)
         except:
-            return Response(status = 400)
+            return HttpResponse(status = 400)
 

@@ -126,3 +126,6 @@ def view_profile(request):
 # Enables viewing of foreign author's profiles
 # def view_profile(request):
 #     return render(request, 'profile.html', {})
+#
+# def myprofile(request):
+#     return render(request,'Profile.html')

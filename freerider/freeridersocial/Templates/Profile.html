@@ -6,7 +6,7 @@
 
 <h1>Profile - {{ profile.name }}</h1>
 
-<form action="author/{{user_id}}/" method="PUT">
+<form action="author/{{user_id}} pk=profile.id/" method="PUT">
     {% csrf_token %}
     {% render_form serializer %}
     <input type="submit" value="Save">
