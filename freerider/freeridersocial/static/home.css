@@ -83,6 +83,7 @@ div a:hover, div a.current {
     color: #7C9EE1;
     background-color: white;
     background:rgba(245, 248, 254, 0.5);
+    font-size: 23px;
     
   }
 
@@ -105,6 +106,7 @@ div a:hover, div a.current {
     color: #7C9EE1;
     background-color: white;
     background:rgba(245, 248, 254, 0.5);
+    font-size: 23px;
     
   }
   .link3 b {
@@ -121,6 +123,7 @@ div a:hover, div a.current {
     color: #7C9EE1;
     background-color: white;
     background:rgba(245, 248, 254, 0.5);
+    font-size: 23px;
     
   }
 
@@ -160,3 +163,24 @@ div a:hover, div a.current {
     margin: 10px;
     float: right;
   }
+
+
+#backtop {
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: black; /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 18px; /* Increase font size */
+
+}
+
+#backtop:hover {
+    background-color: rgb(233, 233, 233); /* Add a dark-grey background on hover */
+}
