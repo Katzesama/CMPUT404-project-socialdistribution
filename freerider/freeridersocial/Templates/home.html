@@ -21,7 +21,7 @@
         </div>
     </div>
 
-<div class="sidebar">
+<div class="sidebar"> 
   <div class = "link1"><b href="author">Profile</b><div class="block1"></div> <div class="h_line"></div></div>
   <div class = "link2"><b href="#">Somthing</b><div class="block2"></div> <div class="h_line"></div></div>
   <div class = "link3"><b href="#">newstuff</b><div class="block3"></div> <div class="h_line"></div></div>
@@ -40,16 +40,29 @@
     </div>
     <div class= "options"><!-- needing opstions of whether the tweet is photo or text -->
       
-      <div class = "limits"><!-- needing a private/public checkbox -->
+      <div class = "limits"><!-- needing a private/public checkbox-->
         
           <button id="button_s" type="submit_share">Share</button> 
-                  <!--  not be activated, just a button-->
+                  <!-- not be activated, just a button -->
       </div>
     </div>
  
-</div>
+</div> 
   
-<button id="backtop"><d href="#top" style="color: white">TOP</d></button>
-
+<button id="backtop" onclick="topFunction()" tilte="Go to Top">TOP</button>
+<script>
+  window.onscroll = function() {scrollFunction()};
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("backtop").style.display = "block";
+    } else {
+      document.getElementById("backtop").style.display="none";
+    }
+  }
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+</script>
     </body>
 </html>
