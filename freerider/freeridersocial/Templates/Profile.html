@@ -12,7 +12,7 @@
     <input type="submit" value="Save" readonly>
 </form>
 
-<form action="{% url 'edit_profile' profile.id%}" method="POST">
+<form action="{% url 'edit_profile' profile.id%}" method="GET">
     {% csrf_token %}
     <input type="submit" value = "Edit">
 </form>

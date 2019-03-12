@@ -49,12 +49,6 @@ class AuthorSerializer(serializers.ModelSerializer):
         model = Author
         fields = "__all__"
 
-    def update(self, instance, validated_data):
-        instance.displayName = validated_data.get('displayName', instance.displayName)
-        instance.github = validated_data.get('github', instance.github)
-        instance.save()
-        return instance
-
 class FriendSerializer(serializers.ModelSerializer):
     class Meta:
         model = Friend

@@ -11,7 +11,7 @@ class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, editable=False)
     host = models.URLField()
     displayName = models.CharField(max_length=200,blank=False,null=False)
-    url = models.URLField()
+    url = models.URLField(editable=False)
     github = models.URLField(null=True, blank=False)
     firstName = models.CharField(max_length=200,blank=True,default='')
     lastName = models.CharField(max_length=200,blank=True,default='')

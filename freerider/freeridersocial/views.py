@@ -25,6 +25,7 @@ def signup(request):
                 author = Author.objects.create(user=user, host="http://natto.herokuapp.com")
                 url_str = "http://natto.herokuapp.com/author/" + str(author.id)
                 author.url = json.dumps(url_str)
+                author.displayName = str(author.id)
                 author.save()
                 return HttpResponseRedirect('/signup/done/')
             else:
