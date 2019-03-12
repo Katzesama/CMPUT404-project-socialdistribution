@@ -4,12 +4,17 @@
 
 <html><body>
 
-<h1>Profile - {{ profile.name }}</h1>
+<h1>Profile - {{ profile.displayName }}</h1>
 
-<form action="author/{{user_id}} pk=profile.id/" method="PUT">
+<form action="../../home" method="GET">
     {% csrf_token %}
     {% render_form serializer %}
-    <input type="submit" value="Save">
+    <input type="submit" value="Save" readonly>
+</form>
+
+<form action="{% url 'edit_profile' profile.id%}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value = "Edit">
 </form>
 
 </body></html>

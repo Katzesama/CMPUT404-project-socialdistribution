@@ -30,8 +30,10 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('home/', freeridersocial.views.home, name='home'),
     path('author/<uuid:user_id>/', freeridersocial.profile.ProfileDetail.as_view(), name='profile'),
+    path('author/<uuid:user_id>/editprofile', freeridersocial.profile.EditProfile.as_view(),name = 'edit_profile'),
     path('author/posts/', freeridersocial.Posts.visible_post.as_view(), name='get_post_for_user'),
     path('posts/', freeridersocial.Posts.public_post.as_view(), name='public_posts'),
+
 
     #path('addpost/', freeridersocial.views.upload_post, name='add_post'),
     #path('delpost/', freeridersocial.views.del_post, name='del_post'),
