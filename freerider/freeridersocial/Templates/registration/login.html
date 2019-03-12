@@ -12,8 +12,8 @@
 <STYLE>A {text-decoration: none;} </STYLE>
 <body>
     <div><a href="{% url 'login' %}">Natto</a></div>
-
-    <form method="POST" action="{% url 'home' %}">
+  
+    <form method="POST" action="{% url 'login' %}?next=/home/">
       {% csrf_token %}
         <p>
             <label>Username</label>
