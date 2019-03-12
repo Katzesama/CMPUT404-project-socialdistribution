@@ -41,6 +41,7 @@ def home(request):
     return render(request, 'home.html', {'user_id':request.user.author.id})
 
 
+
 # a reponse if friends or not
 # GET http://service/author/<authorid>/friends/
 # Ask if 2 authors are friends

@@ -1,34 +1,29 @@
 <!DOCTYPE html>
 <!--{% load static %}-->
-{% load crispy_forms_tags %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Profile</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-</head>
-<STYLE>A {text-decoration: none;} </STYLE>
-<body>
-    <!--<div>-->
+{% load rest_framework %}
 
-    <!--</div>-->
-    <!--<form action="" method = "GET">-->
-        <!--{% csrf_token %}-->
-        <!--{{ form.as_p }}-->
-    <!--</form>-->
-    {% load crispy_forms_tags %}
-    {% block content %}
-        <div class="content-section">
-          <div class="media">
-            <img class="rounded-circle account-img" src="{{ user.author.image.url }}">
-            <div class="media-body">
-              <h2 class="account-heading">{{ user.username }}</h2>
-            </div>
-          </div>
-          <!-- FORM HERE -->
-        </div>
-    {% endblock content %}
-</body>
-</html>
+<html><body>
+
+<h1>Profile - {{ serializer.displayName }}</h1>
+
+<form action="{% url 'home' %}" method="GET">
+    {% csrf_token %}
+    <ul>
+
+        <li>Display Name：{{serializer.displayName}}</li>
+        <li>Github：{{serializer.github}}</li>
+        <li>First Name：{{serializer.firstName}}</li>
+        <li>Last Name：{{serializer.lastName}}</li>
+        <li>Email：{{serializer.email}}</li>
+        <li>Bio：{{serializer.bio}}</li>
+        <input type="submit" value = "Home">
+    </ul>
+</form>
+{% if if_author %}
+<form action="{% url 'edit_profile' serializer.id%}" method="GET">
+    {% csrf_token %}
+    <input type="submit" value = "Edit">
+</form>
+{% endif %}
+
+</body></html>

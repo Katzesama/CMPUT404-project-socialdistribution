@@ -11,7 +11,7 @@ class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, editable=False)
     host = models.URLField()
     displayName = models.CharField(max_length=200,blank=False,null=False)
-    url = models.URLField()
+    url = models.URLField(editable=False)
     github = models.URLField(null=True, blank=False)
     firstName = models.CharField(max_length=200,blank=True,default='')
     lastName = models.CharField(max_length=200,blank=True,default='')
@@ -21,7 +21,7 @@ class Author(models.Model):
 
     def __str__(self):  # __unicode__ for Python 2
         return f'{self.user.username} Profile'
-        
+
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length = 100, default='No Title')
@@ -87,4 +87,3 @@ class Friend(models.Model):
     friend_with = models.ForeignKey(Author, on_delete=models.CASCADE)
     def __str__(self):
         return self.displayName
-

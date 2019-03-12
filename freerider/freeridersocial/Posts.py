@@ -18,7 +18,7 @@ class visible_post(APIView):
     posts = Post.objects.filter(visibility='PUBLIC')
     posts_only_visible = Post.objects.filter()
     def get(self, request, format=None):
-        return 
+        return
 
 class public_post(APIView):
     def get(self, request, format=None):
@@ -28,7 +28,41 @@ class public_post(APIView):
         res=PostSerializer(instance=pg_res, many=True)
         return pg_obj.get_paginated_response(res.data)
 
-def upload_post():
+class upload_post(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'addpost.html'
+    current_user_profile = request.user.author
+    new_post = Post.ojects.create(author=current_user_profile)
+    def get(self, request, **kwargs):
+        serializer = PostSerializer(new_post)
+        return Response({"serializer": serializer})
+
+    def post(self, request, **kwargs):
+        #try:
+            #print("not here")
+
+            #author = get_object_or_404(Author.objects.get(id=userid))
+            #if author == current_user_profile:
+        serializer = PostSerializer(new_post, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            # return Response({'serializer':serializer, 'profile': current_user_profile})
+            return redirect("get_one_post", new_post.id)
+
+        print("awsl")
+        print(serializer.errors)
+        return Response({'serializer': serializer})
+
+def my_post():
     return
-def del_post():
-    return
+
+class get_one_post(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'onePost.html'
+    def get(self, request, post_id, **kwargs):
+        try:
+            post = get_object_or_404(Post, pk = post_id)
+        except:
+            return HttpResponse(status=404)
+        serializer = PostSerializer(post)
+        return Response({"serializer": serializer.data})

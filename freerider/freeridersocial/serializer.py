@@ -49,12 +49,6 @@ class AuthorSerializer(serializers.ModelSerializer):
         model = Author
         fields = "__all__"
 
-    def update(self, instance, validated_data):
-        instance.displayName = validated_data.get('displayName', instance.displayName)
-        instance.github = validated_data.get('github', instance.github)
-        instance.save()
-        return instance
-
 class FriendSerializer(serializers.ModelSerializer):
     class Meta:
         model = Friend
@@ -87,16 +81,7 @@ class PostSerializer(serializers.ModelSerializer):
         return 50
 
     def get_next(self, obj):
-        return obj.author.host + '/freeridersocial/posts/' + str(obj.id) + '/comments'
-
-    def create(self, validated_data):
-        post = Post.objects.create(author=self.context['author'], origin=self.context['origin'], source=self.context['source'], **validated_data)
-        temp_origin = post.origin+"/posts/"+str(post.postid)
-        temp_source = post.source+"/posts/"+str(post.postid)
-        post.origin = temp_origin
-        post.source = temp_source
-        post.save()
-        return post
+        return obj.author.host + '/posts/' + str(obj.id) + '/comments'
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -104,8 +89,3 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = "__all__"
-
-    def create(self, validated_data):
-        comment = Comment.objects.create(author=self.context['author'], post_id=self.context['postid'], **validated_data)
-        comment.save()
-        return comment
