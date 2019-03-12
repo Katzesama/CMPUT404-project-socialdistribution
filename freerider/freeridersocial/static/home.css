@@ -63,7 +63,7 @@ div a:hover, div a.current {
     width: 15%;
     background-color: #E4E5E5;
     overflow-x: hidden; 
-    padding-top: 10px;
+    padding-top: 0px;
     text-align: center;
     font-family:Gill Sans, sans-serif;
   }
@@ -71,6 +71,7 @@ div a:hover, div a.current {
   .link1 b {
     padding: 4px 10px 20px 15px;
     text-decoration: none;
+    padding-top: 15px;
     font-size: 20px;
     color:#4060A1;
     
@@ -84,12 +85,19 @@ div a:hover, div a.current {
     background:rgba(242, 242, 242, 0.5);
     
   }
+
+  .h_line { 
+      width:100%; 
+      height:1px; 
+      background: #EEF3F2; 
+    }
+
   .link2 b {
     padding: 4px 10px 20px 15px;
     text-decoration: none;
     font-size: 20px;
     color:#4060A1;
-    
+    padding-top: 15px;
     display: block;
   }
   
@@ -104,7 +112,7 @@ div a:hover, div a.current {
     text-decoration: none;
     font-size: 20px;
     color:#4060A1;
-    
+    padding-top: 15px;
     
     display: block;
   }
