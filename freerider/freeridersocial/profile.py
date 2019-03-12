@@ -22,7 +22,7 @@ class ProfileDetail(APIView):
 
         serializer = AuthorSerializer(current_user_profile)
         #print(serializer.data)
-        return Response({'serializer':serializer,'profile':current_user_profile})
+        return Response({'serializer':serializer.data})
 
 class EditProfile(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -37,7 +37,7 @@ class EditProfile(APIView):
 
         serializer = AuthorSerializer(current_user_profile)
         #print(serializer.data)
-        return Response({'serializer':serializer,'profile':current_user_profile})
+        return JSONResp({'serializer':serializer,'profile':current_user_profile})
 
     def post(self, request, **kwargs):
         #try:
