@@ -4,15 +4,23 @@
 
 <html><body>
 
-<h1>Profile - {{ profile.displayName }}</h1>
+<h1>Profile - {{ serializer.displayName }}</h1>
 
 <form action="../../home" method="GET">
     {% csrf_token %}
-    {% render_form serializer %}
+    <ul>
+
+        <li>Display Name：{{serializer.displayName}}</li>
+        <li>Github：{{serializer.github}}</li>
+        <li>First Name：{{serializer.firstName}}</li>
+        <li>Last Name：{{serializer.lastName}}</li>
+        <li>Email：{{serializer.email}}</li>
+        <li>Bio：{{serializer.bio}}</li>
+    </ul>
     <input type="submit" value="Save" readonly>
 </form>
 
-<form action="{% url 'edit_profile' profile.id%}" method="POST">
+<form action="{% url 'edit_profile' serializer.id%}" method="GET">
     {% csrf_token %}
     <input type="submit" value = "Edit">
 </form>
