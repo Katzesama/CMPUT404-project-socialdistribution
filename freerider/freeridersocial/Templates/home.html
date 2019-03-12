@@ -4,49 +4,46 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="stylesheet" href="{% static 'home.css' %}">
-    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
-
   </head>
 <STYLE>A {text-decoration: none;} </STYLE>
 <body>
   
-    <div id = "bg">
-        
-        <div class = "onhead">
-              <form  arial-label="profile picture" accept-charset="UTF-8" method="post">
-                  <img src="{% static 'profile.png' %}" class="image-circle">
+    <div class="nav"> 
+        <a href="{% url 'home' %}">Natto</a>
+        <nav>
+    
+            <form  arial-label="profile picture" accept-charset="UTF-8" method="post">
+                <img src="{% static 'profile.png' %}" class="image-circle">
             <input type="text" placeholder="Search..">
-            <a href="{% url 'home' %}">Natto</a>
-          
+            <ul>    
+                <li><b href="../author/{{user_id}}">Profile</b></li>
+                <li><b href="#history">Posting</b></li>
+                <li><b href="{% url 'get_post_for_user' %}">Following</b></li>
+                <li><b href="#">Followers</b></li>
+                <li><b href="#">My photos</b></li>
+                <li><b href="#">Friend Requests</b></li>
+                
+            </ul>
+        </nav>
+    </div> 
+
+<form action="{% url 'home' %}" method="POST">
+    <div id="container" class="w3-container">
+        <div id = "share" class="share" >Share what's new with you...</div>
+        <div class="input">
+          <textarea name="shares" cols="30" rows="5"></textarea>
         </div>
-    </div>
-
-<div class="sidebar"> 
-  <div class = "link1"><b href="../author/{{user_id}}">Profile</b><div class="block1"></div> <div class="h_line"></div></div>
-  <div class = "link2"><b href="#">Somthing</b><div class="block2"></div> <div class="h_line"></div></div>
-  <div class = "link3"><b href="{% url 'get_post_for_user' %}">newstuff</b><div class="block3"></div> <div class="h_line"></div></div>
-</div>
-
-
-<!-- section container -->
-<div id="container" class="w3-container">
-
-    <div id = "share" class="share" >Share what's new with you...</div>
-
-    <div class="input" >
-        <textarea name="shares" cols="30" rows="5"></textarea>
+        <div class= "options"><!-- needing opstions of whether the tweet is photo or text -->
+                        
+          Private:<input name="filling" value="private" type="radio">
+          Public:<input name="filling" value="public" type="radio">
+            <input id="button_s" type="submit" value="share">
+        </div>
 
     </div>
-    <div class= "options"><!-- needing opstions of whether the tweet is photo or text -->
-      
-      <div class = "limits"><!-- needing a private/public checkbox-->
-        
-          <button id="button_s" type="submit_share">Share</button> 
-                  <!-- not be activated, just a button -->
-      </div>
-    </div>
- 
-</div> 
+    
+</form>
+
   
 <button id="backtop" onclick="topFunction()" tilte="Go to Top">TOP</button>
 <script>
