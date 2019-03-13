@@ -2,28 +2,27 @@
 <!--{% load static %}-->
 {% load rest_framework %}
 
-<html><body>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'profile.css' %}">
+</head>
+<STYLE>A {text-decoration: none;} </STYLE>
 
-<h1>Profile - {{ serializer.displayName }}</h1>
+<body>
 
-<form action="{% url 'home' %}" method="GET">
+<h1>Profile - {{ profile.displayName }}</h1>
+
+<form action="../../home" method="GET">
     {% csrf_token %}
-    <ul>
-
-        <li>Display Name：{{serializer.displayName}}</li>
-        <li>Github：{{serializer.github}}</li>
-        <li>First Name：{{serializer.firstName}}</li>
-        <li>Last Name：{{serializer.lastName}}</li>
-        <li>Email：{{serializer.email}}</li>
-        <li>Bio：{{serializer.bio}}</li>
-        <input type="submit" value = "Home">
-    </ul>
+    {% render_form serializer %}
+    <input type="submit" value="Save" readonly>
 </form>
-{% if if_author %}
-<form action="{% url 'edit_profile' serializer.id%}" method="GET">
+
+<form action="{% url 'edit_profile' profile.id%}" method="POST">
     {% csrf_token %}
     <input type="submit" value = "Edit">
 </form>
-{% endif %}
 
 </body></html>
