@@ -30,11 +30,8 @@ body{
 }
 
 nav {
-    width: 160px; 
     position: fixed; 
-
     top: 80px; 
-    
     width: 100%;
     height: 70px;
     background-color: #EEF2FE;
@@ -60,21 +57,22 @@ nav {
 
 nav ul {
     margin: 0px;
-    padding: 20px 0px 0px 0px;
-    width: 60%;;
-    margin-left:5%;
+    padding: 22px 0px 0px 0px;
+    width: 100%;;
+    
   }
 nav li {
     display: inline;
     margin-left: 0px;
-    background-position: right;
+    padding: 0px 0px 0px 13px;
+    background-position: left;
   }
 nav li b {
   
   text-decoration: none;
   padding-top: 15px;
   padding-left: 10px;
-  margin-left: 10px;
+  margin-left: 0px;
   font-size: 17px;
   color:#4060A1;}
 
@@ -84,6 +82,28 @@ nav li b {
   background:rgba(245, 248, 254, 0.5);
   font-size: 20px;
 }
+
+nav li c {
+  font-family: Comic Sans MS, Comic Sans, cursive ;
+  text-decoration: none;
+  padding-top: 15px;
+  padding-left: 0px;
+  margin-left: 20px;
+  font-size: 18px;
+  color: #FE76A0;
+  
+  font-weight: bold;
+  }
+
+  nav li c:hover, nav li c.current {
+  color:#DD678C;
+  background-color: white;
+  background:rgba(245, 248, 254, 0.5);
+  font-size: 20px;
+
+}
+
+
 
   .main {
     margin-left: 160px; 
