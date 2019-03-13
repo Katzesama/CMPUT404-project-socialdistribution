@@ -1,1 +1,14 @@
-<head>
+<!DOCTYPE html>
+<!--{% load static %}-->
+{% load rest_framework %}
+
+<html><body>
+
+<h1>Profile - {{ serializer.displayName }}</h1>
+
+<form action="{% url 'home' %}" method="GET">
+    {% csrf_token %}
+    {}
+</form>
+
+</body></html>

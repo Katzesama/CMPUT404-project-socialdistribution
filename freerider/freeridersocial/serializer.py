@@ -14,6 +14,7 @@ from collections import OrderedDict
 # https://www.django-rest-framework.org/api-guide/pagination/
 
 # reference: https://docs.djangoproject.com/en/2.0/ref/request-response/
+# https://www.django-rest-framework.org/api-guide/fields/
 
 class PaginationModel(PageNumberPagination):
     page_size = 50
@@ -61,7 +62,8 @@ class PostSerializer(serializers.ModelSerializer):
     count = serializers.SerializerMethodField()
     size = serializers.SerializerMethodField()
     next = serializers.SerializerMethodField()
-
+    contentType = serializers.ChoiceField(choices=Post.contentType_choice)
+    visibility = serializers.ChoiceField(choices=Post.visibility_choice)
     class Meta:
         model = Post
         fields = ("title", "source", "origin", "description", "contentType", "content",
@@ -86,6 +88,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)
+    contentType = serializers.ChoiceField(choices=Comment.contentType_choice)
     class Meta:
         model = Comment
         fields = "__all__"
