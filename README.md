@@ -7,6 +7,17 @@ See project.org (plain-text/org-mode) for a description of the project.
 
 Make a distributed social network!
 
+
+Documentation:
+===================================
+
+https://github.com/Katzesama/CMPUT404-project-socialdistribution/wiki
+
+
+Video Demo:
+===================================
+
+
 Contributors / Licensing
 ========================
 
