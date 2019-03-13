@@ -40,7 +40,7 @@ nav {
     text-align: center;
     font-family:Gill Sans, sans-serif;
   }
-.nav a
+#header
 {
     display: block;
     font-family: Snell Roundhand, cursive;
@@ -67,23 +67,25 @@ nav li {
     padding: 0px 0px 20px 13px;
     background-position: left;
   }
-nav li b {
+nav li a {
   
   text-decoration: none;
   padding-top: 15px;
   padding-left: 10px;
   margin-left: 0px;
   font-size: 17px;
-  color:#4060A1;}
+  color:#4060A1;
+  font-weight: bold;
+}
 
-  nav li b:hover, nav li b.current {
+  nav li a:hover, nav li a.current {
   color: #7C9EE1;
   /* background-color: white; */
   /* background:rgba(245, 248, 254, 0.5); */
   font-size: 20px;
 }
 
-nav li c {
+#logout {
   font-family: Comic Sans MS, Comic Sans, cursive ;
   text-decoration: none;
   padding-top: 15px;
@@ -95,7 +97,7 @@ nav li c {
   font-weight: bold;
   }
 
-  nav li c:hover, nav li c.current {
+  #logout:hover, #logout.current {
   color:#DD678C;
   /* background-color: white; */
   /* background:rgba(245, 248, 254, 0.5); */

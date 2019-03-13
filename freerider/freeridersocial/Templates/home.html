@@ -9,7 +9,7 @@
 <body>
 
     <div class="nav">
-        <a href="{% url 'home' %}">Natto</a>
+        <a id='header' href="{% url 'home' %}">Natto</a>
         <nav>
 
             <!-- <form  arial-label="profile picture" accept-charset="UTF-8" method="post"> -->
@@ -17,13 +17,13 @@
             <img src="{% static 'profile.png' %}" class="image-circle">
             <input type="text" placeholder="Search..">
             <ul>
-                <li><b href="../author/{{user_id}}">Profile</b></li>
-                <li><b href="#history">Posting</b></li>
-                <li><b href="{% url 'get_post_for_user' %}">Following</b></li>
-                <li><b href="#">Followers</b></li>
-                <li><b href="#">My photos</b></li>
-                <li><b href="#">Friend Requests</b></li>
-                <li><c href="{% url 'logout' %}">Logout</c></li>
+                <li><a href="../author/{{user_id}}">Profile</a></li>
+                <li><a href="#history">Posting</a></li>
+                <li><a href="{% url 'get_post_for_user' %}">Following</a></li>
+                <li><a href="#">Followers</a></li>
+                <li><a href="#">My photos</a></li>
+                <li><a href="#">Friend Requests</a></li>
+                <li><a id='logout' href="{% url 'logout' %}">Logout</a></li>
 
             </ul>
         </nav>
