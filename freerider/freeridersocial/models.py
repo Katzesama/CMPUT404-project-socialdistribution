@@ -85,5 +85,7 @@ class Friend(models.Model):
     host = models.URLField()
     url = models.URLField()
     friend_with = models.ForeignKey(Author, on_delete=models.CASCADE)
+    friend_status = (('A','friend'),('W','waiting'),('R','reject'),)
     def __str__(self):
         return self.displayName
+
