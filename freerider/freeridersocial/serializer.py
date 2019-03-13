@@ -72,12 +72,12 @@ class PostSerializer(serializers.ModelSerializer):
             "visibleTo", "image","unlisted")
 
     def get_comments(self, obj):
-        comments = Comment.objects.filter(postid=obj.post_id).order_by('published')
+        comments = Comment.objects.filter(post_id=obj.id).order_by('published')
         serializer = CommentSerializer(comments, many=True)
         return serializer.data
 
     def get_count(self, obj):
-        counts = Comment.objects.filter(postid=obj.post_id).order_by('published').count()
+        counts = Comment.objects.filter(post_id=obj.id).order_by('published').count()
         return counts
 
     def get_size(self, obj):
