@@ -12,8 +12,9 @@
         <a href="{% url 'home' %}">Natto</a>
         <nav>
 
-            <form  arial-label="profile picture" accept-charset="UTF-8" method="post">
-                <img src="{% static 'profile.png' %}" class="image-circle">
+            <!-- <form  arial-label="profile picture" accept-charset="UTF-8" method="post"> -->
+            
+            <img src="{% static 'profile.png' %}" class="image-circle">
             <input type="text" placeholder="Search..">
             <ul>
                 <li><b href="../author/{{user_id}}">Profile</b></li>
@@ -22,6 +23,7 @@
                 <li><b href="#">Followers</b></li>
                 <li><b href="#">My photos</b></li>
                 <li><b href="#">Friend Requests</b></li>
+                <li><b href="/logout/">Logout</b></li>
 
             </ul>
         </nav>
@@ -49,14 +51,14 @@
 <script>
   window.onscroll = function() {scrollFunction()};
   function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    if (document.body.scrollTop > 5 || document.documentElement.scrollTop > 5) {
     document.getElementById("backtop").style.display = "block";
     } else {
       document.getElementById("backtop").style.display="none";
     }
   }
   function topFunction() {
-    document.body.scrollTop = 0;
+    // document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   }
 </script>
