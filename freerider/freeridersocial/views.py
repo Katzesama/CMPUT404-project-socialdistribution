@@ -87,17 +87,6 @@ def deleteComment(request, comment_id):
         except:
             return HttpResponse(400)
 
-#https://www.django-rest-framework.org/topics/html-and-forms/
-# Check if user exist, if so get author queryset
-def view_profile(request):
-    print(request)
-    try:
-        current_user = request.user
-    except:
-        Response("Author does not exist", status=404)
-    if request.method == "GET":
-        serializers = AuthorSerializer(current_user)
-        return Response(serializers.data)
 
 # http://service/posts/{post_id}/comments access to the comments in a post
 # "query": "addComment"
@@ -122,11 +111,3 @@ def view_profile(request):
 # ----------
 # to make a friend request, POST to http://service/friendrequest
 
-# Profile API calls
-# GET http://service/author/9de17f29c12e8f97bcbbd34cc908f1baba40658e
-# Enables viewing of foreign author's profiles
-# def view_profile(request):
-#     return render(request, 'profile.html', {})
-#
-# def myprofile(request):
-#     return render(request,'Profile.html')
