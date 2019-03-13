@@ -92,6 +92,8 @@ def deleteComment(request, comment_id):
 # "query": "addComment"
 
 
+
+
 # a reponse if friends or not
 # GET http://service/author/<authorid>/friends/
 # Ask if 2 authors are friends

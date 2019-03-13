@@ -9,27 +9,39 @@ from django.http import HttpResponseRedirect, HttpResponse
 # http://service/posts/{post_id}/comments access to the comments in a post
 # "query": "addComment"
 
-def addComment(request, post_id):
-    post = Post.objects.get(pk = post_id)
-    current_user = request.user
-    if request.method == "POST":
-        #data = request.data
-        comment = CommentSerializer(data=request.data['comment'], context={'author': current_user, 'postid':post_id})
-        if comment.is_valid():
-            comment.save()
-            comment_data = {
-                "query":"addComment",
-                "success": True,
-                "message": "Comment Added"
-            }
-            return Response(comment_data, status=Response.status.HTTP_200_OK)
-    return Response({"query":"addComment", "success": False, "message": "Invalid Comment"}, status=Response.status.HTTP_400_BAD_REQUEST)
-
-def deleteComment(request, comment_id):
-    if request.method == "DELETE":
+class addComment(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'addcomment.html'
+    post = None
+    new_comment = None
+    def get(self, request, post_id, **kwargs):
         try:
-            comment = Comment.objects.get(id = comment_id)
-            comment.delete()
-            return HttpResponse(200)
+            current_user_profile = request.user.author
+            post = get_object_or_404(Post, pk = post_id)
         except:
-            return HttpResponse(400)
+            return HttpResponse(status=404)
+        new_comment = Comment.objects.create(post_id=post, author=current_user_profile)
+        serializer = CommentSerializer(new_comment)
+        return Response({"serializer": serializer})
+
+    def post(self, request, post_id, **kwargs):
+        serializer = CommentSerializer(new_comment, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return redirect("", post.id)
+
+        print("awsl")
+        print(serializer.errors)
+        return Response({'serializer': serializer})
+
+class get_comments(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'comments.html'
+    def get(self, request, post_id, **kwargs):
+        try:
+            post = get_object_or_404(Post, pk = post_id)
+        except:
+            return HttpResponse(status=404)
+        comment_list = Comment.objects.filter(post_id=post)
+        serializer = CommentSerializer(new_comment)
+        return Response({"serializer": serializer})

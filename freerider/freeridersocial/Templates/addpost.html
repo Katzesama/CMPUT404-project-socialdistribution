@@ -4,11 +4,13 @@
 
 <html><body>
 
-<h1>Profile - {{ serializer.displayName }}</h1>
+<h1>New Post</h1>
 
-<form action="{% url 'home' %}" method="GET">
+<form action="" method="POST">
     {% csrf_token %}
-    {}
+    {% render_form serializer %}
+        <input type="submit" value = "Save">
 </form>
+
 
 </body></html>

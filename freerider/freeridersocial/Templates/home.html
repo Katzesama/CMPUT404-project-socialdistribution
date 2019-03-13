@@ -1,23 +1,64 @@
-<!DOCTYPE html>
+{% load static %}
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>freeridersocial Home Page</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
   </head>
+<STYLE>A {text-decoration: none;} </STYLE>
 <body>
 
-<!--sidebar-->
-  <div id="sidebar" class="w3-sidebar w3-bar-block" style="width:25%; background-color:#5F9EA0;
-  overflow-x: hidden;">
-                <ul>
-                    <li><a href="{% url 'get_post_for_user' %}">Posts</a></li>
-                    <li><a href="../author/{{user_id}}">Profile</a></li>
-                </ul>
-  </div>
+    <div class="nav">
+        <a href="{% url 'home' %}">Natto</a>
+        <nav>
 
-<!-- section container -->
-<div id="container" class="w3-container">
+            <form  arial-label="profile picture" accept-charset="UTF-8" method="post">
+                <img src="{% static 'profile.png' %}" class="image-circle">
+            <input type="text" placeholder="Search..">
+            <ul>
+                <li><b href="../author/{{user_id}}">Profile</b></li>
+                <li><b href="#history">Posting</b></li>
+                <li><b href="{% url 'get_post_for_user' %}">Following</b></li>
+                <li><b href="#">Followers</b></li>
+                <li><b href="#">My photos</b></li>
+                <li><b href="#">Friend Requests</b></li>
+
+            </ul>
+        </nav>
     </div>
+
+<!--form action="{% url 'home' %}" method="POST">
+    <div id="container" class="w3-container">
+        <div id = "share" class="share" >Share what's new with you...</div>
+        <div class="input">
+          <textarea name="shares" cols="30" rows="5"></textarea>
+        </div>
+        <div class= "options">< needing opstions of whether the tweet is photo or text>
+                        
+          Private:<input name="filling" value="private" type="radio">
+          Public:<input name="filling" value="public" type="radio">
+            <input id="button_s" type="submit" value="share">
+        </div>
+
+    </div>
+
+</form-->
+
+
+<button id="backtop" onclick="topFunction()" tilte="Go to Top">TOP</button>
+<script>
+  window.onscroll = function() {scrollFunction()};
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("backtop").style.display = "block";
+    } else {
+      document.getElementById("backtop").style.display="none";
+    }
+  }
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+</script>
     </body>
 </html>

@@ -21,7 +21,7 @@ class Author(models.Model):
 
     def __str__(self):  # __unicode__ for Python 2
         return f'{self.user.username} Profile'
-        
+
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length = 100, default='No Title')
@@ -35,7 +35,7 @@ class Post(models.Model):
         ('image/png;base64', 'image/png;base64'),
         ('image/jpeg;base64', 'image/jpeg;base64'),
     )
-    image = models.TextField(null=True, blank=True)
+    image = models.ImageField(null=True, blank=True)
     contentType = models.CharField(max_length=2000, choices=contentType_choice)
     content = models.TextField()
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
@@ -59,7 +59,7 @@ class Post(models.Model):
 
 class Images(models.Model):
 	associated_post = models.ForeignKey(Post, on_delete=models.CASCADE)
-	img = models.TextField(null=True, blank=True)
+	img = models.ImageField(null=True, blank=True)
 
 class Comment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

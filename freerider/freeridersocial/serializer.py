@@ -14,6 +14,7 @@ from collections import OrderedDict
 # https://www.django-rest-framework.org/api-guide/pagination/
 
 # reference: https://docs.djangoproject.com/en/2.0/ref/request-response/
+# https://www.django-rest-framework.org/api-guide/fields/
 
 class PaginationModel(PageNumberPagination):
     page_size = 50
@@ -62,7 +63,8 @@ class PostSerializer(serializers.ModelSerializer):
     count = serializers.SerializerMethodField()
     size = serializers.SerializerMethodField()
     next = serializers.SerializerMethodField()
-
+    contentType = serializers.ChoiceField(choices=Post.contentType_choice)
+    visibility = serializers.ChoiceField(choices=Post.visibility_choice)
     class Meta:
         model = Post
         fields = ("title", "source", "origin", "description", "contentType", "content",
@@ -82,25 +84,12 @@ class PostSerializer(serializers.ModelSerializer):
         return 50
 
     def get_next(self, obj):
-        return obj.author.host + '/freeridersocial/posts/' + str(obj.id) + '/comments'
-
-    def create(self, validated_data):
-        post = Post.objects.create(author=self.context['author'], origin=self.context['origin'], source=self.context['source'], **validated_data)
-        temp_origin = post.origin+"/posts/"+str(post.postid)
-        temp_source = post.source+"/posts/"+str(post.postid)
-        post.origin = temp_origin
-        post.source = temp_source
-        post.save()
-        return post
+        return obj.author.host + '/posts/' + str(obj.id) + '/comments'
 
 
 class CommentSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)
+    contentType = serializers.ChoiceField(choices=Comment.contentType_choice)
     class Meta:
         model = Comment
         fields = "__all__"
-
-    def create(self, validated_data):
-        comment = Comment.objects.create(author=self.context['author'], post_id=self.context['postid'], **validated_data)
-        comment.save()
-        return comment

@@ -16,10 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
-
-import freeridersocial.views
 import freeridersocial.profile
-
 import freeridersocial.views, freeridersocial.Posts, freeridersocial.Comments
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,9 +30,10 @@ urlpatterns = [
     path('author/<uuid:user_id>/editprofile', freeridersocial.profile.EditProfile.as_view(),name = 'edit_profile'),
     path('author/posts/', freeridersocial.Posts.visible_post.as_view(), name='get_post_for_user'),
     path('posts/', freeridersocial.Posts.public_post.as_view(), name='public_posts'),
-
-
-    #path('addpost/', freeridersocial.views.upload_post, name='add_post'),
+    path('posts/<uuid:post_id>/', freeridersocial.Posts.get_one_post.as_view(), name="get_one_post"),
+    path('addpost/', freeridersocial.Posts.upload_post.as_view(), name='add_post'),
     #path('delpost/', freeridersocial.views.del_post, name='del_post'),
-    #path('posts/<uuid:postid>/add_comments/', freeridersocial.views.addComment , name='addcomment'),
+    path('author/myPosts/', freeridersocial.Posts.my_post.as_view(), name='my_post'),
+    path('posts/<uuid:post_id>/add_comments/', freeridersocial.Comments.addComment.as_view() , name='addcomment'),
+    path('posts/<uuid:post_id>/comments/', freeridersocial.Comments.get_comments.as_view(), name='comments'),
 ]

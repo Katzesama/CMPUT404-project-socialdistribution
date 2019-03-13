@@ -14,11 +14,11 @@ class ProfileDetail(APIView):
     def get(self, request, user_id, **kwargs):
         try:
             #print(user_id)
-            #print(Author.objects.get(pk = 1))
             current_user_profile = request.user.author
             author = get_object_or_404(Author, pk = user_id)
         except:
             return HttpResponse(status=404)
+
         serializer = AuthorSerializer(author)
         current_author = False
         if (current_user_profile.id == user_id):
@@ -44,6 +44,7 @@ class EditProfile(APIView):
             return HttpResponse(status=404)
 
         serializer = AuthorSerializer(current_user_profile)
+
         return Response({'serializer':serializer,'profile':current_user_profile})
 
     def post(self, request, **kwargs):
@@ -55,5 +56,4 @@ class EditProfile(APIView):
 
         print(serializer.errors)
         return Response({'serializer': serializer, 'profile': current_user_profile})
-
 
