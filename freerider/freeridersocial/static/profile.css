@@ -53,15 +53,9 @@ ul {
     margin-right:280px;
     margin-top:50px;
     background-color: white;
-    background:linear-gradient(to right,  brown,blue,green);
-    background-clip: text;
-    color: transparent;
     border-style: groove;
     border-color: #7C9EE1;
     border-width:10px;
-    background:-webkit-linear-gradient(to right,  brown,blue,green);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 
     
   }
@@ -73,6 +67,12 @@ li {
     padding: 10px 10px 20px 60px;
     background-position: left;
     font-weight: bold;
+    background:linear-gradient(to right,  brown,blue,green);
+    background-clip: text;
+    color: transparent;
+    background:-webkit-linear-gradient(to right,  brown,blue,green);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 input[value = Home], input[value = Edit]{
   display:inline-block;
