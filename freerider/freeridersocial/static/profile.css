@@ -59,6 +59,9 @@ ul {
     border-style: groove;
     border-color: #7C9EE1;
     border-width:10px;
+    background:-webkit-linear-gradient(to right,  brown,blue,green);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 
     
   }
