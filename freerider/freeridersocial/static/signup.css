@@ -18,7 +18,7 @@ a
     display: block;
     font-family: Snell Roundhand, cursive;
     font-size: 40px;
-    background-color: #7C9EE1;
+    background-color: #6C5881;
     color: white;
     height: 80px;
     margin-top: 0px;
@@ -54,7 +54,7 @@ font-size: 60px;}
 }
 #button1{
   font-size:14pt;
-  background-color: #7C9EE1;
+  background-color: #6C5881;
   color: white;
   border-radius: 12px;
   border: 2px solid white;
@@ -68,7 +68,7 @@ font-size: 60px;}
 }
 #button2{
   font-size:14pt;
-  background-color: #7C9EE1;
+  background-color: #6C5881;
   color: white;
   border-radius: 12px;
   border: 2px solid white;
@@ -79,10 +79,10 @@ font-size: 60px;}
   font-family: Optima, sans-serif;
   box-shadow: 0 1px #999;
 }
-#button1:hover ,#button2:hover {background-color: #7C9EE1}
+#button1:hover ,#button2:hover {background-color: #BDAFC2}
 
 #button1:active ,#button2:active {
-  background-color: #84A5E6;
+  background-color: #6C5881;
   box-shadow: 0 3px #666;
   transform: translateY(4px);
   }

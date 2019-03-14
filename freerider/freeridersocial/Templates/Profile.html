@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<!--{% load static %}-->
+{% load static %}
 {% load rest_framework %}
+
+<title>Profile</title>
+<link rel="stylesheet" href="{% static 'profile.css' %}">
 
 <html><body>
 
@@ -16,7 +19,7 @@
         <li>Last Name：{{serializer.lastName}}</li>
         <li>Email：{{serializer.email}}</li>
         <li>Bio：{{serializer.bio}}</li>
-        <input type="submit" value = "Home">
+        <input id="home" type="submit" value = "Home">
     </ul>
 </form>
 {% if if_author %}
