@@ -1,9 +1,13 @@
+from .models import *
 from .serializer import *
-from rest_framework.views import APIView
+from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
-from django.shortcuts import render
-from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect, HttpResponse
+from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404, redirect
+from .serializer import AuthorSerializer, FriendSerializer
+from django.http import HttpResponse, JsonResponse
+from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.renderers import JSONRenderer
 
 
 # http://service/posts/{post_id}/comments access to the comments in a post
@@ -12,19 +16,23 @@ from django.http import HttpResponseRedirect, HttpResponse
 class addComment(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'addcomment.html'
-    post = None
-    new_comment = None
     def get(self, request, post_id, **kwargs):
         try:
             current_user_profile = request.user.author
-            post = get_object_or_404(Post, pk = post_id)
+            self.post = get_object_or_404(Post, pk = post_id)
         except:
             return HttpResponse(status=404)
         new_comment = Comment.objects.create(post_id=post, author=current_user_profile)
+        request.session["Comment_id"] = new_comment.id
         serializer = CommentSerializer(new_comment)
         return Response({"serializer": serializer})
 
     def post(self, request, post_id, **kwargs):
+        post = get_object_or_404(Post, pk = post_id)
+        try:
+            new_comment = Comment.objects.get(id=request.session["Comment_id"])
+        except:
+            new_comment = Comment.objects.create(post_id = post, author=request.user.author)
         serializer = CommentSerializer(new_comment, data = request.data)
         if serializer.is_valid():
             serializer.save()
@@ -43,5 +51,7 @@ class get_comments(APIView):
         except:
             return HttpResponse(status=404)
         comment_list = Comment.objects.filter(post_id=post)
-        serializer = CommentSerializer(new_comment)
-        return Response({"serializer": serializer})
+        pg_obj = PaginationModel()
+        pg_res = pg_obj.paginate_queryset(queryset=comment_list, request=request)
+        res = CommentSerializer(instance=pg_res, many=True)
+        return pg_obj.get_paginated_response(res.data)
