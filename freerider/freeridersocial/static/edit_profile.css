@@ -44,17 +44,17 @@ h1
 }
 
 form {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: Comic Sans MS, Comic Sans, cursive;
 
     padding: 10px 10px 20px 70px;
     list-style-type: none;
     height: 350px;
-    font-size: 18px;
+    font-size: 19px;
     margin-left: 280px;
     margin-right:280px;
     margin-top:50px;
     background-color: white;
-    color:rgb(120, 123, 128);
+    color:rgb(103, 131, 148);
     border-style: groove;
     border-color: #7C9EE1;
     border-width:10px;
@@ -73,7 +73,15 @@ span{
     color:rgb(235, 170, 170);
 }
 
- input[value = Save] {
+input {
+
+    width: 200px;
+    margin-left:20px;
+ 
+  } 
+
+
+input[value = Save] {
 
     font-size:13pt;
     height:30px;
