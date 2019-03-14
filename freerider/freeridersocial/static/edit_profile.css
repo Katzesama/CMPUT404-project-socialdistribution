@@ -46,9 +46,9 @@ h1
 form {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
-    padding: 30px 10px 20px 60px;
+    padding: 10px 10px 20px 70px;
     list-style-type: none;
-    height: 300px;
+    height: 350px;
     font-size: 18px;
     margin-left: 280px;
     margin-right:280px;
@@ -70,12 +70,13 @@ span{
     font-size: 12px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-weight: 0;
-    color:rgb(192, 190, 190);
+    color:rgb(235, 170, 170);
 }
 
  input[value = Save] {
 
-    font-size:10pt;
+    font-size:13pt;
+    height:30px;
     background-color: #7C9EE1;
     color: white;
     border-radius: 8px;
@@ -83,7 +84,7 @@ span{
     text-align: center;
     width: 100px;
     margin-left:38%;
-    margin-top: 80px;
+    margin-top: 100px;
     font-family:Optima, sans-serif;
     box-shadow: 0 1px #999;
   } 
@@ -96,5 +97,6 @@ input[value = Save]:active {
     } 
 
 div{
-    padding-top:9px;
+    padding-top:14px;
+
 }
