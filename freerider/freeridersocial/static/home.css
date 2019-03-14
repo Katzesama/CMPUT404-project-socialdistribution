@@ -45,7 +45,7 @@ nav {
     display: block;
     font-family: Snell Roundhand, cursive;
     font-size: 60px;
-    background-color: #7C9EE1;
+    background-color: #6C5881;
     color: white;
     height: 80px;
     margin-top: 0px;
@@ -79,20 +79,20 @@ nav li a {
 }
 
   nav li a:hover, nav li a.current {
-  color: #7C9EE1;
+  color: #6F78AA;
   /* background-color: white; */
   /* background:rgba(245, 248, 254, 0.5); */
   font-size: 20px;
 }
 
 #logout {
-  font-family: Comic Sans MS, Comic Sans, cursive ;
+  font-family: Helvetica, sans-serif ;
   text-decoration: none;
   padding-top: 15px;
   padding-left: 0px;
   margin-left: 20px;
   font-size: 18px;
-  color: #FE76A0;
+  color: #491A4F;
   
   font-weight: bold;
   }
@@ -170,7 +170,7 @@ nav img {
 
 
 .share{
-    color:#7C9EE1;
+    color:#6C5881;
     margin-top:10px;
     margin-left: 20px;
     font-size: 20px;
@@ -209,7 +209,7 @@ textarea[name="shares"]{
 #button_s {
 
     font-size:14pt;
-    background-color: #7C9EE1;
+    background-color: #6C5881;
     color: white;
     border-radius: 8px;
     border: 2px solid white;
@@ -219,10 +219,10 @@ textarea[name="shares"]{
     box-shadow: 0 1px #999;
   }
   #button_s:hover {
-  background-color: #7C9EE1
+  background-color: #6C5881;
 }
 #button_s:active {
-    background-color: #84A5E6;
+    background-color: #946C99;
     /* box-shadow: 0 3px #666; */
     transform: translateY(4px);
     }

@@ -35,7 +35,7 @@ h1
     font-family: Gill Sans, sans-serif;
     
     font-size: 50px;
-    background-color: #7C9EE1;
+    background-color: #6C5881;
     color: white;
     height: 80px;
     margin-top: 0px;
@@ -54,7 +54,7 @@ ul {
     margin-top:50px;
     background-color: white;
     border-style: groove;
-    border-color: #7C9EE1;
+    border-color: #6C5881;
     border-width:10px;
 
     
@@ -81,7 +81,7 @@ input[value = Home], input[value = Edit]{
 input[value = Home] {
 
     font-size:14pt;
-    background-color: #7C9EE1;
+    background-color: #6C5881;
     color: white;
     border-radius: 8px;
     border: 2px solid white;
@@ -95,7 +95,7 @@ input[value = Home] {
  input[value = Edit] {
 
     font-size:14pt;
-    background-color: #7C9EE1;
+    background-color: #6C5881;
     color: white;
     border-radius: 8px;
     border: 2px solid white;
@@ -107,10 +107,10 @@ input[value = Home] {
     box-shadow: 0 1px #999;
   } 
 input:hover {
-  background-color: #7C9EE1
+  background-color: #6C5881
 }
 input:active {
-    background-color: #84A5E6;
+    background-color: #6C5881;
     /* box-shadow: 0 3px #666; */
     transform: translateY(4px);
     }

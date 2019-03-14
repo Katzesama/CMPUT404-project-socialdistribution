@@ -34,7 +34,7 @@ h1
     display: block;
     font-family: Gill Sans, sans-serif;
     font-size: 50px;
-    background-color: #7C9EE1;
+    background-color: #6C5881;
     color: white;
     height: 80px;
     margin-top: 0px;
@@ -56,7 +56,7 @@ form {
     background-color: white;
     color:rgb(103, 131, 148);
     border-style: groove;
-    border-color: #7C9EE1;
+    border-color: #6C5881;
     border-width:10px;
     font-weight: bold;
     
@@ -85,7 +85,7 @@ input[value = Save] {
 
     font-size:13pt;
     height:30px;
-    background-color: #7C9EE1;
+    background-color: #6C5881;
     color: white;
     border-radius: 8px;
     border: 2px solid white;
@@ -97,10 +97,10 @@ input[value = Save] {
     box-shadow: 0 1px #999;
   } 
 input[value = Save]:hover {
-  background-color: #7C9EE1
+  background-color: #6C5881
 }
 input[value = Save]:active {
-    background-color: #84A5E6;
+    background-color: #6C5881;
     transform: translateY(4px);
     } 
 
