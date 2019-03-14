@@ -4,35 +4,41 @@
 
 <html><body>
 
-<h1>Posts</h1>
+<h1>Comments</h1>
 
 <div id="holder"></div>
 <script>
-function show_post(data) {
+function show_comment(data) {
     var holder = document.getElementById("holder");
-      for (var i = 0; i < data.posts.length; i++) {
-        let post = document.createElement("div");
-        holder.appendChild(post);
+      for (var i = 0; i < data.comments.length; i++) {
+        let comment = document.createElement("div");
+        holder.appendChild(comment);
 
         var author = document.createElement("a");
-        let author_id = data.posts[i]['author']['id'];
+        let author_id = data.comments[i]['author']['id'];
         author.setAttribute('href', "{% url 'profile' pk=${author_id}%}");
-        author.innerHTML = data.posts[i].author.displayName;
+        author.innerHTML = data.comments[i].author.displayName;
         author.style.fontSize='25px';
         author.style.display = "inline-block";
-        post.appendChild(author);
+        comment.appendChild(author);
         var line = document.createElement("hr");
-        post.appendChild(line);
-        var post_link = document.createElement("a");
-        let postid = data.posts[i].id
-        post_link.setAttribute('href', "{% url 'get_one_post' pk=${postid} %}");
-        post_link.innerHTML = data.posts[i].title;
-        post.appendChild(post_link);
-        var line = document.createElement("hr");
-        post.appendChild(line);
+        comment.appendChild(line);
         var description = document.createElement("p");
-        description.innerHTML = data.posts[i].description
-        post.appendChild(description);
+        description.innerHTML = data.comments[i].description
+        comment.appendChild(description);
+        if (data.comments[i].contentType == "image/png;base64" || data.posts[i].contentType == "image/jpeg;base64")
+        {
+          var content = document.createElement("img");
+          content.src = data.comments[i].content;
+          content.style.width = "20%";
+          content.style.height = "20%";
+        }
+        else
+        {
+          var content = document.createElement("p");
+          content.innerHTML = data.comments[i].content;
+        }
+        comment.appendChild(content);
       if (data.next != null)
       {
         var nextButton = document.createElement("button");

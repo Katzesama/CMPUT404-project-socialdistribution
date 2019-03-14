@@ -6,12 +6,29 @@
 
 <h1>Post - {{ serializer.title }}</h1>
 
-<form action="{% url 'home' %}" method="GET">
-    {% csrf_token %}
+<div id="container">
     <ul>
       <li> Title：{{serializer.title}}</li>
-        <input type="submit" value = "Home">
     </ul>
-</form>
+</div>
+<script>
+if ({{serializer.contentType | safe}} == "image/png;base64" || data.posts[i].contentType == "image/jpeg;base64")
+{
+  var content = document.createElement("img");
+  content.src = {{serializer.conent|safe}};
+  content.style.width = "20%";
+  content.style.height = "20%";
+}
+else
+{
+  var content = document.createElement("p");
+  content.innerHTML = {{serializer.conent|safe}};
+}
+var container = document.getElementById("container");
+container.appendChild(content);
+</script>
+
+<button onclick="window.location.href='{% url 'home' %}'">Home</button>
+<button onclick="window.location.href='{% url 'comments' pk = {{serializer.id}} %}'">Comments</button>
 
 </body></html>
