@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'freeridersocial',
     'crispy_forms',
     'rest_framework',
+    'coverage'
 ]
 
 MIDDLEWARE = [

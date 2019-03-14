@@ -1,35 +1,63 @@
+from .models import *
 from .serializer import *
-from rest_framework.views import APIView
+from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
-from django.shortcuts import render
-from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect, HttpResponse
+from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404, redirect
+from .serializer import AuthorSerializer, FriendSerializer
+from django.http import HttpResponse, JsonResponse
+from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.renderers import JSONRenderer
+import uuid
 
 
 # http://service/posts/{post_id}/comments access to the comments in a post
 # "query": "addComment"
 
-def addComment(request, post_id):
-    post = Post.objects.get(pk = post_id)
-    current_user = request.user
-    if request.method == "POST":
-        #data = request.data
-        comment = CommentSerializer(data=request.data['comment'], context={'author': current_user, 'postid':post_id})
-        if comment.is_valid():
-            comment.save()
-            comment_data = {
-                "query":"addComment",
-                "success": True,
-                "message": "Comment Added"
-            }
-            return Response(comment_data, status=Response.status.HTTP_200_OK)
-    return Response({"query":"addComment", "success": False, "message": "Invalid Comment"}, status=Response.status.HTTP_400_BAD_REQUEST)
-
-def deleteComment(request, comment_id):
-    if request.method == "DELETE":
+class addComment(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'addcomment.html'
+    def get(self, request, post_id, **kwargs):
         try:
-            comment = Comment.objects.get(id = comment_id)
-            comment.delete()
-            return HttpResponse(200)
+            current_user_profile = request.user.author
+            post = get_object_or_404(Post, pk = post_id)
         except:
-            return HttpResponse(400)
+            return HttpResponse(status=404)
+        new_comment = Comment.objects.create(post_id=post, author=current_user_profile)
+        request.session["Comment_id"] = str(new_comment.id)
+        serializer = CommentSerializer(new_comment)
+        return Response({"serializer": serializer})
+
+    def post(self, request, post_id, **kwargs):
+
+        post = get_object_or_404(Post, pk = post_id)
+        try:
+            id = uuid.UUID(request.session['Comment_id']).hex
+            new_comment = Comment.objects.get(id=id)
+        except:
+            new_comment = Comment.objects.create(post_id = post, author=request.user.author)
+        serializer = CommentSerializer(new_comment, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return redirect("get_one_post", post.id)
+
+        print("awsl")
+        print(serializer.errors)
+        return Response({'serializer': serializer})
+
+class get_comments(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'comments.html'
+    def get(self, request, post_id, **kwargs):
+        try:
+            post = get_object_or_404(Post, pk = post_id)
+        except:
+            return HttpResponse(status=404)
+        comment_list = Comment.objects.filter(post_id=post)
+        print(comment_list)
+        pg_obj = PaginationModel()
+        pg_res = pg_obj.paginate_queryset(queryset=comment_list, request=request)
+        res = CommentSerializer(instance=pg_res, many=True)
+        print("right here")
+        print(res.data)
+        return pg_obj.get_paginated_response(res.data)
