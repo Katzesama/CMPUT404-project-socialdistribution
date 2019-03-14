@@ -1,1 +1,62 @@
-<head>
+<!DOCTYPE html>
+<!--{% load static %}-->
+{% load rest_framework %}
+
+<html><body>
+
+<h1>Posts</h1>
+<p> Number of Posts: {{count}} </p>
+<div id="holder"></div>
+<script type="text/javascript">
+function show_post(data) {
+    var holder = document.getElementById("holder");
+      for (var i = 0; i < data.posts.length; i++) {
+        let post = document.createElement("div");
+        holder.appendChild(post);
+
+        var author = document.createElement("a");
+        let author_id = data.posts[i]['author']['id'];
+        author.innerHTML = data.posts[i].author.displayName;
+        author.style.fontSize='25px';
+        author.style.display = "inline-block";
+        post.appendChild(author);
+        var line = document.createElement("hr");
+        post.appendChild(line);
+        var post_link = document.createElement("a");
+        let postid = data.posts[i].id
+        post_link.innerHTML = data.posts[i].title;
+        post.appendChild(post_link);
+        var line = document.createElement("hr");
+        post.appendChild(line);
+        var description = document.createElement("p");
+        description.innerHTML = data.posts[i].description
+        post.appendChild(description);
+      if (data.next != null)
+      {
+        var nextButton = document.createElement("button");
+        nextButton.innerHTML = 'next page';
+        nextButton.onclick=function(){window.location.href="{{next}}"} ;
+        holder.appendChild(nextButton);
+      }
+      if (data.previous != null)
+      {
+        var preButton = document.createElement("button");
+        preButton.innerHTML = 'previous page';
+        preButton.onclick=function(){window.location.href="{{previous}}"} ;
+        holder.appendChild(preButton);
+      }
+  }
+}
+   var data = {{posts|safe}};
+      console.info(data);
+      if (data.length != 0){show_post(data);}
+</script>
+
+<button id="home" class="float-left submit-button" >Home</button>
+
+<script type="text/javascript">
+    document.getElementById("home").onclick = function () {
+        location.href = "{% url 'home' %}";
+    };
+</script>
+</body></html>

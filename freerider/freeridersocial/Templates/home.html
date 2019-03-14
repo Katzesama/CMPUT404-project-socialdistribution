@@ -9,21 +9,19 @@
 <body>
 
     <div class="nav">
-        <a id='header' href="{% url 'home' %}">Natto</a>
+        <a class="title" href="{% url 'home' %}">Natto</a>
         <nav>
 
-            <!-- <form  arial-label="profile picture" accept-charset="UTF-8" method="post"> -->
-            
-            <img src="{% static 'profile.png' %}" class="image-circle">
+            <form  arial-label="profile picture" accept-charset="UTF-8" method="post">
+                <img src="{% static 'profile.png' %}" class="image-circle">
             <input type="text" placeholder="Search..">
             <ul>
                 <li><a href="../author/{{user_id}}">Profile</a></li>
-                <li><a href="#history">Posting</a></li>
+                <li><a href="{% url 'my_post' %}">My Post</a></li>
                 <li><a href="{% url 'get_post_for_user' %}">Following</a></li>
                 <li><a href="#">Followers</a></li>
                 <li><a href="#">My photos</a></li>
                 <li><a href="#">Friend Requests</a></li>
-                <li><a id='logout' href="{% url 'logout' %}">Logout</a></li>
 
             </ul>
         </nav>
@@ -51,14 +49,14 @@
 <script>
   window.onscroll = function() {scrollFunction()};
   function scrollFunction() {
-    if (document.body.scrollTop > 5 || document.documentElement.scrollTop > 5) {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
     document.getElementById("backtop").style.display = "block";
     } else {
       document.getElementById("backtop").style.display="none";
     }
   }
   function topFunction() {
-    // document.body.scrollTop = 0;
+    document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   }
 </script>
