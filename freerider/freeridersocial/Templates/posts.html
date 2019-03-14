@@ -5,9 +5,9 @@
 <html><body>
 
 <h1>Posts</h1>
-
+<p> Number of Posts: {{count}} </p>
 <div id="holder"></div>
-<script>
+<script type="text/javascript">
 function show_post(data) {
     var holder = document.getElementById("holder");
       for (var i = 0; i < data.posts.length; i++) {
@@ -37,18 +37,21 @@ function show_post(data) {
       {
         var nextButton = document.createElement("button");
         nextButton.innerHTML = 'next page';
-        nextButton.onclick=function(){window.location.href=data.next} ;
+        nextButton.onclick=function(){window.location.href="{{next}}"} ;
         holder.appendChild(nextButton);
       }
       if (data.previous != null)
       {
         var preButton = document.createElement("button");
         preButton.innerHTML = 'previous page';
-        preButton.onclick=function(){window.location.href=data.previous)} ;
+        preButton.onclick=function(){window.location.href="{{previous}}"} ;
         holder.appendChild(preButton);
       }
   }
-  show_post({{data}});
+}
+   var data = {{posts}};
+      console.info(data);
+      if (data.length != 0){show_post(data);}
 </script>
 
 <button id="home" class="float-left submit-button" >Home</button>

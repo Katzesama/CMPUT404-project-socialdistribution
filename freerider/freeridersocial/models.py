@@ -36,7 +36,7 @@ class Post(models.Model):
         ('image/jpeg;base64', 'image/jpeg;base64'),
     )
     image = models.ImageField(null=True, blank=True)
-    contentType = models.CharField(max_length=2000, choices=contentType_choice)
+    contentType = models.CharField(max_length=2000, choices=contentType_choice, default='text/markdown')
     content = models.TextField()
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     published = models.DateTimeField(default=datetime.now)

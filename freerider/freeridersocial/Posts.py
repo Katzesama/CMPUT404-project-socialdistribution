@@ -7,6 +7,7 @@ from .serializer import *
 from django.http import HttpResponse, JsonResponse
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.renderers import JSONRenderer
+import uuid
 
 # http://service/author/{AUTHOR_ID}/posts (all posts made by {AUTHOR_ID} visible to the currently authenticated user)
 # http://service/author/posts (posts that are visible to the currently authenticated user)
@@ -59,8 +60,7 @@ class upload_post(APIView):
             return HttpResponse(status=404)
         new_post = Post.objects.create(author=current_user_profile)
         serializer = PostSerializer(new_post)
-        request.session["new_post_id"] = new_post.id
-        print(serializer.data)
+        request.session["new_post_id"] = str(new_post.id)
         return Response({"serializer": serializer})
 
     def post(self, request, **kwargs):
@@ -70,17 +70,21 @@ class upload_post(APIView):
             #if author == current_user_profile:
         #print("aaaaaaaa"+str(preserve_id))
         try:
-            new_post = Post.objects.get(id=request.session["new_post_id"])
+            #id = request.session["new_post_id"]
+            id = uuid.UUID(request.session['new_post_id']).hex
+            new_post = Post.objects.get(id=id)
         except:
             new_post = Post.objects.create(author=request.user.author)
         serializer = PostSerializer(new_post, data = request.data)
         if serializer.is_valid():
+            print("what's the matter")
             serializer.save()
             # return Response({'serializer':serializer, 'profile': current_user_profile})
             return redirect("get_one_post", new_post.id)
         print("awsl")
         print(serializer.errors)
-        return Response({'serializer': serializer})
+        print(serializer.data["contentType"])
+        return JsonResponse({'serializer': serializer.data})
 
 class my_post(APIView):
     renderer_classes = [TemplateHTMLRenderer]

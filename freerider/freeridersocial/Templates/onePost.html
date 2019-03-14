@@ -11,24 +11,39 @@
       <li> Title：{{serializer.title}}</li>
     </ul>
 </div>
-<script>
-if ({{serializer.contentType | safe}} == "image/png;base64" || data.posts[i].contentType == "image/jpeg;base64")
+<input type="hidden" value="{{serializer.contentType}}" id="contentType">
+<input type="hidden" value="{{serializer.content}}" id="content">
+<script type="text/javascript">
+ var contentType = document.getElementById("contentType").value;
+ var content_value = document.getElementById("content").value
+if ( contentType == "image/png;base64" || contentType == "image/jpeg;base64")
 {
   var content = document.createElement("img");
-  content.src = {{serializer.conent|safe}};
+  content.src = content_value;
   content.style.width = "20%";
   content.style.height = "20%";
 }
 else
 {
   var content = document.createElement("p");
-  content.innerHTML = {{serializer.conent|safe}};
+  content.innerHTML = content_value;
 }
 var container = document.getElementById("container");
 container.appendChild(content);
 </script>
 
-<button onclick="window.location.href='{% url 'home' %}'">Home</button>
-<button onclick="window.location.href='{% url 'comments' pk = {{serializer.id}} %}'">Comments</button>
+<button id="home" class="float-left submit-button" >Home</button>
+
+<script type="text/javascript">
+    document.getElementById("home").onclick = function () {
+        location.href = "{% url 'home' %}";
+    };
+</script>
+<button id="comment">Comments</button>
+<script type="text/javascript">
+    document.getElementById("comment").onclick = function () {
+        location.href = window.location.href + "comments/";
+    };
+</script>
 
 </body></html>
