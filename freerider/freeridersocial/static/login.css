@@ -76,7 +76,7 @@ button {
     font-family:Optima, sans-serif;
     box-shadow: 0 1px #999;
   }
-button:hover {background-color: #6C5881}
+button:hover {background-color: #BDAFC2}
 
 button:active {
     background-color: #6C5881;

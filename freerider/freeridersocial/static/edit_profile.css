@@ -33,10 +33,10 @@ h1
 {
     display: block;
     font-family: Gill Sans, sans-serif;
-    font-size: 50px;
+    font-size: 30px;
     background-color: #6C5881;
     color: white;
-    height: 80px;
+    height: 50px;
     margin-top: 0px;
     text-align: center;
     line-height: 1.5em;
@@ -97,7 +97,7 @@ input[value = Save] {
     box-shadow: 0 1px #999;
   } 
 input[value = Save]:hover {
-  background-color: #6C5881
+  background-color: #BDAFC2
 }
 input[value = Save]:active {
     background-color: #6C5881;

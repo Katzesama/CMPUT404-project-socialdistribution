@@ -18,6 +18,7 @@ html
     height: 100%;
     background-color:#F7F9FE;
     margin: 0px;
+    
 }
 body{
     background-position: center;
@@ -33,7 +34,7 @@ nav {
     position: fixed; 
     top: 80px; 
     width: 100%;
-    height: 70px;
+    height: 50px;
     background-color: #EEF2FE;
     overflow-x: hidden; 
     padding-top: 0px;
@@ -53,11 +54,13 @@ nav {
     text-align: center;
     line-height: 1.5em;
     font-weight: bold;
+    
+
 }
 
 nav ul {
     margin: 0px;
-    padding: 22px 0px 0px 0px;
+    padding: 10px 0px 0px 0px;
     width: 100%;;
     
   }
@@ -117,18 +120,18 @@ nav input[type=text] {
   float: right;
   padding: 6px;
   border: none;
-  margin-top: 20px;
-  margin-right: 60px;
+  margin-top: 9px;
+  margin-right: 20px;
   font-size: 16px;
-  border-radius: 12px;
+  border-radius: 8px;
   border: 1px solid white;
   }
 nav img {
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 34px;
+  height: 34px;
   border: 2px solid #000;
-  margin-right:40px;
+  margin-right:60px;
   margin-top:8px;
   
   float: right;
@@ -219,7 +222,7 @@ textarea[name="shares"]{
     box-shadow: 0 1px #999;
   }
   #button_s:hover {
-  background-color: #6C5881;
+  background-color: #BDAFC2;
 }
 #button_s:active {
     background-color: #946C99;
