@@ -17,6 +17,8 @@ from rest_framework.renderers import JSONRenderer
 # reference: https://www.django-rest-framework.org/topics/html-and-forms/
 # https://www.cnblogs.com/wdliu/p/9142832.html
 
+# https://docs.djangoproject.com/en/2.1/topics/http/sessions/
+
 class visible_post(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'posts.html'
@@ -50,7 +52,6 @@ class upload_post(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'addpost.html'
     def get(self, request, **kwargs):
-        global preserve_id
         try:
             #print(user_id)
             current_user_profile = request.user.author
@@ -58,7 +59,7 @@ class upload_post(APIView):
             return HttpResponse(status=404)
         new_post = Post.objects.create(author=current_user_profile)
         serializer = PostSerializer(new_post)
-        preserve_id = new_post.id
+        request.session["new_post_id"] = new_post.id
         print(serializer.data)
         return Response({"serializer": serializer})
 
@@ -68,13 +69,15 @@ class upload_post(APIView):
             #author = get_object_or_404(Author.objects.get(id=userid))
             #if author == current_user_profile:
         #print("aaaaaaaa"+str(preserve_id))
-        new_post = Post.objects.get(id=preserve_id)
-        print(request.data)
+        try:
+            new_post = Post.objects.get(id=request.session["new_post_id"])
+        except:
+            new_post = Post.objects.create(author=request.user.author)
         serializer = PostSerializer(new_post, data = request.data)
         if serializer.is_valid():
             serializer.save()
             # return Response({'serializer':serializer, 'profile': current_user_profile})
-            return redirect("get_one_post", preserve_id)
+            return redirect("get_one_post", new_post.id)
         print("awsl")
         print(serializer.errors)
         return Response({'serializer': serializer})

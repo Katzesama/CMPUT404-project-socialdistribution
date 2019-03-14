@@ -22,15 +22,21 @@ class addComment(APIView):
             self.post = get_object_or_404(Post, pk = post_id)
         except:
             return HttpResponse(status=404)
-        self.new_comment = Comment.objects.create(post_id=self.post, author=current_user_profile)
-        serializer = CommentSerializer(self.new_comment)
+        new_comment = Comment.objects.create(post_id=post, author=current_user_profile)
+        request.session["Comment_id"] = new_comment.id
+        serializer = CommentSerializer(new_comment)
         return Response({"serializer": serializer})
 
     def post(self, request, post_id, **kwargs):
-        serializer = CommentSerializer(self.new_comment, data = request.data)
+        post = get_object_or_404(Post, pk = post_id)
+        try:
+            new_comment = Comment.objects.get(id=request.session["Comment_id"])
+        except:
+            new_comment = Comment.objects.create(post_id = post, author=request.user.author)
+        serializer = CommentSerializer(new_comment, data = request.data)
         if serializer.is_valid():
             serializer.save()
-            return redirect("", self.post.id)
+            return redirect("", post.id)
 
         print("awsl")
         print(serializer.errors)
