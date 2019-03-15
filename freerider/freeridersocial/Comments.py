@@ -46,8 +46,6 @@ class addComment(APIView):
         return Response({'serializer': serializer})
 
 class get_comments(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'comments.html'
     def get(self, request, post_id, **kwargs):
         try:
             post = get_object_or_404(Post, pk = post_id)

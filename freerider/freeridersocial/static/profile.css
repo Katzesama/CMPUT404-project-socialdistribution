@@ -33,7 +33,7 @@ h1
 {
     display: block;
     font-family: Gill Sans, sans-serif;
-    
+
     font-size: 30px;
     background-color: #6C5881;
     color: white;
@@ -57,7 +57,7 @@ ul {
     border-color: #6C5881;
     border-width:10px;
 
-    
+
   }
 
 li {
@@ -102,10 +102,10 @@ input[value = Home] {
     text-align: center;
     width: 100px;
     margin-left:69%;
-    
+
     font-family:Optima, sans-serif;
     box-shadow: 0 1px #999;
-  } 
+  }
 input:hover {
   background-color: #BDAFC2;
 }

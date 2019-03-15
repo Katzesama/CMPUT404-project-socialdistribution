@@ -23,8 +23,8 @@ def signup(request):
             if not (User.objects.filter(username=username).exists()):
                 user = User.objects.create(username=username, password=password, is_active=False) # set is_active false, so approval from server admin is needed
                 author = Author.objects.create(user=user, host="http://natto.herokuapp.com")
-                url_str = "http://natto.herokuapp.com/author/" + str(author.id)
-                author.url = json.dumps(url_str)
+                url_str = 'http://natto.herokuapp.com/author/' + str(author.id)
+                author.url = url_str
                 author.displayName = str(author.id)
                 author.save()
                 return HttpResponseRedirect('/signup/done/')
@@ -40,59 +40,21 @@ def signup_done(request):
 
 def home(request):
     return render(request, 'home.html', {'user_id':request.user.author.id})
-# http://service/author/{AUTHOR_ID}/posts (all posts made by {AUTHOR_ID} visible to the currently authenticated user)
-# http://service/author/posts (posts that are visible to the currently authenticated user)
-# http://service/posts (all posts marked as public on the server)
-# http://service/posts/{POST_ID} access to a single post with id = {POST_ID}
-def visible_post(request):
-    posts = []
-    if 'author' in request.path:
-        posts = Post.objects.filter(visibility='PUBLIC')
-        posts_only_visible = Post.objects.filter()
-    else:
-        posts = Post.objects.filter(visibility='PUBLIC')
-    return render(request, 'visible_posts.html', {'posts': posts})
-def upload_post():
-    return
-def edit_post():
-    return
-def del_post():
-    return
-
-
-
-def addComment(request, post_id):
-    post = Post.objects.get(pk = post_id)
-    current_user = request.user
-    if request.method == "POST":
-        #data = request.data
-        comment = CommentSerializer(data=request.data['comment'], context={'author': current_user, 'postid':post_id})
-
-        if comment.is_valid():
-            comment.save()
-            comment_data = {
-                "query":"addComment",
-                "success": True,
-                "message": "Comment Added"
-            }
-            return Response(comment_data, status=Response.status.HTTP_200_OK)
-    return Response({"query":"addComment", "success": False, "message": "Invalid Comment"}, status=Response.status.HTTP_400_BAD_REQUEST)
-
-def deleteComment(request, comment_id):
-    if request.method == "DELETE":
-        try:
-            comment = Comment.objects.get(id = comment_id)
-            comment.delete()
-            return HttpResponse(200)
-        except:
-            return HttpResponse(400)
 
 
 # http://service/posts/{post_id}/comments access to the comments in a post
 # "query": "addComment"
+def get_posts_render(request):
+    return render(request, 'posts.html', {'fetch_url': '/posts/views/'})
 
+def get_my_posts_render(request):
+    return render(request, 'posts.html', {'fetch_url': '/author/myPosts/views/'})
 
+def get_visible_post_render(request):
+    return render(request, 'posts.html', {'fetch_url': '/author/posts/views/'})
 
+def comments_render(request, post_id):
+    return render(request, 'comments.html', {'fetch_url': '/posts/'+str(post_id)+ '/comments/view/'})
 
 # a reponse if friends or not
 # GET http://service/author/<authorid>/friends/
@@ -112,4 +74,3 @@ def deleteComment(request, comment_id):
 # then this returns with the generic GET http://service/posts/{POST_ID}
 # ----------
 # to make a friend request, POST to http://service/friendrequest
-

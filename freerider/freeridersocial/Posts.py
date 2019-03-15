@@ -21,8 +21,6 @@ import uuid
 # https://docs.djangoproject.com/en/2.1/topics/http/sessions/
 
 class visible_post(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'posts.html'
     def get(self, request, format=None):
         posts = []
         try:
@@ -37,7 +35,7 @@ class visible_post(APIView):
         pg_obj=PaginationModel()
         pg_res=pg_obj.paginate_queryset(queryset=posts, request=request)
         res=PostSerializer(instance=pg_res, many=True)
-        return pg_obj.get_paginated_response({'data': res.data})
+        return pg_obj.get_paginated_response(res.data)
 
 class public_post(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -47,7 +45,8 @@ class public_post(APIView):
         pg_obj=PaginationModel()
         pg_res=pg_obj.paginate_queryset(queryset=posts, request=request)
         res=PostSerializer(instance=pg_res, many=True)
-        return pg_obj.get_paginated_response({'data': res.data})
+        return pg_obj.get_paginated_response(res.data)
+
 
 class upload_post(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -87,8 +86,6 @@ class upload_post(APIView):
         return JsonResponse({'serializer': serializer.data})
 
 class my_post(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'posts.html'
     def get(self, request, format=None):
         try:
             #print(user_id)
@@ -99,7 +96,8 @@ class my_post(APIView):
         pg_obj=PaginationModel()
         pg_res=pg_obj.paginate_queryset(queryset=posts, request=request)
         res=PostSerializer(instance=pg_res, many=True)
-        return pg_obj.get_paginated_response({'data': res.data})
+        print(res.data)
+        return pg_obj.get_paginated_response(res.data)
 
 
 class get_one_post(APIView):

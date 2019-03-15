@@ -18,7 +18,7 @@ html
     height: 100%;
     background-color:#F7F9FE;
     margin: 0px;
-    
+
 }
 body{
     background-position: center;
@@ -31,15 +31,15 @@ body{
 }
 
 nav {
-    width: 160px; 
-    position: fixed; 
+    width: 160px;
+    position: fixed;
 
-    top: 80px; 
-    
+    top: 80px;
+
     width: 100%;
     height: 50px;
     background-color: #F0F1F1;
-    overflow-x: hidden; 
+    overflow-x: hidden;
     padding-top: 0px;
     text-align: center;
     font-family:Gill Sans, sans-serif;
@@ -57,7 +57,7 @@ nav {
     text-align: center;
     line-height: 1.5em;
     font-weight: bold;
-    
+
 
 }
 
@@ -72,7 +72,7 @@ nav li {
     background-position: right;
   }
 nav li a {
-  
+
   text-decoration: none;
   padding-top: 15px;
   padding-left: 10px;
@@ -96,7 +96,7 @@ nav li a {
   margin-left: 20px;
   font-size: 18px;
   color: #491A4F;
-  
+
   font-weight: bold;
   }
 
@@ -108,7 +108,7 @@ nav li a {
 }
 
   .main {
-    margin-left: 160px; 
+    margin-left: 160px;
     padding: 0px 10px;
   }
 
@@ -130,7 +130,7 @@ nav img {
   border: 2px solid #000;
   margin-right:60px;
   margin-top:8px;
-  
+
   float: right;
   }
 
@@ -138,22 +138,22 @@ nav img {
 /* back to top button, still modifying... */
 #backtop {
   position: fixed;
-  bottom: 20px; 
-  right: 30px; 
-  z-index: 99; 
-  border: none; 
-  outline: none; 
-  background-color: black; 
-  color: white; 
-  cursor: pointer; 
-  padding: 15px; 
-  border-radius: 10px; 
-  font-size: 18px; 
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 18px;
 
 }
 
 #backtop:hover {
-    background-color: rgb(233, 233, 233); 
+    background-color: rgb(233, 233, 233);
 }
 
 /* post basic */
@@ -203,9 +203,9 @@ textarea[name="shares"]{
     width : 250px;
     height:40px;
     margin-top:10px;
-}    
- 
-  
+}
+
+
 #button_s {
 
     font-size:14pt;

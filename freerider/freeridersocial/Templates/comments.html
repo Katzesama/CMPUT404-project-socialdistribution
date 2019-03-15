@@ -18,47 +18,65 @@ function show_comment(data) {
 
         var author = document.createElement("a");
         var author_id = data.comments[i]['author']['id'];
-        author.innerHTML = data.comments[i].author.displayName;
+        author.innerHTML = 'Author: ' + data.comments[i].author.displayName;
+        author.href = '/author/' + author_id +'/';
         author.style.fontSize = '25px';
         author.style.display = "inline-block";
         comment.appendChild(author);
         var line = document.createElement("hr");
         comment.appendChild(line);
-        var description = document.createElement("p");
-        description.innerHTML = data.comments[i].description
-        comment.appendChild(description);
-        if (data.comments[i].contentType == "image/png;base64" || data.posts[i].contentType == "image/jpeg;base64") {
+        if (data.comments[i].contentType == "image/png;base64" || data.comments[i].contentType == "image/jpeg;base64") {
             var content = document.createElement("img");
-            content.src = data.comments[i].content;
+            content.src = data.comments[i].comment;
             content.style.width = "20%";
             content.style.height = "20%";
         }
         else {
             var content = document.createElement("p");
-            content.innerHTML = data.comments[i].content;
+            content.innerHTML = "comment: " + data.comments[i].comment;
+            console.info(content);
         }
         comment.appendChild(content);
         if (data.next != null) {
             var nextButton = document.createElement("button");
             nextButton.innerHTML = 'next page';
             nextButton.onclick = function () {
-                window.location.href = "{{next}}"
+                 get_data_display(data.next);
             };
             holder.appendChild(nextButton);
         }
         if (data.previous != null) {
             var preButton = document.createElement("button");
             preButton.innerHTML = 'previous page';
-            preButton.onclick = function () {
-                window.location.href = "{{previous}}"
+           preButton.onclick=function(){
+                get_data_display(data.previous);
             };
             holder.appendChild(preButton);
         }
     }
 }
-  var data = {{comments | safe}};
-      console.info(data);
-      if (data.length != 0){show_comment(data);}
+
+function fetchJSON(url) {
+  var request = new Request(url, {
+              method: 'GET',
+              headers: {
+                   'Content-Type': 'application/json'
+              }, });
+  return fetch(request).then((response) => {
+    if (response.status === 200) { // OK
+      return response.json(); // return a Promise
+    } else {
+      alert("Something went wrong: " + response.status);
+    }
+  });
+}
+
+
+function get_data_display(url) {
+    fetchJSON(url).then(show_comment)
+}
+
+get_data_display("{{fetch_url}}");
 
 </script>
 

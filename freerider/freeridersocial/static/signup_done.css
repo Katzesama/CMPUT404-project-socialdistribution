@@ -37,7 +37,7 @@ div b {
 div b:hover, div b.current {
     font-weight: bold;
     color: white;}
-  
+
   #signupdone {
     margin: auto;
     margin-top: 80px;
@@ -61,4 +61,3 @@ div b:hover, div b.current {
     display: block;
 
   }
-
