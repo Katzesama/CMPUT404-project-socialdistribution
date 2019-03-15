@@ -2,6 +2,7 @@ from .models import *
 from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
+from collections import OrderedDict
 
 
 # serializers
@@ -28,7 +29,7 @@ class PaginationModel(PageNumberPagination):
     def get_paginated_response(self, data):
         if "comments" in self.request.path:
             type = "comments"
-        elif "posts" in self.request.path:
+        else:
             type = "posts"
         response_body = {
             "query": type,

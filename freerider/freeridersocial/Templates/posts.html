@@ -16,7 +16,6 @@ function show_post(data) {
 
         var author = document.createElement("a");
         let author_id = data.posts[i]['author']['id'];
-        author.setAttribute('href', "{% url 'profile' pk=${author_id}%}");
         author.innerHTML = data.posts[i].author.displayName;
         author.style.fontSize='25px';
         author.style.display = "inline-block";
@@ -25,7 +24,6 @@ function show_post(data) {
         post.appendChild(line);
         var post_link = document.createElement("a");
         let postid = data.posts[i].id
-        post_link.setAttribute('href', "{% url 'get_one_post' pk=${postid} %}");
         post_link.innerHTML = data.posts[i].title;
         post.appendChild(post_link);
         var line = document.createElement("hr");
@@ -49,7 +47,7 @@ function show_post(data) {
       }
   }
 }
-   var data = {{posts}};
+    var data = JSON.parse("{{posts|safe}}")
       console.info(data);
       if (data.length != 0){show_post(data);}
 </script>

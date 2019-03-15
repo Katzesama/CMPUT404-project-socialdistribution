@@ -56,7 +56,7 @@ function show_comment(data) {
         }
     }
 }
-  var data = {{comments | safe}};
+  var data = JSON.parse("{{comments | safe}}")
       console.info(data);
       if (data.length != 0){show_comment(data);}
 

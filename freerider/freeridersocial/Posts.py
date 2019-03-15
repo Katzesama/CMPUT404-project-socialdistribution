@@ -37,7 +37,7 @@ class visible_post(APIView):
         pg_obj=PaginationModel()
         pg_res=pg_obj.paginate_queryset(queryset=posts, request=request)
         res=PostSerializer(instance=pg_res, many=True)
-        return pg_obj.get_paginated_response({'data': res.data})
+        return pg_obj.get_paginated_response(res.data)
 
 class public_post(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -47,7 +47,7 @@ class public_post(APIView):
         pg_obj=PaginationModel()
         pg_res=pg_obj.paginate_queryset(queryset=posts, request=request)
         res=PostSerializer(instance=pg_res, many=True)
-        return pg_obj.get_paginated_response({'data': res.data})
+        return pg_obj.get_paginated_response(res.data)
 
 class upload_post(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -99,7 +99,8 @@ class my_post(APIView):
         pg_obj=PaginationModel()
         pg_res=pg_obj.paginate_queryset(queryset=posts, request=request)
         res=PostSerializer(instance=pg_res, many=True)
-        return pg_obj.get_paginated_response({'data': res.data})
+        print(res.data)
+        return pg_obj.get_paginated_response(res.data)
 
 
 class get_one_post(APIView):

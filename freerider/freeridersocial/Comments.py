@@ -54,10 +54,8 @@ class get_comments(APIView):
         except:
             return HttpResponse(status=404)
         comment_list = Comment.objects.filter(post_id=post)
-        print(comment_list)
         pg_obj = PaginationModel()
         pg_res = pg_obj.paginate_queryset(queryset=comment_list, request=request)
-        res = CommentSerializer(instance=pg_res, many=True)
-        print("right here")
+        res = CommentSerializer(pg_res, many=True)
         print(res.data)
         return pg_obj.get_paginated_response(res.data)

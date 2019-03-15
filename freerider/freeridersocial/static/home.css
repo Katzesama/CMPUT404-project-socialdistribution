@@ -43,7 +43,7 @@ nav {
     text-align: center;
     font-family:Gill Sans, sans-serif;
   }
-.nav a
+.title
 {
     display: block;
     font-family: Snell Roundhand, cursive;
@@ -69,7 +69,7 @@ nav li {
     margin-left: 0px;
     background-position: right;
   }
-nav li b {
+.nav li a {
   
   text-decoration: none;
   padding-top: 15px;
@@ -78,7 +78,7 @@ nav li b {
   font-size: 17px;
   color:#4060A1;}
 
-  nav li b:hover, nav li b.current {
+.nav li a:hover, nav li b.current {
   color: #7C9EE1;
   background-color: white;
   background:rgba(245, 248, 254, 0.5);
