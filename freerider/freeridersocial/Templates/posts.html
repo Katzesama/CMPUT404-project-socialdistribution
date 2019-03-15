@@ -58,7 +58,7 @@ function fetchJSON(url) {
               method: 'GET',
               headers: {
                    'Content-Type': 'application/json'
-              }, };);
+              }, });
   return fetch(request).then((response) => {
     if (response.status === 200) { // OK
       return response.json(); // return a Promise
@@ -68,18 +68,9 @@ function fetchJSON(url) {
   });
 }
 
-function get_data_display(url) {
-  var rec_data = fetchJSON(url);
-  if (rec_data.count != 0){
-    show_post(data);
-  }
-  else{
-    var holder = document.getElementById("holder");
-    let p = document.createElement('p');
-    p.innerHTML = 'no post yet';
-    holder.appendChild(p);
 
-  }
+function get_data_display(url) {
+    fetchJSON(url).then(show_post)
 }
 
 get_data_display("{{fetch_url}}");

@@ -45,13 +45,13 @@ def home(request):
 # http://service/posts/{post_id}/comments access to the comments in a post
 # "query": "addComment"
 def get_posts_render(request):
-    return render(request, 'posts.html', {'fetch_url': '/posts/views/')
+    return render(request, 'posts.html', {'fetch_url': '/posts/views/'})
 
 def get_my_posts_render(request):
-    return render(request, 'posts.html', {'fetch_url': '/author/myPosts/views/')
+    return render(request, 'posts.html', {'fetch_url': '/author/myPosts/views/'})
 
 def get_visible_post_render(request):
-    return render(request, 'posts.html', {'fetch_url': '/author/posts/views/')
+    return render(request, 'posts.html', {'fetch_url': '/author/posts/views/'})
 
 
 
