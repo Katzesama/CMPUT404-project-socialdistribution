@@ -15,21 +15,26 @@ function show_post(data) {
 
         var author = document.createElement("a");
         let author_id = data.posts[i]['author']['id'];
-        author.innerHTML = data.posts[i].author.displayName;
+        console.info(data.posts[i].author.displayName);
+        author.innerHTML = 'Author: ' + data.posts[i].author.displayName;
+        author.href = '/author/' + author_id +'/';
         author.style.fontSize='25px';
         author.style.display = "inline-block";
         post.appendChild(author);
-        var line = document.createElement("hr");
+        var line = document.createElement("br");
         post.appendChild(line);
         var post_link = document.createElement("a");
         let postid = data.posts[i].id
-        post_link.innerHTML = data.posts[i].title;
+        post_link.innerHTML = "Post title: " + data.posts[i].title;
+        post_link.href = '/posts/' + postid + '/';
         post.appendChild(post_link);
-        var line = document.createElement("hr");
+        var line = document.createElement("br");
         post.appendChild(line);
         var description = document.createElement("p");
-        description.innerHTML = data.posts[i].description
+        description.innerHTML = "description: " + data.posts[i].description
         post.appendChild(description);
+        var line = document.createElement("hr");
+        post.appendChild(line);
       if (data.next != null)
       {
         var nextButton = document.createElement("button");
