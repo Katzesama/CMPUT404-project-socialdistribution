@@ -44,7 +44,14 @@ def home(request):
 
 # http://service/posts/{post_id}/comments access to the comments in a post
 # "query": "addComment"
+def get_posts_render(request):
+    return render(request, 'posts.html', {'fetch_url': '/posts/views/')
 
+def get_my_posts_render(request):
+    return render(request, 'posts.html', {'fetch_url': '/author/myPosts/views/')
+
+def get_visible_post_render(request):
+    return render(request, 'posts.html', {'fetch_url': '/author/posts/views/')
 
 
 
@@ -66,4 +73,3 @@ def home(request):
 # then this returns with the generic GET http://service/posts/{POST_ID}
 # ----------
 # to make a friend request, POST to http://service/friendrequest
-
