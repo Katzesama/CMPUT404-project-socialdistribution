@@ -22,6 +22,9 @@ class loginTest(TestCase):
         response = self.client.login(username='TestUser', password='fake12202stst')
         self.assertFalse(response)
 
+        response = self.client.login(username='TestUser1', password='12202stst')
+        self.assertFalse(response)
+
     def test_logout(self):
         self.client.login(username='TestUser', password='12202stst')
         self.client.logout()
@@ -102,7 +105,6 @@ class post_comment_Test(TestCase):
 
     def test_post(self):
         author = Author.objects.get(user_id = user_id1)
-
         
         title = "First Post"
         content = "Test Post"
@@ -124,11 +126,9 @@ class post_comment_Test(TestCase):
         self.assertEqual(post.contentType, contentType)
         self.assertEqual(post.author, author)
         self.assertEqual(post.visibility, "PUBLIC")
-
     
     def test_self_comment(self):
         author = Author.objects.get(user_id = user_id1)
-        # author2 = Author.objects.get(user_id = user_id2)
 
         post = Post.objects.create(
             content = "testing",
