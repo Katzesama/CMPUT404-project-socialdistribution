@@ -1,6 +1,8 @@
 <!DOCTYPE html>
+{% load static %}
 {% load rest_framework %}
-
+<title>Edit Profile</title>
+<link rel="stylesheet" href="{% static 'edit_profile.css' %}">
 <html><body>
 
 <h1>Profile - {{ profile.name }}</h1>

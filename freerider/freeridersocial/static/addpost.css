@@ -44,72 +44,82 @@ h1
     font-weight: bold;
 }
 
-ul {
-    padding: 10px 20px 30px 10px;
+form {
+    font-family: Comic Sans MS, Comic Sans, cursive;
+
+    padding: 10px 10px 20px 70px;
     list-style-type: none;
-    height: 300px;
-    font-size: 20px;
+    height: 670px;
+    font-size: 19px;
     margin-left: 280px;
     margin-right:280px;
     margin-top:50px;
     background-color: white;
+    color:#53637A;
     border-style: groove;
     border-color: #6C5881;
     border-width:10px;
-
-    
-  }
-
-li {
-    font-family:Trebuchet MS, sans-serif;
-    /* font-family: Comic Sans MS, Comic Sans, cursive; */
-
-    padding: 10px 10px 20px 60px;
-    background-position: left;
     font-weight: bold;
-    background:linear-gradient(to right,  brown,blue,green);
-    background-clip: text;
-    color: transparent;
-    background:-webkit-linear-gradient(to right,  brown,blue,green);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-input[value = Home], input[value = Edit]{
-  display:inline-block;
-  }
-
-input[value = Home] {
-
-    font-size:14pt;
-    background-color: #6C5881;
-    color: white;
-    border-radius: 8px;
-    border: 2px solid white;
-    text-align: center;
-    width: 100px;
-    margin-top:33px;
-    font-family:Optima, sans-serif;
-    box-shadow: 0 1px #999;
-  }
-
- input[value = Edit] {
-
-    font-size:14pt;
-    background-color: #6C5881;
-    color: white;
-    border-radius: 8px;
-    border: 2px solid white;
-    text-align: center;
-    width: 100px;
-    margin-left:69%;
     
+  }
+
+input {
+
+    width: 200px;
+    margin-left:50px;
+    height: 20px;
+    border-radius: 4px;   
+  } 
+div{
+    padding-bottom: 20px;
+}
+
+.form_group{
+    height :300px;
+}
+textarea {
+    height :20px;
+    resize: none;
+}
+
+textarea[name = content] {
+    height :140px;
+    width : 360px;
+    resize: none;
+}
+textarea {
+
+    width: 200px;
+    margin-left:20px;
+    border-radius: 4px;   
+ 
+  } 
+input[type = checkbox] {
+
+    width: 20px;
+    margin-left:0px;
+ 
+  } 
+input[value = Save] {
+
+    font-size:14pt;
+    background-color: #6C5881;
+    color: white;
+    border-radius: 8px;
+    border: 2px solid white;
+    text-align: center;
+    width: 100px;
+    margin-left:38%;
+    height:30px;
+    margin-bottom: 20px;
     font-family:Optima, sans-serif;
     box-shadow: 0 1px #999;
+    margin-top:40px;
   } 
-input:hover {
+input[value = Save]:hover {
   background-color: #BDAFC2;
 }
-input:active {
+inpu[value = Save]t:active {
     background-color: #6C5881;
     /* box-shadow: 0 3px #666; */
     transform: translateY(4px);
