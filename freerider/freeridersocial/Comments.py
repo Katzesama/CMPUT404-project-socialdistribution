@@ -55,4 +55,5 @@ class get_comments(APIView):
         pg_obj = PaginationModel()
         pg_res = pg_obj.paginate_queryset(queryset=comment_list, request=request)
         res = CommentSerializer(pg_res, many=True)
+        print(res.data)
         return pg_obj.get_paginated_response(res.data)
