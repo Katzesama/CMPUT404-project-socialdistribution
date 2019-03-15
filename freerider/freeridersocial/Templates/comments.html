@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--{% load static %}-->
+{% load rest_framework %}
+
+<html><body>
+
+<h1>Comments</h1>
+
+<p>Number of comments: {{count}}</p>
+
+<div id="holder"></div>
+<script type="text/javascript">
+function show_comment(data) {
+    var holder = document.getElementById("holder");
+    for (var i = 0; i < data.comments.length; i++) {
+        let comment = document.createElement("div");
+        holder.appendChild(comment);
+
+        var author = document.createElement("a");
+        var author_id = data.comments[i]['author']['id'];
+        author.innerHTML = data.comments[i].author.displayName;
+        author.style.fontSize = '25px';
+        author.style.display = "inline-block";
+        comment.appendChild(author);
+        var line = document.createElement("hr");
+        comment.appendChild(line);
+        var description = document.createElement("p");
+        description.innerHTML = data.comments[i].description
+        comment.appendChild(description);
+        if (data.comments[i].contentType == "image/png;base64" || data.posts[i].contentType == "image/jpeg;base64") {
+            var content = document.createElement("img");
+            content.src = data.comments[i].content;
+            content.style.width = "20%";
+            content.style.height = "20%";
+        }
+        else {
+            var content = document.createElement("p");
+            content.innerHTML = data.comments[i].content;
+        }
+        comment.appendChild(content);
+        if (data.next != null) {
+            var nextButton = document.createElement("button");
+            nextButton.innerHTML = 'next page';
+            nextButton.onclick = function () {
+                window.location.href = "{{next}}"
+            };
+            holder.appendChild(nextButton);
+        }
+        if (data.previous != null) {
+            var preButton = document.createElement("button");
+            preButton.innerHTML = 'previous page';
+            preButton.onclick = function () {
+                window.location.href = "{{previous}}"
+            };
+            holder.appendChild(preButton);
+        }
+    }
+}
+  var data = JSON.parse("{{comments | safe}}")
+      console.info(data);
+      if (data.length != 0){show_comment(data);}
+
+</script>
+
+<button id="home" class="float-left submit-button" >Home</button>
+
+<script type="text/javascript">
+    document.getElementById("home").onclick = function () {
+        location.href = "{% url 'home' %}";
+    };
+</script>
+
+<button id="add_comment" class="float-left submit-button" >Add Comment</button>
+
+<script type="text/javascript">
+    document.getElementById("add_comment").onclick = function () {
+    location.href = window.location.href + "add_comment/";
+    };
+</script>
+</body></html>

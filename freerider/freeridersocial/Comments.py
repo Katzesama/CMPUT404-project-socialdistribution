@@ -8,6 +8,7 @@ from .serializer import AuthorSerializer, FriendSerializer
 from django.http import HttpResponse, JsonResponse
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.renderers import JSONRenderer
+import uuid
 
 
 # http://service/posts/{post_id}/comments access to the comments in a post
@@ -19,24 +20,26 @@ class addComment(APIView):
     def get(self, request, post_id, **kwargs):
         try:
             current_user_profile = request.user.author
-            self.post = get_object_or_404(Post, pk = post_id)
+            post = get_object_or_404(Post, pk = post_id)
         except:
             return HttpResponse(status=404)
         new_comment = Comment.objects.create(post_id=post, author=current_user_profile)
-        request.session["Comment_id"] = new_comment.id
+        request.session["Comment_id"] = str(new_comment.id)
         serializer = CommentSerializer(new_comment)
         return Response({"serializer": serializer})
 
     def post(self, request, post_id, **kwargs):
+
         post = get_object_or_404(Post, pk = post_id)
         try:
-            new_comment = Comment.objects.get(id=request.session["Comment_id"])
+            id = uuid.UUID(request.session['Comment_id']).hex
+            new_comment = Comment.objects.get(id=id)
         except:
             new_comment = Comment.objects.create(post_id = post, author=request.user.author)
         serializer = CommentSerializer(new_comment, data = request.data)
         if serializer.is_valid():
             serializer.save()
-            return redirect("", post.id)
+            return redirect("get_one_post", post.id)
 
         print("awsl")
         print(serializer.errors)
@@ -53,5 +56,6 @@ class get_comments(APIView):
         comment_list = Comment.objects.filter(post_id=post)
         pg_obj = PaginationModel()
         pg_res = pg_obj.paginate_queryset(queryset=comment_list, request=request)
-        res = CommentSerializer(instance=pg_res, many=True)
+        res = CommentSerializer(pg_res, many=True)
+        print(res.data)
         return pg_obj.get_paginated_response(res.data)

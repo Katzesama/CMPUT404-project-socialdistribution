@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+{% load rest_framework %}
+
+<html><body>
+
+<h1>Post - {{ serializer.title }}</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {% render_form serializer %}
+    <input type="submit" value="Save">
+</form>
+
+</body></html>

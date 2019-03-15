@@ -7,6 +7,8 @@ from .serializer import *
 from django.http import HttpResponse, JsonResponse
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.renderers import JSONRenderer
+import uuid
+from collections import OrderedDict
 
 # http://service/author/{AUTHOR_ID}/posts (all posts made by {AUTHOR_ID} visible to the currently authenticated user)
 # http://service/author/posts (posts that are visible to the currently authenticated user)
@@ -59,8 +61,7 @@ class upload_post(APIView):
             return HttpResponse(status=404)
         new_post = Post.objects.create(author=current_user_profile)
         serializer = PostSerializer(new_post)
-        request.session["new_post_id"] = new_post.id
-        print(serializer.data)
+        request.session["new_post_id"] = str(new_post.id)
         return Response({"serializer": serializer})
 
     def post(self, request, **kwargs):
@@ -70,17 +71,19 @@ class upload_post(APIView):
             #if author == current_user_profile:
         #print("aaaaaaaa"+str(preserve_id))
         try:
-            new_post = Post.objects.get(id=request.session["new_post_id"])
+            #id = request.session["new_post_id"]
+            id = uuid.UUID(request.session['new_post_id']).hex
+            new_post = Post.objects.get(id=id)
         except:
             new_post = Post.objects.create(author=request.user.author)
         serializer = PostSerializer(new_post, data = request.data)
         if serializer.is_valid():
+            print("what's the matter")
             serializer.save()
             # return Response({'serializer':serializer, 'profile': current_user_profile})
             return redirect("get_one_post", new_post.id)
-        print("awsl")
-        print(serializer.errors)
-        return Response({'serializer': serializer})
+
+        return JsonResponse({'serializer': serializer.data})
 
 class my_post(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -95,17 +98,65 @@ class my_post(APIView):
         pg_obj=PaginationModel()
         pg_res=pg_obj.paginate_queryset(queryset=posts, request=request)
         res=PostSerializer(instance=pg_res, many=True)
-        return pg_obj.get_paginated_response(res.data)
+        print(res.data)
+        return pg_obj.get_paginated_response({"serializer":res.data})
+        #return pg_obj.get_paginated_response(res.data)
 
 
 class get_one_post(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'onePost.html'
+    is_author = False
     def get(self, request, post_id, **kwargs):
         try:
             print("get here")
             post = get_object_or_404(Post, pk = post_id)
+            if post.author.id == request.user.author.id:
+                is_author = True
         except:
             return HttpResponse(status=404)
         serializer = PostSerializer(post)
-        return Response({"serializer": serializer.data})
+        return Response({"serializer": serializer.data,"is_author":is_author})
+
+
+class edit_post(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'editPost.html'
+    def get(self, request, post_id, **kwargs):
+        try:
+            current_post = Post.objects.get(id = post_id)
+        except:
+            return HttpResponse(status=404)
+
+        serializer = PostSerializer(current_post)
+        return Response({"serializer":serializer})
+
+    def put(self, request, post_id, **kwargs):
+        if (not Post.objects.filter(pk=post_id).exists()):
+            return HttpResponse(status=404)
+        else:
+            post = Post.objects.get(pk=post_id)
+            current_user_id = request.user.author.id
+
+            if current_user_id == post.author.id:
+                serializer = PostSerializer(post, data=request.data)
+
+                if serializer.is_valid():
+                    serializer.save()
+                    return redirect("get_one_post", post.id)
+                return JsonResponse("Data is not valid", serializer.errors, status=400)
+            else:
+                return HttpResponse("You don't have the access to the post", status=404)
+
+class delete_post(APIView):
+    def post(self,request,post_id, **kwargs):
+        if (not Post.objects.filter(pk=post_id).exists()):
+            return HttpResponse("Post doesn't exist", status=404)
+        else:
+            post = Post.objects.get(pk=post_id)
+            current_user_id = request.user.author.id
+            if current_user_id == post.author_id:
+                post.delete()
+                return HttpResponse("Success deleted", status=204)
+            else:
+                return HttpResponse("You don't have the access to the post", status=404)

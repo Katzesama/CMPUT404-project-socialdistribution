@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from collections import OrderedDict
 
+
 # serializers
 # reference: https://www.django-rest-framework.org/api-guide/serializers/
 # https://docs.djangoproject.com/en/2.1/topics/serialization/
@@ -28,21 +29,21 @@ class PaginationModel(PageNumberPagination):
     def get_paginated_response(self, data):
         if "comments" in self.request.path:
             type = "comments"
-        elif "posts" in self.request.path:
+        else:
             type = "posts"
-        response_body = OrderedDict([
-            ("query", type),
-            ('count', self.page.paginator.count),
-            ("size", self.page_size),
-            ("next", self.get_next_link()),
-            ("previous", self.get_previous_link()),
-            (type, data)
-        ])
+        response_body = {
+            "query": type,
+            'count': self.page.paginator.count,
+            "size": self.page_size,
+            "next": self.get_next_link(),
+            "previous": self.get_previous_link(),
+            type: data
+        }
 
         if self.get_previous_link() is None:
-            response_body.pop("previous")
+            del response_body["previous"]
         if self.get_next_link() is None:
-            response_body.pop("next")
+            del response_body["next"]
         return Response(response_body)
 
 class AuthorSerializer(serializers.ModelSerializer):
