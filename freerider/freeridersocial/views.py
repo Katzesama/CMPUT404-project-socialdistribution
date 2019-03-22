@@ -45,16 +45,16 @@ def home(request):
 # http://service/posts/{post_id}/comments access to the comments in a post
 # "query": "addComment"
 def get_posts_render(request):
-    return render(request, 'posts.html', {'fetch_url': '/posts/views/', 'my_post': False})
+    return render(request, 'posts.html', {'fetch_url': '/posts/', 'my_post': False})
 
 def get_my_posts_render(request):
-    return render(request, 'posts.html', {'fetch_url': '/author/myPosts/views/', 'my_post': True})
+    return render(request, 'posts.html', {'fetch_url': '/author/myPosts/', 'my_post': True})
 
 def get_visible_post_render(request):
-    return render(request, 'posts.html', {'fetch_url': '/author/posts/views/', 'my_post': False})
+    return render(request, 'posts.html', {'fetch_url': '/author/posts/', 'my_post': False})
 
 def comments_render(request, post_id):
-    return render(request, 'comments.html', {'fetch_url': '/posts/'+str(post_id)+ '/comments/view/'})
+    return render(request, 'comments.html', {'fetch_url': '/posts/'+str(post_id)+ '/comments/'})
 
 # a reponse if friends or not
 # GET http://service/author/<authorid>/friends/
