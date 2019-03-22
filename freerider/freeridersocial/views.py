@@ -25,7 +25,7 @@ def signup(request):
                 author = Author.objects.create(user=user, host="http://natto.herokuapp.com")
                 url_str = 'http://natto.herokuapp.com/author/' + str(author.id)
                 author.url = url_str
-                author.displayName = str(author.id)
+                author.displayName = str(user.username)
                 author.save()
                 return HttpResponseRedirect('/signup/done/')
             else:
@@ -45,13 +45,13 @@ def home(request):
 # http://service/posts/{post_id}/comments access to the comments in a post
 # "query": "addComment"
 def get_posts_render(request):
-    return render(request, 'posts.html', {'fetch_url': '/posts/views/'})
+    return render(request, 'posts.html', {'fetch_url': '/posts/views/', 'my_post': False})
 
 def get_my_posts_render(request):
-    return render(request, 'posts.html', {'fetch_url': '/author/myPosts/views/'})
+    return render(request, 'posts.html', {'fetch_url': '/author/myPosts/views/', 'my_post': True})
 
 def get_visible_post_render(request):
-    return render(request, 'posts.html', {'fetch_url': '/author/posts/views/'})
+    return render(request, 'posts.html', {'fetch_url': '/author/posts/views/', 'my_post': False})
 
 def comments_render(request, post_id):
     return render(request, 'comments.html', {'fetch_url': '/posts/'+str(post_id)+ '/comments/view/'})

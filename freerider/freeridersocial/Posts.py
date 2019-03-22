@@ -40,6 +40,7 @@ class visible_post(APIView):
 class public_post(APIView):
     def get(self, request, format=None):
         posts = Post.objects.filter(visibility='PUBLIC')
+        posts.objects.filter(unlisted=False)
         pg_obj=PaginationModel()
         pg_res=pg_obj.paginate_queryset(queryset=posts, request=request)
         res=PostSerializer(instance=pg_res, many=True)
