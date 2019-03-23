@@ -56,6 +56,9 @@ class upload_post(APIView):
         except:
             return HttpResponse(status=404)
         new_post = Post.objects.create(author=current_user_profile)
+        new_post.origin = "http://natto.herokuapp.com/posts/"+str(new_post.id)
+        new_post.source = "http://natto.herokuapp.com/posts/"+str(new_post.id)
+        new_post.save()
         serializer = PostSerializer(new_post)
         request.session["new_post_id"] = str(new_post.id)
         return Response({"serializer": serializer})
@@ -78,7 +81,6 @@ class upload_post(APIView):
             serializer.save()
             # return Response({'serializer':serializer, 'profile': current_user_profile})
             return redirect("get_one_post", new_post.id)
-        print("awsl")
         print(serializer.errors)
         print(serializer.data["contentType"])
         return JsonResponse({'serializer': serializer.data})

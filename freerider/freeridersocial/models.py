@@ -26,7 +26,7 @@ class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length = 100, default='No Title')
     source = models.CharField(max_length = 2000)
-    origin = models.CharField(max_length = 2000)
+    origin = models.CharField(max_length = 2000, editable=False)
     description = models.CharField(max_length =100)
     contentType_choice = (
         ('text/markdown', 'text/markdown'),
@@ -88,4 +88,3 @@ class Friend(models.Model):
     friend_status = (('A','friend'),('W','waiting'),('R','reject'),)
     def __str__(self):
         return self.displayName
-
