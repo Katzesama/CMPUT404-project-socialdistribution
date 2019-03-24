@@ -1,0 +1,117 @@
+html
+{
+    width: 100%;
+    height: 100%;
+    background-color:#F7F9FE;
+    margin: 0px;
+}
+body{
+  background-position: center;
+  line-height: 1.5em;
+  margin: 0px;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;}
+a
+{
+    display: block;
+    font-family: Snell Roundhand, cursive;
+    font-size: 40px;
+    background-color: #6C5881;
+    color: white;
+    height: 80px;
+    margin-top: 0px;
+    left:0;
+    text-align: center;
+    line-height: 1.5em;
+    margin: 0px;
+
+
+}
+div a {
+font-weight: bold;
+color:white;
+font-size: 60px;
+}
+div a:hover, div a.current {
+font-weight: bold;
+color: white;
+font-size: 60px;}
+#signup {
+
+  margin: auto;
+  margin-top: 80px;
+  width: 50%;
+}
+#button1,#button2 {
+  display:inline-block;
+
+}
+#buttons{
+  text-align: center;
+  padding: 60px 70px;
+}
+#button1{
+  font-size:14pt;
+  background-color: #6C5881;
+  color: white;
+  border-radius: 12px;
+  border: 2px solid white;
+  text-align: center;
+  margin-top:10%;
+  margin-right: 100px;
+  /* margin-left: 40%; */
+  width: 22%;
+  font-family: Optima, sans-serif;
+  box-shadow: 0 1px #999;
+}
+#button2{
+  font-size:14pt;
+  background-color: #6C5881;
+  color: white;
+  border-radius: 12px;
+  border: 2px solid white;
+  text-align: center;
+  margin-top:10%;
+  /* margin-left: 48%; */
+  width: 22%;
+  font-family: Optima, sans-serif;
+  box-shadow: 0 1px #999;
+}
+#button1:hover ,#button2:hover {background-color: #BDAFC2}
+
+#button1:active ,#button2:active {
+  background-color: #6C5881;
+  box-shadow: 0 3px #666;
+  transform: translateY(4px);
+  }
+
+label{
+font-weight: bold;
+font-family:Optima, sans-serif;
+}
+input[type="text"]{
+font-weight: bold;
+font-family:Optima, sans-serif;
+border-radius: 4px;
+}
+input[type="password"]{
+font-weight: bold;
+font-family:Optima, sans-serif;
+border-radius: 4px;
+}
+
+span{
+  white-space: nowrap;
+  font-size: 13px;
+  color:#4060A1;
+  margin-left: 15px;
+}
+li {
+font-size: 15px;
+
+color:#4060A1;}
+.errorlist li{
+color:#E85858;
+}

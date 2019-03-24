@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up</title>
+
+  <link rel="stylesheet" type="text/css" href="{% static 'signup.css' %}">
+</head>
+<STYLE>A {text-decoration: none;} </STYLE>
+<body>
+  <div><a href="{% url 'signup' %}">Natto</a></div>
+  <div id ="signup">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div id="buttons">
+        <button type="submit" id="button1">Submit</button>
+        <button type="reset" id="button2">Reset</button>
+      </div>
+    </form>
+  </div>
+
+
+</body>
+</html>

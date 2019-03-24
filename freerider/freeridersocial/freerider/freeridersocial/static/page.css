@@ -1,0 +1,102 @@
+/*
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
+html
+{
+    width: 100%;
+    height: 100%;
+    background-color:#F7F9FE;
+    margin: 0px;
+}
+
+body{
+    background-position: center;
+    line-height: 1.5em;
+    margin: 0px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+div
+{
+    display: block;
+    font-family: Snell Roundhand, cursive;
+    font-size: 40px;
+    background-color: #7C9EE1;
+    color: white;
+    height: 80px;
+    margin-top: 0px;
+    left:0;
+    text-align: center;
+    line-height: 1.5em;
+    margin: 0px;
+}
+
+p
+{
+    display: block;
+    font-weight: bold;
+    text-align: center;
+
+}
+
+div a {
+    font-weight: bold;
+    color:white;}
+div a:hover, div a.current {
+    font-weight: bold;
+    color: white;}
+
+button {
+
+    font-size:14pt;
+    background-color: #7C9EE1;
+    color: white;
+    border-radius: 12px;
+    border: 2px solid white;
+    text-align: center;
+    margin-top: 40px;
+    margin-left: 45%;
+    width: 10%;
+    font-family:Optima, sans-serif;
+    box-shadow: 0 1px #999;
+  }
+button:hover {background-color: #7C9EE1}
+
+button:active {
+    background-color: #84A5E6;
+    box-shadow: 0 3px #666;
+    transform: translateY(4px);
+    }
+a {
+    color:#5482DE;}
+a:hover, a.current {
+    color: #88B0FE;}
+
+label{
+    font-weight: bold;
+    font-family:Optima, sans-serif;
+    }
+  input[type="text"]{
+    font-weight: bold;
+    font-family:Optima, sans-serif;
+    border-radius: 4px;    
+    }
+  input[type="password"]{
+    font-weight: bold;
+    font-family:Optima, sans-serif;
+    border-radius: 4px;    
+    }
