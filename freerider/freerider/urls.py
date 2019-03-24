@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
 import freeridersocial.profile
-import freeridersocial.views, freeridersocial.Posts, freeridersocial.Comments
+import freeridersocial.views, freeridersocial.Posts, freeridersocial.Comments, freeridersocial.FriendRequest
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', auth_views.LoginView.as_view(), name='login'),
@@ -42,4 +42,6 @@ urlpatterns = [
     path('posts/<uuid:post_id>/comments/add_comment/', freeridersocial.Comments.addComment.as_view() , name='addcomment'),
     path('posts/<uuid:post_id>/comments/', freeridersocial.Comments.get_comments.as_view(), name='comments_view'),
     path('posts/<uuid:post_id>/comments/view/', freeridersocial.views.comments_render, name='comments'),
+
+    paht('/friendrequest/', freeridersocial.FriendRequest.FriendRequest.as_view(), name='friend_request'),
 ]
