@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<!--{% load static %}-->
+{% load static %}
 {% load rest_framework %}
+<title>Posts</title>
+<link rel="stylesheet" href="{% static 'onePost.css' %}">
 
 <html><body>
 
@@ -45,12 +47,5 @@ container.appendChild(content);
         location.href = window.location.href + "comments/";
     };
 </script>
-
-{% if is_author %}
-<form action="{% url 'edit_post' serializer.id%}" method="GET">
-    {% csrf_token %}
-    <input type="submit" value = "Edit">
-</form>
-{% endif %}
 
 </body></html>

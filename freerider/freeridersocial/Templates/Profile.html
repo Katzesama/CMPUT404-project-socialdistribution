@@ -2,6 +2,8 @@
 <!--{% load static %}-->
 {% load rest_framework %}
 
+<title>Profile</title>
+<link rel="stylesheet" href="{% static 'profile.css' %}">
 <html><body>
 
 <h1>Profile - {{ serializer.displayName }}</h1>
@@ -23,6 +25,20 @@
 <form action="{% url 'edit_profile' serializer.id%}" method="GET">
     {% csrf_token %}
     <input type="submit" value = "Edit">
+</form>
+{% endif %}
+
+{% if not if_author %}
+<form action="" method="POST">
+    {% csrf_token %}
+
+    {% if able_friend %}
+    <input type="submit" value = "Send Friendrequest">
+    {% endif %}
+
+    {% if not able_friend %}
+    <input disabled type="submit" value = "Send Friendrequest">
+    {% endif %}
 </form>
 {% endif %}
 
