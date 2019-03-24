@@ -28,4 +28,18 @@
 </form>
 {% endif %}
 
+{% if not if_author %}
+<form action="" method="POST">
+    {% csrf_token %}
+
+    {% if able_friend %}
+    <input type="submit" value = "Send Friendrequest">
+    {% endif %}
+
+    {% if not able_friend %}
+    <input disabled type="submit" value = "Send Friendrequest">
+    {% endif %}
+</form>
+{% endif %}
+
 </body></html>

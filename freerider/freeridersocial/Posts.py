@@ -81,8 +81,6 @@ class upload_post(APIView):
             serializer.save()
             # return Response({'serializer':serializer, 'profile': current_user_profile})
             return redirect("get_one_post", new_post.id)
-        print(serializer.errors)
-        print(serializer.data["contentType"])
         return JsonResponse({'serializer': serializer.data})
 
 class my_post(APIView):
@@ -98,6 +96,45 @@ class my_post(APIView):
         res=PostSerializer(instance=pg_res, many=True)
         print(res.data)
         return pg_obj.get_paginated_response(res.data)
+
+def del_post(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    post.delete()
+    return redirect("my_posts")
+
+class edit_post(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'addpost.html'
+    def get(self, request, post_id, **kwargs):
+        try:
+            #print(user_id)
+            current_user_profile = request.user.author
+            post = get_object_or_404(Post, pk=post_id)
+        except:
+            return HttpResponse(status=404)
+        serializer = PostSerializer(post)
+        return Response({"serializer": serializer})
+
+    def post(self, request, post_id, **kwargs):
+        #try:
+            #print("not here")
+            #author = get_object_or_404(Author.objects.get(id=userid))
+            #if author == current_user_profile:
+        #print("aaaaaaaa"+str(preserve_id))
+        try:
+            #id = request.session["new_post_id"]
+            post = get_object_or_404(Post, pk=post_id)
+        except:
+            return HttpResponse(status=404)
+        serializer = PostSerializer(post, data = request.data)
+        if serializer.is_valid():
+            print("what's the matter")
+            serializer.save()
+            # return Response({'serializer':serializer, 'profile': current_user_profile})
+            return redirect("get_one_post", post.id)
+        print(serializer.errors)
+        print(serializer.data["contentType"])
+        return JsonResponse({'serializer': serializer.data})
 
 
 class get_one_post(APIView):

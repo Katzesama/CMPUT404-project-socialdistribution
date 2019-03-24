@@ -54,7 +54,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 class FriendSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=False)
     class Meta:
-        model = Friend
+        model = FriendRequest
         fields = "__all__"
 
 

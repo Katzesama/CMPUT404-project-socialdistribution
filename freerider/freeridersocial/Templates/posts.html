@@ -35,6 +35,20 @@ function show_post(data) {
         var description = document.createElement("p");
         description.innerHTML = "description: " + data.posts[i].description
         post.appendChild(description);
+        if ({{my_post|safe}}===true){
+          var edit_button = document.createElement("button");
+          edit_button.innerHTML = 'Edit';
+          var del_button = document.createElement("button");
+          del_button.innerHTML = 'Delete';
+          edit_button.onclick=function(){
+            location.href = '/posts/' + postid + '/edit_post/';
+          };
+          del_button.onclick=function(){
+            location.href = '/posts/' + postid + '/del_post/';
+          };
+          post.appendChild(edit_button);
+          post.appendChild(del_button);
+        }
         var line = document.createElement("hr");
         post.appendChild(line);
       if (data.next != null)

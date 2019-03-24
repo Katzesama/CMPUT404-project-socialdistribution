@@ -79,12 +79,12 @@ class Comment(models.Model):
     def __str__(self):
         return self.author.displayName + ": " + self.comment
 
-class Friend(models.Model):
+class FriendRequest(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     displayName = models.CharField(max_length=200,blank=True)
     host = models.URLField()
     url = models.URLField()
-    friend_with = models.ForeignKey(Author, on_delete=models.CASCADE)
-    friend_status = (('A','friend'),('W','waiting'),('R','reject'),)
+    friend_with = models.ForeignKey(Author, related_name="request_sender", on_delete=models.CASCADE)
+    friend_status = (('friend','friend'),('proceeding','proceeding'),('rejected','rejected'))
     def __str__(self):
         return self.displayName
