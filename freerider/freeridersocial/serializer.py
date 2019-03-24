@@ -70,7 +70,7 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = ("title", "source", "origin", "description", "contentType", "content",
             "author", "categories", "count", "size", "next", "comments", "published", "id", "visibility",
-            "visibleTo", "image","unlisted")
+            "visibleTo", "unlisted")
 
     def get_comments(self, obj):
         comments = Comment.objects.filter(post_id=obj.id).order_by('published')
