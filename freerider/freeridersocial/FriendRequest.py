@@ -11,8 +11,7 @@ from .serializer import FriendSerializer
 
 class FriendRequest(APIView):
     def get(self, request):
-        author_id = self.request.user.id
-        me = Author.objects.get(pk = author_id)
+        me = self.request.user.author
         friendrequests = FriendRequest.objects.filter(friend_with = me, friend_status = "proceeding")
         serializer = FriendSerializer(friendrequests, many=True)
 
@@ -34,4 +33,16 @@ class FriendRequest(APIView):
         #if me.url == receiver_url:
 
     def put(self, request):
+        ''' (('friend','friend'),('proceeding','proceeding'),('rejected','rejected')) '''
+        data = request.data
+        receiver = Author.objects.filter(self.request.user.author)
+        sender_url = data['sender_url']
+        decision = data['decision']
+        friend_request = Friend.objects.filter(url=sender_url, friend_with=receiver)
+        if decision = 'accept':
+            friend_request.friend_status = "friend"
+        elif decision = 'decline':
+            friend_request.friend_status = "rejected"
+        friend_request.save()
+        return Response(status=200)
         return Response(status=200)

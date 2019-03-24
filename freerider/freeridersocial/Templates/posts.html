@@ -37,7 +37,9 @@ function show_post(data) {
         post.appendChild(description);
         if ({{my_post|safe}}===true){
           var edit_button = document.createElement("button");
+          edit_button.innerHTML = 'Edit';
           var del_button = document.createElement("button");
+          del_button.innerHTML = 'Delete';
           edit_button.onclick=function(){
             location.href = '/posts/' + postid + '/edit_post/';
           };
