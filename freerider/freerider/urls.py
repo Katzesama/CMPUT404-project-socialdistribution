@@ -44,6 +44,6 @@ urlpatterns = [
     path('posts/<uuid:post_id>/comments/', freeridersocial.Comments.get_comments.as_view(), name='comments_view'),
     path('posts/<uuid:post_id>/comments/view/', freeridersocial.views.comments_render, name='comments'),
 
-    path('/friendrequest/', freeridersocial.FriendRequest.FriendRequest.as_view(), name='friend_request'),
-    path('/friendrequest/view/', freeridersocial.views.FriendRequest_render, name='friend_request')
+    path('friendrequest/', freeridersocial.FriendRequest.FriendRequest.as_view(), name='friend_request'),
+    path('friendrequest/view/', freeridersocial.views.FriendRequest_render, name='friend_request')
 ]
