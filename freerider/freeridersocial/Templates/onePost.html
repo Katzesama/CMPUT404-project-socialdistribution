@@ -7,6 +7,22 @@
 <html><body>
 
 <h1>Post - {{ serializer.title }}</h1>
+    
+</script>
+
+<button id="home" class="float-left submit-button" >Home</button>
+
+<script type="text/javascript">
+    document.getElementById("home").onclick = function () {
+        location.href = "{% url 'home' %}";
+    };
+</script>
+<button id="comment">Comments</button>
+<script type="text/javascript">
+    document.getElementById("comment").onclick = function () {
+        location.href = window.location.href + "comments/";
+    };
+</script>
 
 <div id="container">
     <ul>
@@ -43,20 +59,6 @@ else if (contentType == "text/markdown")
 }
 var container = document.getElementById("container");
 container.appendChild(content);
-</script>
 
-<button id="home" class="float-left submit-button" >Home</button>
-
-<script type="text/javascript">
-    document.getElementById("home").onclick = function () {
-        location.href = "{% url 'home' %}";
-    };
-</script>
-<button id="comment">Comments</button>
-<script type="text/javascript">
-    document.getElementById("comment").onclick = function () {
-        location.href = window.location.href + "comments/";
-    };
-</script>
 
 </body></html>
