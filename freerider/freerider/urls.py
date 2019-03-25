@@ -26,6 +26,8 @@ urlpatterns = [
     path('signup/done/', freeridersocial.views.signup_done, name='registration_complete'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('home/', freeridersocial.views.home, name='home'),
+    path('author/<uuid:user_id>/', freeridersocial.profile.ProfileDetail.as_view(), name='profile'),
+    path('author/<uuid:user_id>/editprofile', freeridersocial.profile.EditProfile.as_view(),name = 'edit_profile'),
 
     path('author/posts/', freeridersocial.Posts.visible_post.as_view(), name='get_post_for_user_view'),
     path('posts/', freeridersocial.Posts.public_post.as_view(), name='public_posts_view'),
@@ -42,6 +44,6 @@ urlpatterns = [
     path('posts/<uuid:post_id>/comments/', freeridersocial.Comments.get_comments.as_view(), name='comments_view'),
     path('posts/<uuid:post_id>/comments/view/', freeridersocial.views.comments_render, name='comments'),
 
-    paht('/friendrequest/', freeridersocial.FriendRequest.FriendRequest.as_view(), name='friend_request'),
-    paht('/friendrequest/view/', freeridersocial.views.FriendRequest_render, name='friend_request')
+    path('/friendrequest/', freeridersocial.FriendRequest.FriendRequest.as_view(), name='friend_request'),
+    path('/friendrequest/view/', freeridersocial.views.FriendRequest_render, name='friend_request')
 ]

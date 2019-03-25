@@ -145,7 +145,7 @@ class get_one_post(APIView):
             print("get here")
             post = get_object_or_404(Post, pk = post_id)
             if not request.user:
-                if post.unlisted=True or post.contentType='image/png;base64' or post.contentType='image/png;base64':
+                if post.unlisted==True or post.contentType=='image/png;base64' or post.contentType=='image/png;base64':
                     return HttpResponse(status=404)
         except:
             return HttpResponse(status=404)
