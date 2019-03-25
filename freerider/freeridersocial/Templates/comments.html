@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <!--{% load static %}-->
 {% load rest_framework %}
+<title>Comments</title>
+<link rel="stylesheet" href="{% static 'comments.css' %}">
+<STYLE>A {text-decoration: none;} </STYLE>
 
 <html><body>
 
 <h1>Comments</h1>
+<button id="home" class="float-left submit-button" >Home</button>
+
+<script type="text/javascript">
+    document.getElementById("home").onclick = function () {
+        location.href = "{% url 'home' %}";
+    };
+</script>
+
+<button id="add_comment" class="float-left submit-button" >Add Comment</button>
+
+<script type="text/javascript">
+    document.getElementById("add_comment").onclick = function () {
+    location.href = window.location.href + "add_comment/";
+    };
+</script>
 
 <p>Number of comments: {{count}}</p>
 
 <div id="holder"></div>
-<script src="https://raw.githubusercontent.com/jgm/commonmark.js/master/dist/commonmark.js"></script>
+<script type="application/javascript" src="https://raw.githubusercontent.com/jgm/commonmark.js/master/dist/commonmark.js"></script>
 <script type="text/javascript">
 function show_comment(data) {
     var holder = document.getElementById("holder");
@@ -89,21 +107,5 @@ function get_data_display(url) {
 
 get_data_display("{{fetch_url}}");
 
-</script>
-
-<button id="home" class="float-left submit-button" >Home</button>
-
-<script type="text/javascript">
-    document.getElementById("home").onclick = function () {
-        location.href = "{% url 'home' %}";
-    };
-</script>
-
-<button id="add_comment" class="float-left submit-button" >Add Comment</button>
-
-<script type="text/javascript">
-    document.getElementById("add_comment").onclick = function () {
-    location.href = window.location.href + "add_comment/";
-    };
 </script>
 </body></html>

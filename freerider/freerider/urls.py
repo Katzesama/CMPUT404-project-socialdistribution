@@ -40,7 +40,7 @@ urlpatterns = [
     path('addpost/', freeridersocial.Posts.upload_post.as_view(), name='add_post'),
     path('posts/<uuid:post_id>/del_post/', freeridersocial.Posts.del_post, name='del_post'),
     path('posts/<uuid:post_id>/edit_post/', freeridersocial.Posts.edit_post.as_view(), name='edit_post'),
-    path('posts/<uuid:post_id>/comments/add_comment/', freeridersocial.Comments.addComment.as_view() , name='addcomment'),
+    path('posts/<uuid:post_id>/comments/view/add_comment/', freeridersocial.Comments.addComment.as_view() , name='addcomment'),
     path('posts/<uuid:post_id>/comments/', freeridersocial.Comments.get_comments.as_view(), name='comments_view'),
     path('posts/<uuid:post_id>/comments/view/', freeridersocial.views.comments_render, name='comments'),
 

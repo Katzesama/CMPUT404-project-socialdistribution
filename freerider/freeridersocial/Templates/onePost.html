@@ -20,7 +20,7 @@
 <button id="comment">Comments</button>
 <script type="text/javascript">
     document.getElementById("comment").onclick = function () {
-        location.href = window.location.href + "comments/";
+        location.href = window.location.href + "comments/view/";
     };
 </script>
 
@@ -32,7 +32,7 @@
 <input type="hidden" value="{{serializer.contentType}}" id="contentType">
 <input type="hidden" value="{{serializer.content}}" id="content">
 <!-- <script src="https://raw.githubusercontent.com/jgm/commonmark.js/master/dist/commonmark.js"></script> -->
-<script src='{commonmark.js}'></script>
+<script type="application/javascript" src="https://cdn.rawgit.com/jgm/commomark.js/master/dist/commmonmark.js"></script>
 <script type="text/javascript">
  var contentType = document.getElementById("contentType").value;
  var content_value = document.getElementById("content").value
