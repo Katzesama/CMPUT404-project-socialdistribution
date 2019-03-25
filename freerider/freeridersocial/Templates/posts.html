@@ -22,7 +22,7 @@
     document.getElementById("addpost").onclick = function() {
         location.href = "{% url 'add_post' %}";
     };
-</script>
+  </script>
     
 <div id="holder"></div>
 <script type="text/javascript">
@@ -52,7 +52,7 @@ function show_post(data) {
         var description = document.createElement("p");
         description.innerHTML = "description: " + data.posts[i].description
         post.appendChild(description);
-        if ({{my_post|safe}}===true){
+        if ({{is_my_post|safe}}===true){
           var edit_button = document.createElement("button");
           edit_button.innerHTML = 'Edit';
           var del_button = document.createElement("button");
@@ -112,5 +112,6 @@ function get_data_display(url) {
 }
 
 get_data_display("{{fetch_url}}");
+</script>
 
 </body></html>

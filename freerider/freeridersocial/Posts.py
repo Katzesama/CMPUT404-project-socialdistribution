@@ -94,7 +94,7 @@ class my_post(APIView):
         pg_obj=PaginationModel()
         pg_res=pg_obj.paginate_queryset(queryset=posts, request=request)
         res=PostSerializer(instance=pg_res, many=True)
-        print(res.data)
+        print("Get My Post!!!!!!!!!!!!!")
         return pg_obj.get_paginated_response(res.data)
 
 def del_post(request, post_id):
