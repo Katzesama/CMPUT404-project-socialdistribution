@@ -78,7 +78,10 @@ nav li a {
   padding-left: 10px;
   margin-left: 20px;
   font-size: 17px;
-  color:#4060A1;}
+  color:#4060A1;
+  font-weight: bold;
+
+}
 
 
   nav li a:hover, nav li a.current {
@@ -94,17 +97,17 @@ nav li a {
   padding-top: 15px;
   padding-left: 0px;
   margin-left: 20px;
-  font-size: 18px;
-  color: #491A4F;
+  font-size: 13px;
+  color: #DD678C
   
   font-weight: bold;
   }
 
   #logout:hover, #logout.current {
-  color:#DD678C;
+  color: #491A4F;
   /* background-color: white; */
   /* background:rgba(245, 248, 254, 0.5); */
-  font-size: 20px;
+  font-size: 15px;
 }
 
   .main {
