@@ -10,9 +10,9 @@ from rest_framework.renderers import JSONRenderer
 from .serializer import FriendSerializer
 
 class FriendRequest(APIView):
-    def get(self, request):
-        author_id = self.request.user.id
-        me = Author.objects.get(pk = author_id)
+    # def get(self, request):
+    #     author_id = self.request.user.id
+    #     me = Author.objects.get(pk = author_id)
     def get(self, request):
         me = self.request.user.author
         friendrequests = FriendRequest.objects.filter(friend_with = me, friend_status = "proceeding")
@@ -55,4 +55,4 @@ class FriendRequest(APIView):
             friend_request.friend_status = "rejected"
         friend_request.save()
         return Response(status=200)
-        return Response(status=200)
+        #return Response(status=200)

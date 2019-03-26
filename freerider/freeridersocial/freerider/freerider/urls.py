@@ -13,6 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+"""
+http://service/author/posts (posts that are visible to the currently authenticated user)
+http://service/posts (all posts marked as public on the server)
+-http://service/author/{AUTHOR_ID}/posts (all posts made by {AUTHOR_ID} visible to the currently authenticated user)
+http://service/posts/{POST_ID} access to a single post with id = {POST_ID}
+http://service/posts/{post_id}/comments access to the comments in a post
+# ask a service GET http://service/author/<authorid>/friends/ if friend or not
+# POST to http://service/author/<authorid>/friends ask a service if anyone in the list is a friend
+
+
+"""
 from django.contrib import admin
 from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
@@ -43,5 +54,10 @@ urlpatterns = [
     path('posts/<uuid:post_id>/comments/view/', freeridersocial.views.comments_render, name='comments'),
 
     path('/friendrequest/', freeridersocial.FriendRequest.FriendRequest.as_view(), name='friend_request'),
-    path('/friendrequest/view/', freeridersocial.views.FriendRequest_render, name='friend_request')
+    path('/friendrequest/view/', freeridersocial.views.FriendRequest_render, name='friend_request'),
+    path('/author/<authorid1>/friends/<service2>/author/<authorid2>/', freeridersocial.FriendList.CheckIfFriend, name='check_if_friend'),
+    path('/friends/<friendid>/delete_friend/',freeridersocial.FriendList.DeleteFriend, name = 'delete_friend'),
+    path('/author/<authorid>/friends/', freeridersocial.FriendList.FriendsOfAuthor, name='get_user_friends'),
+    path('/myfriends/', freeridersocial.FriendList.FriendList.as_view(), name= 'myfriends'),
+
 ]
