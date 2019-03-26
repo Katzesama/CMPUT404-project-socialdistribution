@@ -180,28 +180,28 @@ nav img {
 .pro div{
     background-color: #FCFCFE;
 }
+
 .pro a{
-    font-family: Gill Sans, sans-serif;
-    font-size: 20px;
-    color: #6C5881;
-    height: 20px;
-    margin-top: 10px;
-    margin-left: 30px;
-    line-height: 1.5em;
-    font-weight: bold;
+  font-family: Gill Sans, sans-serif;
+  font-size: 20px;
+  color: #6C5881;
+  height: 20px;
+  margin-top: 10px;
+  margin-left: 30px;
+  line-height: 1.5em;
+  font-weight: bold;
 }
 .pro a:hover {
-  color: #6C5881;
+color: #6C5881;
 }
 .pro a:active {
-    color:rgb(159, 136, 184);
-    /* box-shadow: 0 3px #666; */
-    transform: translateY(4px);
-    }
+  color:rgb(159, 136, 184);
+  /* box-shadow: 0 3px #666; */
+  transform: translateY(4px);
+  }
 .pro a:link, a:visited {
-    color: #6C5881;
+  color: #6C5881;
 }
-
 .pro p
 {
     
@@ -240,7 +240,26 @@ nav img {
 
 .pro #home,#addpost {
   display:inline-block;
+    font-size:14pt;
+    background-color: #6C5881;
+    color: white;
+    padding-top:5px;
+    border: none;
+    text-align: center;
+    width: 150px;
+    margin-left:47%;
+    height:33px;
+    font-family:Optima, sans-serif;
 
+}
+
+#home,#addpost:hover {
+  background-color: #6C5881;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+#home,#addpost:active {
+    background-color: #6C5881;
+    /* box-shadow: 0 3px #666; */
 }
 
 .pro #home {
@@ -248,6 +267,7 @@ nav img {
     margin-top: 0px;
     margin-bottom: 0px;
     width: 150px;
+    
 }
 .pro #home span {
     cursor: pointer;
