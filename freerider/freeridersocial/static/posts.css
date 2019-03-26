@@ -324,3 +324,8 @@ color: #6C5881;
     opacity: 1;
     right: 0;
   }
+  #sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
