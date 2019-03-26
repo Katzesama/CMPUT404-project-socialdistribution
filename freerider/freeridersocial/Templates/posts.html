@@ -6,23 +6,46 @@
 <STYLE>A {text-decoration: none;} </STYLE>
 <html><body>
 
+<div class="nav">
+    <a class="title" href="{% url 'home' %}">Natto</a>Natto
+    <nav>
+
+        <form  arial-label="profile picture" accept-charset="UTF-8" method="post">
+            <img src="{% static 'profile.png' %}" class="image-circle">
+        <input type="text" placeholder="Search..">
+        <ul>
+            <li><a href=".">Profile</a></li>
+            <li><a href="{% url 'my_posts' %}">My Post</a></li>
+            <li><a href="{% url 'get_post_for_user' %}">Other's Posts</a></li>
+            <li><a href="#">Followers</a></li>
+            <li><a href="#">My photos</a></li>
+            <li><a href="#">Friend Requests</a></li>
+            <li><a id='logout' href="{% url 'logout' %}">LOGOUT</a></li>
+
+        </ul>
+    </nav>
+</div>
+
+<div class='pro'>
+
 <h1>Posts</h1>
-    
-<button id="home" class="float-left submit-button" ><span>Home</span></button>
+
+<a id = "home" class="float-left submit-button" href = "{% url 'home' %}">Home</a>
+<!-- <button id="home" class="float-left submit-button" ><span>Home</span></button>
 
 <script type="text/javascript">
     document.getElementById("home").onclick = function () {
         location.href = "{% url 'home' %}";
     };
-</script>
+</script> -->
+<a id='addpost' class="float-right submit-button" href = "{% url 'add_post' %}">ADD POST</a>
 
-
-<button id='addpost' class='float-right submit-button'><span>ADD POST </span></button>
+<!-- <button id='addpost' class='float-right submit-button'><span>ADD POST </span></button>
 <script type="text/javascript">
     document.getElementById("addpost").onclick = function() {
         location.href = "{% url 'add_post' %}";
     };
-  </script>
+  </script> -->
     
 <div id="holder"></div>
 <script type="text/javascript">
@@ -113,5 +136,6 @@ function get_data_display(url) {
 
 get_data_display("{{fetch_url}}");
 </script>
+</div>
 
 </body></html>
