@@ -46,7 +46,7 @@ nav {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
   }
-.title
+.nav .title
 {
     display: block;
     font-family: Snell Roundhand, cursive;
@@ -63,18 +63,18 @@ nav {
 
 }
 
-nav ul {
+.nav  nav ul {
     margin: 0px;
     padding: 10px 0px 0px 0px;
     width: 100%;
     
   }
-nav li {
+  .nav  nav li {
     display: inline;
     margin-left: 0px;
     background-position: right;
   }
-nav li a {
+  .nav  nav li a {
   
   text-decoration: none;
   padding-top: 15px;
@@ -86,7 +86,7 @@ nav li a {
 }
 
 
-  nav li a:hover, nav li a.current {
+.nav  nav li a:hover, .nav  nav li a.current {
   color: #6F78AA;
   /* background-color: white; */
   /* background:rgba(245, 248, 254, 0.5); */
@@ -140,24 +140,25 @@ nav img {
   float: right;
   }
 
-  .pro h1
-  {
-      display: block;
-      font-family: Gill Sans, sans-serif;
-      margin-left: 300px;
-      margin-right:300px;
-      font-size: 30px;
-      background-color: #735C81;
-      color: white;
-      height: 50px;
-      margin-top: 60px;
-      margin-bottom:0px;
-      text-align: center;
-      line-height: 1.5em;
-      font-weight: bold;
-      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  
-  }
+.pro h1
+{
+    display: block;
+    font-family: Gill Sans, sans-serif;
+    margin-left: 300px;
+    margin-right:300px;
+    font-size: 30px;
+    background-color: #735C81;
+    color: white;
+    height: 50px;
+    margin-top: 60px;
+    margin-bottom:0px;
+    text-align: center;
+    line-height: 1.5em;
+    font-weight: bold;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+}
+
 
 .pro #holder{
     font-family: Gill Sans, sans-serif;
