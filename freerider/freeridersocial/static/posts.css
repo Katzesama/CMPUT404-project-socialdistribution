@@ -139,7 +139,9 @@ nav img {
   
   float: right;
   }
-
+.pro{
+  margin-top: 150px;
+}
 .pro h1
 {
     display: block;
@@ -161,24 +163,22 @@ nav img {
 
 
 .pro #holder{
-    font-family: Gill Sans, sans-serif;
-    font-size: 12px;
-    color: #6C5881;
-    height: 20px;
-    margin-top: 30px;
-    padding-bottom: 10px;
-    line-height: 1.5em;
-    font-weight: bold;
-    margin-left: 170px;
-    margin-right: 170px;
-    
+  padding: 10px 20px 30px 10px;
+  list-style-type: none;
+  font-size: 20px;
+  margin-left: 300px;
+  margin-right:300px;
+  margin-top:0px;
+  background-color: white;
+  
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 .por hr{
     color: #EEEDED;
 }
 
 .pro div{
-    background-color: #FCFCFE;
+    background-color: white;
 }
 
 .pro a{
@@ -207,12 +207,12 @@ color: #6C5881;
     
     font-family: Gill Sans, sans-serif;
     font-size: 20px;
-    color: rgb(159, 136, 184);
     height: 100px;
     margin-top: 30px;
     line-height: 1.5em;
     font-weight: bold;
     margin-left: 30px;
+    color:rgb(159, 136, 184);
 }
 
 .pro button {
@@ -250,6 +250,8 @@ color: #6C5881;
     margin-left:47%;
     height:33px;
     font-family:Optima, sans-serif;
+    position: fixed;
+    margin-top: -50px;
 
 }
 
@@ -264,7 +266,7 @@ color: #6C5881;
 
 .pro #home {
     margin-left:10px;
-    margin-top: 0px;
+    
     margin-bottom: 0px;
     width: 150px;
     
@@ -294,8 +296,7 @@ color: #6C5881;
     left: 0;
   }
   .pro #addpost {
-    margin-left:950px;
-    margin-top: 0px;
+    margin-left:1110px;
     width: 150px;
     
 }
