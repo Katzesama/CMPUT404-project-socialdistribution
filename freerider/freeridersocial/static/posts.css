@@ -217,9 +217,9 @@ color: #6C5881;
 
 .pro button {
 
-    font-size:14pt;
-    background-color: #6C5881;
-    color: white;
+    font-size:15pt;
+    background-color: white;
+    color: #6C5881;
     border: none;
     text-align: center;
     width: 150px;
@@ -227,13 +227,15 @@ color: #6C5881;
     height:40px;
     font-family:Optima, sans-serif;
     margin-top:420px;
+    font-weight: bold
   } 
 .pro button:hover {
-  background-color: #6C5881;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  background-color: white;
+  /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
+  color:rgb(159, 136, 184);
 }
 .pro button:active {
-    background-color: #6C5881;
+    background-color: white;
     /* box-shadow: 0 3px #666; */
     /* transform: translateY(4px); */
 }
