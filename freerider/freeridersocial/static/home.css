@@ -1,4 +1,3 @@
-
 /*
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -38,7 +37,7 @@ nav {
     width: 100%;
     height: 50px;
     background-color: #F0F1F1;
-    overflow-x: hidden; 
+    /* overflow-x: hidden;  */
     padding-top: 0px;
     text-align: center;
     font-family:Gill Sans, sans-serif;
@@ -138,95 +137,3 @@ nav img {
   float: right;
   }
 
-
-/* back to top button, still modifying... */
-#backtop {
-  position: fixed;
-  bottom: 20px; 
-  right: 30px; 
-  z-index: 99; 
-  border: none; 
-  outline: none; 
-  background-color: black; 
-  color: white; 
-  cursor: pointer; 
-  padding: 15px; 
-  border-radius: 10px; 
-  font-size: 18px; 
-
-}
-
-#backtop:hover {
-    background-color: rgb(233, 233, 233); 
-}
-
-/* post basic */
-
-#container{
-    margin-left: 25%;
-    margin-right: 20%;
-    margin-top:100px;
-    height: 240px;
-    width : 700px;
-    background-color: white;
-}
-
-
-
-.share{
-    color:#6C5881;
-    margin-top:10px;
-    margin-left: 20px;
-    font-size: 20px;
-    height: 30px;
-    font-family: Comic Sans MS, Comic Sans, cursive;
-}
-
-.input{
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top:10px;
-    width : 600px;
-    height: 150px;
-    background-color: white;
-}
-textarea[name="shares"]{
-    font-family: Optima, sans-serif;
-    border-radius: 4px;
-    margin-left: 10px;
-    margin-bottom: 70px;
-    width : 660px;
-    height:150px;
-    font-size: 20px;
-    border: 2px solid rgb(235, 235, 235);
-    resize: none;
-    }
-
-
-.options{
-    width : 250px;
-    height:40px;
-    margin-top:10px;
-}    
- 
-  
-#button_s {
-
-    font-size:14pt;
-    background-color: #6C5881;
-    color: white;
-    border-radius: 8px;
-    border: 2px solid white;
-    text-align: center;
-    width: 100px;
-    font-family:Optima, sans-serif;
-    box-shadow: 0 1px #999;
-  }
-  #button_s:hover {
-  background-color: #BDAFC2;
-}
-#button_s:active {
-    background-color: #946C99;
-    /* box-shadow: 0 3px #666; */
-    transform: translateY(4px);
-    }
