@@ -89,7 +89,7 @@ if ( contentType == "image/png;base64" || contentType == "image/jpeg;base64")
 }
 else if (contentType == "text/plain")
 {
-  var content = document.createElement("p");
+  var content = document.createElement("textarea");
   content.innerHTML = content_value;
 }
 else if (contentType == "text/markdown")

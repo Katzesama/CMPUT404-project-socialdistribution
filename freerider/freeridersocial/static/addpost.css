@@ -164,7 +164,7 @@ h1
     font-size: 18px;
     background-color:#735C81;
     color:  white;
-    height: 50px;
+    height: 70px;
     margin-top: 0px;
     margin-bottom:0px;
     text-align: center;
@@ -176,7 +176,7 @@ h1
     margin-left: 300px;
     margin-right:300px;
     margin-top:0px;
-    margin-bottom:20px;
+    margin-bottom:50px;
     
     
 }
@@ -242,6 +242,18 @@ textarea {
     border-radius: 8px;
     color:#735C81;
     border: 1px solid #DDDBDF;
+}
+textarea[name = content] {
+  height :50px;
+  width:300px;
+  resize: none;
+  /* position:fixed; */
+  border: none;
+  border-radius: 8px;
+  color:#735C81;
+  margin-left: 20px;
+  
+  border: 1px solid #DDDBDF;
 }
 
 #sticky {

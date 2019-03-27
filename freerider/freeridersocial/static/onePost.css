@@ -285,20 +285,24 @@ color: #6C5881;
   padding-top: 23px;
 }
 
-#container p{
+#container textarea{
   background-color: white;
   color: #6C5881;
   font-family:Optima, sans-serif;
   font-size:12pt;
+  resize: none;
+  /* position:fixed; */
+  border: none;
   text-decoration: none;
   margin-left: 30px;
-  margin-right: 30px;
+  width:420px;
   font-weight: bold;
   list-style-type: none;
   border: none;
   border-radius: 8px;
-  margin-bottom: 20px;
-  height:50px;
+  min-height: 5em;
+  /* height:100px; */
+  overflow: auto;
 }
 
 .pro #home {
