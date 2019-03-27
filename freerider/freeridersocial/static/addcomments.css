@@ -147,7 +147,7 @@ h1
   background-color: #735C81;
   color: white;
   height: 50px;
-  margin-top: 150px;
+  margin-top: 200px;
   margin-bottom:0px;
   text-align: center;
   line-height: 1.5em;
@@ -162,8 +162,8 @@ h1
     margin-left: 300px;
     margin-right:300px;
     font-size: 18px;
-    background-color: white;
-    color: #735C81;
+    background-color: #735C81;
+    color: white;
     height: 60px;
     margin-top: 0px;
     margin-bottom:0px;
@@ -202,7 +202,10 @@ input[class = "form-control"] {
     border: 1px solid #DDDBDF;
   } 
 
-
+  select{
+    color:#735C81;
+    margin-left: 10px;
+  }
 input[value = Save] {
 
 
@@ -221,12 +224,12 @@ input[value = Save] {
     font-family:Optima, sans-serif;
   } 
 input[value = Save]:hover {
-    background-color: #6C5881;
+    background-color: #FED901;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
 }
 input[value = Save]:active {
-    background-color: #6C5881;
+    background-color: #FED901;
     /* box-shadow: 0 3px #666; */
     transform: translateY(4px);
     } 
@@ -238,6 +241,7 @@ textarea {
     border: none;
     border-radius: 8px;
     border: 1px solid #DDDBDF;
+    color:#6C5881;
 }
 
 #sticky {

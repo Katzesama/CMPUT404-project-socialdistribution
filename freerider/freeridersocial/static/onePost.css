@@ -161,13 +161,13 @@ nav img {
 {
     display: block;
     font-family: Gill Sans, sans-serif;
-    margin-left: 140px;
+    margin-left: 100px;
     margin-right:0px;
-    font-size: 40px;
+    font-size: 32px;
     background-color: #735C81;
     color: white;
-    height: 50px;
-    margin-top: 60px;
+    height: 60px;
+    margin-top: 100px;
     margin-bottom:0px;
     text-align: center;
     line-height: 1.5em;
@@ -275,6 +275,17 @@ color: #6C5881;
   list-style-type: none;
 }
 
+
+#container p{
+  color: white;
+  font-family:Optima, sans-serif;
+  font-size:12pt;
+  text-decoration: none;
+  margin-left: 50px;
+  font-weight: bold;
+  list-style-type: none;
+}
+
 .pro #home {
   display:inline-block;
     font-size:14pt;
@@ -303,7 +314,6 @@ color: #6C5881;
     width: 200px;
     height:40px;
     font-family:Optima, sans-serif;
-    margin-top: -50px;
     border-radius: 8px;
 
 }
@@ -313,7 +323,7 @@ color: #6C5881;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 #comment:hover {
-  background-color: FED901;
+  background-color: #FED901;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 #home:active {
@@ -321,7 +331,7 @@ color: #6C5881;
     /* box-shadow: 0 3px #666; */
 }
 #comment:active {
-  background-color: FED901;
+  background-color: #FED901;
   /* box-shadow: 0 3px #666; */
 }
 

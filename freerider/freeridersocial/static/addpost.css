@@ -162,18 +162,17 @@ h1
     margin-left: 0px;
     margin-right:0px;
     font-size: 18px;
-    background-color: white;
-    color: #735C81;
+    background-color:#735C81;
+    color:  white;
     height: 50px;
     margin-top: 0px;
     margin-bottom:0px;
     text-align: center;
     line-height: 1.5em;
     font-weight: bold;
-    /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
 }
 .pro{
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
     margin-left: 300px;
     margin-right:300px;
     margin-top:0px;
@@ -182,6 +181,10 @@ h1
     
 }
 
+select{
+  color:#735C81;
+  margin-left: 10px;
+}
 label{
     padding-top:50px;
 }
@@ -194,7 +197,7 @@ span{
 }
 
 input[class = "form-control"] {
-
+    color:#735C81;
     width: 200px;
     margin-left:20px;   
     height:20px;
@@ -208,7 +211,7 @@ input[value = Save] {
 
 
     font-size:14pt;
-    background-color: #6C5881;
+    background-color: #735C81;
     color: white;
     border: none;
     border-radius: 8px;
@@ -222,12 +225,12 @@ input[value = Save] {
     font-family:Optima, sans-serif;
   } 
 input[value = Save]:hover {
-    background-color: #6C5881;
+    background-color: #FED901;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
 }
 input[value = Save]:active {
-    background-color: #6C5881;
+    background-color: #FED901;
     /* box-shadow: 0 3px #666; */
     transform: translateY(4px);
     } 
@@ -237,6 +240,7 @@ textarea {
     /* position:fixed; */
     border: none;
     border-radius: 8px;
+    color:#735C81;
     border: 1px solid #DDDBDF;
 }
 

@@ -207,7 +207,7 @@ input[value = Save] {
 
 
     font-size:14pt;
-    background-color: #6C5881;
+    background-color: #735C81;
     color: white;
     border: none;
     border-radius: 8px;
@@ -220,12 +220,12 @@ input[value = Save] {
     font-family:Optima, sans-serif;
   } 
 input[value = Save]:hover {
-    background-color: #6C5881;
+    background-color: #FED901;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
 }
 input[value = Save]:active {
-    background-color: #6C5881;
+    background-color: #FED901;
     /* box-shadow: 0 3px #666; */
     transform: translateY(4px);
     } 
