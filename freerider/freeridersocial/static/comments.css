@@ -150,15 +150,19 @@ nav img {
 .pro{
   margin-top: 150px;
   margin-bottom:40px;
+  background-color: #735C81;
+  height: 1000px;
+  margin-left: 400px;
+  margin-right:400px;
   
 }
 .pro h1
 {
     display: block;
     font-family: Gill Sans, sans-serif;
-    margin-left: 400px;
-    margin-right:400px;
-    font-size: 30px;
+    margin-left: 140px;
+    margin-right:0px;
+    font-size: 40px;
     background-color: #735C81;
     color: white;
     height: 50px;
@@ -167,7 +171,7 @@ nav img {
     text-align: center;
     line-height: 1.5em;
     font-weight: bold;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
 
 }
 
@@ -176,11 +180,12 @@ nav img {
   
   list-style-type: none;
   font-size: 20px;
-  margin-left: 400px;
-  margin-right:400px;
+  margin-left: 10px;
+  margin-right:10px;
   margin-top:0px;
   background-color: white;
-  margin-bottom:0px;
+  margin-bottom:10px;
+  
   bottom:0px;
   
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
@@ -228,9 +233,9 @@ color: #6C5881;
     
     line-height: 1.5em;
     font-weight: bold;
-    margin-left: 400px;
+    margin-left: 20px;
     
-    color:rgb(159, 136, 184);
+    color:white;
 }
 
 .pro button  {
@@ -258,37 +263,61 @@ color: #6C5881;
     /* transform: translateY(4px); */
 }
 
-.pro #home,#add_comment {
+.pro #home {
   display:inline-block;
     font-size:14pt;
-    background-color: #6C5881;
-    color: white;
-    padding-top:5px;
+    background-color: white;
+    color: #6C5881;
+    padding-top:0px;
     border: none;
     text-align: center;
     width: 150px;
     margin-left:47%;
     height:33px;
     font-family:Optima, sans-serif;
-    position: fixed;
-    margin-top: -50px;
+    border-radius: 8px;
 
 }
 
-#home,#add_comment:hover {
-  background-color: #6C5881;
+
+#add_comment {
+  display:inline-block;
+    font-size:14pt;
+    background-color: #FEE209;
+    color: white;
+    padding-top:5px;
+    border: none;
+    text-align: center;
+    width: 200px;
+    height:40px;
+    font-family:Optima, sans-serif;
+    margin-top: -50px;
+    border-radius: 8px;
+
+}
+
+#home:hover {
+  background-color: white;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
-#home,#add_comment:active {
-    background-color: #6C5881;
+#add_comment:hover {
+  background-color: #FEE102;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+#home:active {
+    background-color: white;
     /* box-shadow: 0 3px #666; */
+}
+#add_comment:active {
+  background-color: #FEE102;
+  /* box-shadow: 0 3px #666; */
 }
 
 .pro #home {
     margin-left:10px;
     
-    margin-bottom: 0px;
-    width: 150px;
+    margin-top: -20px;
+    width: 80px;
     
 }
 .pro #home span {
@@ -316,8 +345,8 @@ color: #6C5881;
     left: 0;
   }
   .pro #add_comment {
-    margin-left:1110px;
-    width: 150px;
+    margin-left:230px;
+    width: 200px;
     
 }
 
