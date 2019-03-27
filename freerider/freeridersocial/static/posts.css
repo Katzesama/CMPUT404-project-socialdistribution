@@ -251,7 +251,7 @@ color: #6C5881;
   font-size:12pt;
   margin-bottom:0px;
   background-color: white;
-  /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
   color:rgb(159, 136, 184);
 }
 .pro button:active {
@@ -273,6 +273,8 @@ color: #6C5881;
     height:33px;
     font-family:Optima, sans-serif;
     position: fixed;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
     margin-top: -50px;
 
 }
@@ -283,7 +285,6 @@ color: #6C5881;
 }
 #home,#addpost:active {
     background-color: #6C5881;
-    /* box-shadow: 0 3px #666; */
 }
 
 .pro #home {
