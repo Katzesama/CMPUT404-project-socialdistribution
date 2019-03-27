@@ -152,7 +152,7 @@ nav img {
   margin-top: 150px;
   margin-bottom:40px;
   background-color: #735C81;
-  height: 1000px;
+  
   margin-left: 400px;
   margin-right:400px;
   
@@ -264,26 +264,41 @@ color: #6C5881;
     /* transform: translateY(4px); */
 }
 
+#container {
 
+  padding-bottom: 50px;
+
+}
 
 #container ul{
   color: white;
   font-family:Optima, sans-serif;
   font-size:15pt;
+  padding-top:10px;
+  padding-bottom: 0px;
   text-decoration: none;
   font-weight: bold;
   list-style-type: none;
 }
 
+#container li{
+  padding-top: 23px;
+}
 
 #container p{
-  color: white;
+  background-color: white;
+  color: #6C5881;
   font-family:Optima, sans-serif;
   font-size:12pt;
   text-decoration: none;
-  margin-left: 50px;
+  margin-left: 30px;
+  margin-right: 30px;
   font-weight: bold;
   list-style-type: none;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  height:50px;
 }
 
 .pro #home {
