@@ -7,8 +7,67 @@ from .serializer import AuthorSerializer, FriendSerializer
 from django.http import HttpResponse, JsonResponse
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.renderers import JSONRenderer
-import requests
+import requests, json
 from rest_framework import status
+from collections import OrderedDict
+from rest_framework import status
+
+# Profile API calls
+# GET http://service/author/9de17f29c12e8f97bcbbd34cc908f1baba40658e
+# Enables viewing of foreign author's profiles
+#
+# Response
+#{
+  # "id":"http://service/author/9de17f29c12e8f97bcbbd34cc908f1baba40658e",
+  # "host":"http://127.0.0.1:5454/",
+  # "displayName":"Lara",
+  # "url":"http://127.0.0.1:5454/author/9de17f29c12e8f97bcbbd34cc908f1baba40658e",
+  # "friends": [
+  #   {
+  #     "id":"http://127.0.0.1:5454/author/8d919f29c12e8f97bcbbd34cc908f19ab9496989",
+  #     "host":"http://127.0.0.1:5454/",
+  #     "displayName":"Greg",
+  #     "url": "http://127.0.0.1:5454/author/8d919f29c12e8f97bcbbd34cc908f19ab9496989"
+  #   }
+  # ],
+class HandleProfile(APIView):
+    '''handle get an author's profile request'''
+    def get(self, request, authorid):
+        try:
+            author = get_object_or_404(Author, pk=authorid)
+            # serializer = AuthorSerializer(author)
+            # return JsonResponse(serializer.data)
+            host = author.host + '/'
+            id = host + 'author/'+author.id
+            displayName = author.displayName
+            url = id
+            friendlist = []
+            friendrequests = FriendRequest.objects.filter(url = author.url)
+            for friendrequest in friendrequests:
+                if friendrequest.friend_status == 'friend':
+                    friend = friendrequest.friend_with
+                    frienddict = {}
+                    frienddict['id'] = friend.url
+                    frienddict['host'] = friend.host
+                    frienddict['displayName'] = friend.displayName
+                    frienddict['url'] = friend.url
+                    friendlist.append(frienddict)
+
+
+
+            response = {
+                'id': id,
+                'host': host,
+                'displayName': displayName,
+                'url': url,
+                'friends':friendlist,
+            }
+
+            return Response(json.dumps(response),status=status.HTTP_200_OK)
+
+
+        except:
+            return HttpResponse(status=404)
 
 
 class ProfileDetail(APIView):
@@ -30,11 +89,16 @@ class ProfileDetail(APIView):
         able_friend = True
         friends = FriendRequest.objects.filter(url = current_user_profile.url)
         for friend in friends:
-            if friend.url == author.url and friend.friend_status == "friend":
+            try:
+                friendrequest = FriendRequest.objects.filter(url = request.user.author.url, friend_status = "friend")
                 able_friend = False
+            except:
+                pass
 
-            elif friend.url == author.url and friend.friend_status == "proceeding":
-                able_friend == False
+            try:
+                friendrequest = FriendRequest.objects.filter(url = request.user.author.url, friend_status = "proceeding")
+            except:
+                pass
 
         return Response({'serializer':serializer.data, 'if_author': current_author, 'able_friend': able_friend})
 
@@ -43,18 +107,6 @@ class ProfileDetail(APIView):
         template_name = 'Profile.html'
         '''Check pre-request of friend request'''
         me = request.user.author
-        # already_friend = False
-        # proceeding = False
-        # friends = FriendRequest.objects.filter(url = me.url) #data structure of friends?
-        # for friend in friends:
-        #     if friend.url == author_obj.url and friend.friend_status == "friend":
-        #         already_friend = True
-        #     elif friend.url == author_obj.url and friend.friend_status == "proceeding":
-        #         proceeding == True
-        # if already_friend:
-        #     return HttpResponse("You two are already friends", status=403)
-        # elif proceeding:
-        #     return HttpResponse("Friend request is proceeding", status=403)
 
         '''proceed friend request'''
         host = author_obj.url.split('/author/')[0]
@@ -77,6 +129,7 @@ class ProfileDetail(APIView):
         '''save friend object'''
         friendRequest = FriendRequest.objects.create(url = me.url, friend_with = author_obj.url, friend_status = "proceeding")
         friendRequest.save()
+
 
 
         '''send friend request out to the foreign host'''
