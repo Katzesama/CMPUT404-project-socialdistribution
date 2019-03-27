@@ -57,7 +57,7 @@ function myFunction() {
         location.href = "{% url 'home' %}";
     };
 </script> -->
-<a id='addpost' class="float-right submit-button" href = "{% url 'add_post' %}"><span>ADD POST </span></a>
+<a id='addpost' class="float-right submit-button" href = "{% url 'add_post' %}"><span>Add Posts </span></a>
 
 <!-- <button id='addpost' class='float-right submit-button'><span>ADD POST </span></button>
 <script type="text/javascript">
@@ -100,6 +100,7 @@ function show_post(data) {
           edit_button.innerHTML = 'Edit';
           var del_button = document.createElement("button");
           del_button.innerHTML = 'Delete';
+          del_button.style.color = "#DD678C";
           var com_button = document.createElement("button");
           com_button.innerHTML = 'Comments';
           

@@ -229,3 +229,8 @@ input[value = Save]:active {
     /* box-shadow: 0 3px #666; */
     transform: translateY(4px);
     } 
+    #sticky {
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }

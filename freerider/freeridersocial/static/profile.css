@@ -151,7 +151,7 @@ nav img {
     background-color: #735C81;
     color: white;
     height: 50px;
-    margin-top: 60px;
+    margin-top: 70px;
     margin-bottom:0px;
     text-align: center;
     line-height: 1.5em;
@@ -182,12 +182,13 @@ nav img {
     padding: 10px 10px 20px 60px;
     background-position: left;
     font-weight: bold;
-    background:linear-gradient(to right,  brown,blue,green);
+    color: #6C5881;
+    /* background:linear-gradient(to right,  brown,blue,green);
     background-clip: text;
     color: transparent;
     background:-webkit-linear-gradient(to right,  brown,blue,green);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent; */
   }
 
 

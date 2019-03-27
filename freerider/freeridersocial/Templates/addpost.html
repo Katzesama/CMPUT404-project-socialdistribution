@@ -3,14 +3,35 @@
 {% load rest_framework %}
 <title>Add Post</title>
 <link rel="stylesheet" href="{% static 'addpost.css' %}">
-
+<STYLE>A {text-decoration: none;} </STYLE>
 <html><body>
+<div class="nav" id='sticky'>
+    <a class="title" href="{% url 'home' %}">Natto</a>Natto
+    <nav>
+
+        <form  arial-label="profile picture" accept-charset="UTF-8" method="post">
+            <img src="{% static 'profile.png' %}" class="image-circle">
+        <input type="text" placeholder="Search..">
+        <ul>
+            <li><a href=".">Profile</a></li>
+            <li><a href="{% url 'my_posts' %}">My Post</a></li>
+            <li><a href="{% url 'get_post_for_user' %}">Other's Posts</a></li>
+            <li><a href="#">Followers</a></li>
+            <li><a href="#">My photos</a></li>
+            <li><a href="#">Friend Requests</a></li>
+            <li><a id='logout' href="{% url 'logout' %}">LOGOUT</a></li>
+
+        </ul>
+    </nav>
+</div>
+
 
 <h1>New Post</h1>
-
+<div class="pro">
 <form action="" method="POST">
     {% csrf_token %}
     {% render_form serializer %}
+</div>
         <input type="submit" value = "Save">
 </form>
 
