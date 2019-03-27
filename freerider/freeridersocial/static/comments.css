@@ -156,8 +156,8 @@ nav img {
 {
     display: block;
     font-family: Gill Sans, sans-serif;
-    margin-left: 340px;
-    margin-right:340px;
+    margin-left: 400px;
+    margin-right:400px;
     font-size: 30px;
     background-color: #735C81;
     color: white;
@@ -176,8 +176,8 @@ nav img {
   
   list-style-type: none;
   font-size: 20px;
-  margin-left: 340px;
-  margin-right:340px;
+  margin-left: 400px;
+  margin-right:400px;
   margin-top:0px;
   background-color: white;
   margin-bottom:0px;
@@ -221,14 +221,15 @@ color: #6C5881;
 }
 .pro p
 {
-    
     font-family: Gill Sans, sans-serif;
     font-size: 20px;
-    height: 20px;
     margin-top: 10px;
+    margin-bottom: 10px;
+    
     line-height: 1.5em;
     font-weight: bold;
-    margin-left: 37%;
+    margin-left: 400px;
+    
     color:rgb(159, 136, 184);
 }
 
