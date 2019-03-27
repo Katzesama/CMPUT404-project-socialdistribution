@@ -295,7 +295,7 @@ color: #6C5881;
 #comment {
   display:inline-block;
     font-size:14pt;
-    background-color: #FEE102;
+    background-color: #FED901;
     color: white;
     padding-top:5px;
     border: none;
@@ -313,7 +313,7 @@ color: #6C5881;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 #comment:hover {
-  background-color: #FEE102;
+  background-color: FED901;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 #home:active {
@@ -321,7 +321,7 @@ color: #6C5881;
     /* box-shadow: 0 3px #666; */
 }
 #comment:active {
-  background-color: #FEE102;
+  background-color: FED901;
   /* box-shadow: 0 3px #666; */
 }
 
