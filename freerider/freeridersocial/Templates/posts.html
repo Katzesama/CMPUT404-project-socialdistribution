@@ -94,19 +94,29 @@ function show_post(data) {
         var description = document.createElement("p");
         description.innerHTML = "description: " + data.posts[i].description
         post.appendChild(description);
+
         if ({{is_my_post|safe}}===true){
           var edit_button = document.createElement("button");
           edit_button.innerHTML = 'Edit';
           var del_button = document.createElement("button");
           del_button.innerHTML = 'Delete';
+          var com_button = document.createElement("button");
+          com_button.innerHTML = 'Comments';
+          
           edit_button.onclick=function(){
             location.href = '/posts/' + postid + '/edit_post/';
           };
+          
           del_button.onclick=function(){
             location.href = '/posts/' + postid + '/del_post/';
           };
+          com_button.onclick=function(){
+            location.href = '/posts/' + postid + '/comments/view/';
+          };
           post.appendChild(edit_button);
+          post.appendChild(com_button);
           post.appendChild(del_button);
+          
         }
         var line = document.createElement("hr");
         post.appendChild(line);
@@ -156,5 +166,5 @@ function get_data_display(url) {
 get_data_display("{{fetch_url}}");
 </script>
 </div>
-
+<div id = "end">No More Posts</div>
 </body></html>

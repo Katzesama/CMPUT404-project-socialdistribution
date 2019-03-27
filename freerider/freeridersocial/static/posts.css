@@ -18,7 +18,15 @@ html
     height: 100%;
     background-color:#F7F9FE;
     margin: 0px;
+   
     
+}
+#end{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  color:rgb(228, 221, 231);
+  text-align: center;
+  margin-bottom:15px;
 }
 body{
     background-position: center;
@@ -141,6 +149,8 @@ nav img {
   }
 .pro{
   margin-top: 150px;
+  margin-bottom:40px;
+  
 }
 .pro h1
 {
@@ -162,23 +172,30 @@ nav img {
 }
 
 
-.pro #holder{
-  padding: 10px 20px 30px 10px;
+#holder{
+  
   list-style-type: none;
   font-size: 20px;
   margin-left: 300px;
   margin-right:300px;
   margin-top:0px;
   background-color: white;
+  margin-bottom:0px;
+  bottom:0px;
   
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
-.por hr{
+
+.pro hr{
     color: #EEEDED;
+    margin-top:0px;
+    
+    
 }
 
-.pro div{
+#holder div{
     background-color: white;
+    margin-bottom:20px;
 }
 
 .pro a{
@@ -215,19 +232,19 @@ color: #6C5881;
     color:rgb(159, 136, 184);
 }
 
-.pro button {
+.pro button  {
 
-    font-size:15pt;
+    font-size:13pt;
     background-color: white;
     color: #6C5881;
     border: none;
     text-align: center;
-    width: 150px;
-    margin-left:47%;
-    height:40px;
+    width: 70px;
+    margin-left:110px;
     font-family:Optima, sans-serif;
-    margin-top:420px;
-    font-weight: bold
+    margin-bottom:4px;
+    font-weight: bold;
+    display:inline-block;
   } 
 .pro button:hover {
   background-color: white;
