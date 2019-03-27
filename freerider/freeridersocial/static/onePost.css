@@ -264,6 +264,17 @@ color: #6C5881;
     /* transform: translateY(4px); */
 }
 
+
+
+#container ul{
+  color: white;
+  font-family:Optima, sans-serif;
+  font-size:15pt;
+  text-decoration: none;
+  font-weight: bold;
+  list-style-type: none;
+}
+
 .pro #home {
   display:inline-block;
     font-size:14pt;
@@ -284,7 +295,7 @@ color: #6C5881;
 #comment {
   display:inline-block;
     font-size:14pt;
-    background-color: #FEE209;
+    background-color: #FEE102;
     color: white;
     padding-top:5px;
     border: none;
