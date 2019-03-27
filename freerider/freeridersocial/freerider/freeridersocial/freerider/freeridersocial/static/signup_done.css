@@ -1,0 +1,63 @@
+html
+{
+    width: 100%;
+    height: 100%;
+    background-color:#F7F9FE;
+    margin: 0px;
+}
+
+body{
+    background-position: center;
+    line-height: 1.5em;
+    margin: 0px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;}
+div b
+{
+    display: block;
+    font-family: Snell Roundhand, cursive;
+    font-size: 40px;
+    background-color: #6C5881;
+    color: white;
+    height: 80px;
+    margin-top: 0px;
+    left:0;
+    text-align: center;
+    line-height: 1.5em;
+    margin: 0px;
+}
+
+div b {
+    font-weight: bold;
+    color:white;
+    font-size: 60px;
+    }
+div b:hover, div b.current {
+    font-weight: bold;
+    color: white;}
+  
+  #signupdone {
+    margin: auto;
+    margin-top: 80px;
+    width: 50%;
+    margin-left: 25%;
+    height:200px;
+  }
+
+  a{
+    margin-left: 15%;
+  }
+
+
+  h2{
+    font-family:"Arial Black", Gadget, sans-serif;
+    color: black;
+    margin-left: 100px;
+    margin-top: 10px;
+    font-size: 20px;
+    font-style: bold;
+    display: block;
+
+  }
