@@ -285,7 +285,7 @@ color: #6C5881;
   padding-top: 23px;
 }
 
-#container textarea{
+#container textarea {
   background-color: white;
   color: #6C5881;
   font-family:Optima, sans-serif;
@@ -303,6 +303,8 @@ color: #6C5881;
   min-height: 5em;
   /* height:100px; */
   overflow: auto;
+  pointer-events: none;
+  
 }
 
 .pro #home {
