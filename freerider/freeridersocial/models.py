@@ -88,3 +88,8 @@ class FriendRequest(models.Model):
     friend_status = (('friend','friend'),('proceeding','proceeding'),('rejected','rejected'))
     def __str__(self):
         return self.displayName
+
+class RemoteUser(models.Model):
+    authorid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    username = models.CharField(max_length=50)
+    password = models.CharField(max_length=200)

@@ -30,7 +30,6 @@ class visible_post(APIView):
         posts = []
         try:
             #print(user_id)
-
             current_user_profile = request.user.author
         except:
             return HttpResponse(status=404)
