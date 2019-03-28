@@ -21,7 +21,7 @@
             <li><a href="{% url 'get_post_for_user' %}">Other's Posts</a></li>
             <li><a href="#">Followers</a></li>
             <li><a href="#">My photos</a></li>
-            <li><a href="#">Friend Requests</a></li>
+            <li><a href="{% url 'friend_request' %}">Friend Requests</a></li>
             <li><a id='logout' href="{% url 'logout' %}">LOGOUT</a></li>
 
         </ul>
@@ -76,7 +76,7 @@ function myFunction() {
 <input type="hidden" value="{{serializer.contentType}}" id="contentType">
 <input type="hidden" value="{{serializer.content}}" id="content">
 <!-- <script src="https://raw.githubusercontent.com/jgm/commonmark.js/master/dist/commonmark.js"></script> -->
-<script type="application/javascript" src="https://cdn.rawgit.com/jgm/commomark.js/master/dist/commmonmark.js"></script>
+<script type="text/javascript" src="https://raw.githubusercontent.com/jgm/commonmark.js/master/dist/commonmark.js"></script>
 <script type="text/javascript" >
  var contentType = document.getElementById("contentType").value;
  var content_value = document.getElementById("content").value
