@@ -29,9 +29,9 @@ class visible_post(APIView):
             current_user_profile = request.user.author
         except:
             return HttpResponse(status=404)
-        posts = Post.objects.filter(visibility='PUBLIC')
+        public_posts = Post.objects.filter(visibility='PUBLIC', unlisted=False)
         posts_only_visible = Post.objects.filter(visibleTo__contains = current_user_profile.url)
-        posts += posts_only_visible
+        posts = public_posts | posts_only_visible
         pg_obj=PaginationModel()
         pg_res=pg_obj.paginate_queryset(queryset=posts, request=request)
         res=PostSerializer(instance=pg_res, many=True)
@@ -39,7 +39,7 @@ class visible_post(APIView):
 
 class public_post(APIView):
     def get(self, request, format=None):
-        posts = Post.objects.filter(visibility='PUBLIC')
+        posts = Post.objects.filter(visibility='PUBLIC', unlisted=False)
         posts.objects.filter(unlisted=False)
         pg_obj=PaginationModel()
         pg_res=pg_obj.paginate_queryset(queryset=posts, request=request)

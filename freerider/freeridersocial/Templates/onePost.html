@@ -68,9 +68,12 @@ function myFunction() {
 
 <div id="container">
     <ul>
-      <li> Title：{{serializer.title}}</li>
-      <li> Description: {{serializer.description}}</li>
-      <li> Content: </li>
+      <li> <h1>Title: {{serializer.title}}</h1></li>
+      <li> Origin: {{serializer.origin}}</li>
+      <li> Source: {{serializer.source}} </li>
+      <li> Date: {{serializer.published}}</li>
+      <li><a href="/author/{{serializer.author.id}}/"> Author: {{serializer.author.displayName}}</a></li>
+        
     </ul>
 </div>
 <input type="hidden" value="{{serializer.contentType}}" id="contentType">
@@ -78,8 +81,12 @@ function myFunction() {
 <!-- <script src="https://raw.githubusercontent.com/jgm/commonmark.js/master/dist/commonmark.js"></script> -->
 <script type="text/javascript" src="https://raw.githubusercontent.com/jgm/commonmark.js/master/dist/commonmark.js"></script>
 <script type="text/javascript" >
+var container = document.getElementById("container");
  var contentType = document.getElementById("contentType").value;
- var content_value = document.getElementById("content").value
+ var content_value = document.getElementById("content").value;
+ var content_line = document.createElement("h1");
+ content_line.innerHTML = "Post Content: ";
+ container.appendChild(content_line)
 if ( contentType == "image/png;base64" || contentType == "image/jpeg;base64")
 {
   var content = document.createElement("img");
