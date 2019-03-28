@@ -36,15 +36,15 @@ body{
 }
 
 nav {
-  width: 160px; 
-  position: fixed; 
+  width: 160px;
+  position: fixed;
 
-  top: 80px; 
-  
+  top: 80px;
+
   width: 100%;
   height: 50px;
   background-color: #F0F1F1;
-  overflow-x: hidden; 
+  overflow-x: hidden;
   padding-top: 0px;
   text-align: center;
   font-family:Gill Sans, sans-serif;
@@ -72,7 +72,7 @@ nav {
   margin: 0px;
   padding: 10px 0px 0px 0px;
   width: 100%;
-  
+
 }
 .nav  nav li {
   display: inline;
@@ -119,7 +119,7 @@ font-size: 15px;
 }
 
 .main {
-  margin-left: 160px; 
+  margin-left: 160px;
   padding: 0px 10px;
 }
 
@@ -191,8 +191,8 @@ box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 .pro hr{
   color: #EEEDED;
   margin-top:0px;
-  
-  
+
+
 }
 
 #holder div{
@@ -227,11 +227,11 @@ color: #6C5881;
   font-size: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
-  
+
   line-height: 1.5em;
   font-weight: bold;
   margin-left: 20px;
-  
+
   color:white;
 }
 
@@ -248,7 +248,7 @@ color: #6C5881;
   margin-bottom:4px;
   font-weight: bold;
   display:inline-block;
-} 
+}
 .pro button:hover {
 background-color: white;
 /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
@@ -312,10 +312,10 @@ background-color: #FED901;
 
 .pro #home {
   margin-left:10px;
-  
+
   margin-top: -20px;
   width: 80px;
-  
+
 }
 .pro #home span {
   cursor: pointer;
@@ -344,7 +344,7 @@ background-color: #FED901;
 .pro #add_comment {
   margin-left:230px;
   width: 200px;
-  
+
 }
 
 .pro #add_comment span {

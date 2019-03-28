@@ -56,4 +56,13 @@
 </div>
 {% endif %}
 
+{% if able_friend %}
+<form action="{% url 'profile' serializer.data%}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value = "FriendRequest">
+</form>
+
+</div>
+{% endif %}
+
 </body></html>

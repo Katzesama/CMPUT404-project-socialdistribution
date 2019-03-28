@@ -45,6 +45,7 @@ class addComment(APIView):
         print(serializer.errors)
         return Response({'serializer': serializer})
 
+# POST to http://service/posts/{POST_ID}/comments
 class get_comments(APIView):
     def get(self, request, post_id, **kwargs):
         try:

@@ -70,7 +70,7 @@ nav {
   margin: 0px;
   padding: 10px 0px 0px 0px;
   width: 100%;
-  
+
 }
 .nav  nav li {
   display: inline;
@@ -102,9 +102,9 @@ font-weight: bold;
   padding-left: 0px;
   margin-left: 20px;
   font-size: 13px;
-  
+
   color:#DD678C;
-  
+
   font-weight: bold;
   }
 
@@ -116,7 +116,7 @@ font-weight: bold;
 }
 
 .main {
-  margin-left: 160px; 
+  margin-left: 160px;
   padding: 0px 10px;
 }
 
@@ -137,13 +137,13 @@ nav img {
   border: 2px solid #000;
   margin-right:60px;
   margin-top:8px;
-  
+
   float: right;
   }
 .pro{
   margin-top: 150px;
   margin-bottom:40px;
-  
+
 }
 .pro h1
 {
@@ -167,7 +167,7 @@ nav img {
 
 
 #holder{
-  
+
   list-style-type: none;
   font-size: 20px;
   margin-left: 300px;
@@ -176,21 +176,21 @@ nav img {
   background-color: white;
   margin-bottom:0px;
   bottom:0px;
-  
+
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .pro hr{
     color: #EEEDED;
     margin-top:0px;
-    
-    
+
+
 }
 
 #holder div{
     background-color: white;
     margin-bottom:20px;
-   
+
 }
 
 .pro a{
@@ -216,7 +216,7 @@ color: #6C5881;
 }
 .pro p
 {
-    
+
     font-family: Gill Sans, sans-serif;
     font-size: 20px;
     height: 100px;
@@ -240,7 +240,7 @@ color: #6C5881;
     margin-bottom:4px;
     font-weight: bold;
     display:inline-block;
-  } 
+  }
 .pro button:hover {
   font-size:12pt;
   margin-bottom:0px;
@@ -282,10 +282,10 @@ color: #6C5881;
 
 .pro #home {
     margin-left:10px;
-    
+
     margin-bottom: 0px;
     width: 150px;
-    
+
 }
 .pro #home span {
     cursor: pointer;
@@ -293,7 +293,7 @@ color: #6C5881;
     position: relative;
     transition: 0.5s;
   }
-  
+
   .pro #home span:after {
     content:'\00ab';
     position: absolute;
@@ -302,11 +302,11 @@ color: #6C5881;
     left: -20px;
     transition: 0.5s;
   }
-  
+
   .pro #home:hover span {
     padding-left: 18px;
   }
-  
+
   .pro #home:hover span:after {
     opacity: 1;
     left: 0;
@@ -314,7 +314,7 @@ color: #6C5881;
   .pro #addpost {
     margin-left:1110px;
     width: 150px;
-    
+
 }
 
 .pro #addpost span {
@@ -323,7 +323,7 @@ color: #6C5881;
     position: relative;
     transition: 0.5s;
   }
-  
+
   .pro #addpost span:after {
     content: '\00bb';
     position: absolute;
@@ -332,11 +332,11 @@ color: #6C5881;
     right: -20px;
     transition: 0.5s;
   }
-  
+
   .pro #addpost:hover span {
     padding-right: 25px;
   }
-  
+
   .pro #addpost:hover span:after {
     opacity: 1;
     right: 0;

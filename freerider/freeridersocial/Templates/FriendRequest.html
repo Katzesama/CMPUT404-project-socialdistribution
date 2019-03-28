@@ -10,20 +10,20 @@
   function show_request(data) {
       var holder = document.getElementById("holder");
         for (var i = 0; i < data.length; i++) {
-          let request = document.createElement("div");
-          holder.appendChild(request);
+          let friend_request = document.createElement("div");
+          holder.appendChild(friend_request);
 
           var sender = document.createElement("p");
           sender.innerHTML = data[i].displayName;
-          author.style.fontSize='25px';
-          author.style.display = "inline-block";
-          request.appendChild(sender);
+          sender.style.fontSize='25px';
+          sender.style.display = "inline-block";
+          friend_request.appendChild(sender);
           var line = document.createElement("br");
-          request.appendChild(line);
+          friend_request.appendChild(line);
           var sender_url = document.createElement("a");
           sender_url.innerHTML = data[i].url;
           sender_url.href = data[i].url;
-          request.appendChild(sender_url);
+          friend_request.appendChild(sender_url);
           var line = document.createElement("br");
           var decline = document.createElement("button");
           decline.innerHTML = 'Decline';
@@ -35,8 +35,8 @@
           accept.onclick=function(){
             HandleFriendRequest('/friendrequest/', 'accept', this.parentNode.getElementByTagName('a').innerHTML);
           };
-          request.appendChild(decline);
-          request.appendChild(accept);
+          friend_request.appendChild(decline);
+          friend_request.appendChild(accept);
           function HandleFriendRequest(url, decision, friend_url) {
             var request = new Request(url, {
                         method: 'PUT',
@@ -55,7 +55,7 @@
             });
           }
           var line = document.createElement("hr");
-          request.appendChild(line);
+          friend_request.appendChild(line);
     }
   }
 

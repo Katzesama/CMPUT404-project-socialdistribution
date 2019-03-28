@@ -9,7 +9,7 @@
     <div class="nav" id='sticky'>
         <a class="title" href="{% url 'home' %}">Natto</a>Natto
         <nav>
-    
+
             <form  arial-label="profile picture" accept-charset="UTF-8" method="post">
                 <img src="{% static 'profile.png' %}" class="image-circle">
             <input type="text" placeholder="Search..">
@@ -21,11 +21,11 @@
                 <li><a href="#">My photos</a></li>
                 <li><a href="{% url 'friend_request' %}">Friend Requests</a></li>
                 <li><a id='logout' href="{% url 'logout' %}">LOGOUT</a></li>
-    
+
             </ul>
         </nav>
     </div>
-    
+
     <script>
     window.onscroll = function() {myFunction()};
     // Get the navbar
@@ -39,7 +39,7 @@
       } else {
         navbar.classList.remove("sticky");
       }
-    } 
+    }
     </script>
 
 <div class='pro'>
@@ -61,7 +61,7 @@
         location.href = "{% url 'add_post' %}";
     };
   </script>
-    
+
 <div id="holder"></div>
 <script type="text/javascript">
 function show_post(data) {

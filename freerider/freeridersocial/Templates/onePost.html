@@ -24,6 +24,22 @@
     };
 </script>
 
+</script>
+
+<button id="home" class="float-left submit-button" >Home</button>
+
+<script type="text/javascript">
+    document.getElementById("home").onclick = function () {
+        location.href = "{% url 'home' %}";
+    };
+</script>
+<button id="comments">Comments</button>
+<script type="text/javascript">
+    document.getElementById("comments").onclick = function () {
+        location.href = window.location.href + "comments/view/";
+    };
+</script>
+
 <div id="container">
     <ul>
       <li> <h1>Title: {{serializer.title}}</h1></li>
