@@ -161,7 +161,7 @@ nav img {
   font-family: Gill Sans, sans-serif;
   margin-left: 140px;
   margin-right:0px;
-  font-size: 40px;
+  font-size: 50px;
   background-color: #735C81;
   color: white;
   height: 50px;
@@ -283,10 +283,19 @@ color: #6C5881;
 }
 #container h1{
   margin-top: 0px;
-  margin-left: 0px;
+  margin-left: 40px;
   font-size: 20px;
   margin-bottom: 20px;
+  text-align: left;
 
+}
+
+#container li h1 {
+  margin-top: 0px;
+  margin-left: 0px;
+  font-size: 30px;
+  margin-bottom: 20px;
+  text-align: left;
 }
 
 #container a {
@@ -309,7 +318,7 @@ color: #6C5881;
   /* position:fixed; */
   border: none;
   text-decoration: none;
-  margin-left: 30px;
+  margin-left: 40px;
   width:420px;
   font-weight: bold;
   list-style-type: none;
@@ -321,7 +330,26 @@ color: #6C5881;
   pointer-events: none;
   
 }
-
+#container p {
+  background-color: white;
+  color: #6C5881;
+  font-family:Optima, sans-serif;
+  font-size:12pt;
+  resize: none;
+  /* position:fixed; */
+  border: none;
+  text-decoration: none;
+  margin-left: 40px;
+  width:420px;
+  font-weight: bold;
+  list-style-type: none;
+  border: none;
+  border-radius: 8px;
+  min-height: 15em;
+  /* height:100px; */
+  overflow: auto;
+  pointer-events: none;
+}
 .pro #home {
   display:inline-block;
     font-size:14pt;
@@ -375,7 +403,7 @@ color: #6C5881;
 }
 
 .pro #home {
-  margin-left:10px;
+  margin-left:20px;
     
   margin-top: -20px;
   width: 80px;

@@ -43,7 +43,7 @@
 </script>
 
 <div class="pro">
-<h1>Post - {{ serializer.title }}</h1>
+<h1>Post</h1>
 
 <a id = "home" class="float-left submit-button" href = "{% url 'my_posts' %}"><span>Posts</span></a>
 <a id="comment" class="float-left submit-button" ><span>CheckComments</span></a>
@@ -56,7 +56,7 @@
 
 <div id="container">
     <ul>
-      <li> <h1>Title: {{serializer.title}}</h1></li>
+      <li> <h1 id='title'>Title: {{serializer.title}}</h1></li>
       <li> Origin: {{serializer.origin}}</li>
       <li> Source: {{serializer.source}} </li>
       <li> Date: {{serializer.published}}</li>
