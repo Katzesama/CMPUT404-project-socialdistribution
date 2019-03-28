@@ -316,7 +316,7 @@ color: #6C5881;
   list-style-type: none;
   border: none;
   border-radius: 8px;
-  min-height: 5em;
+  min-height: 15em;
   /* height:100px; */
   overflow: auto;
   pointer-events: none;
