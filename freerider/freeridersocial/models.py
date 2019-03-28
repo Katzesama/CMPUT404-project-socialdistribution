@@ -89,11 +89,14 @@ class FriendRequest(models.Model):
     def __str__(self):
         return self.displayName
 
-class ServerNode(models.Model):
+class UserNode(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     HostName = models.URLField(primary_key=True, editable=False)
-    username = models.CharField(max_length=50)
-    password = models.CharField(max_length=200)
+    localuser = models.ForeignKey(User, on_delete=models.CASCADE)
+    Image_visibility = models.BooleanField(default=True)
+    Post_visibility = models.BooleanField(default=True)
 
 class RemoteUser(models.Model):
-    authorid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    server = models.ForeignKey(ServerNode,related_name="remote_host", on_delete=models.CASCADE)
+    username = models.CharField(max_length=50)
+    password = models.CharField(max_length=200)
+    usernode = models.ForeignKey(UserNode,related_name="remote_host", on_delete=models.CASCADE)
