@@ -14,62 +14,13 @@ from rest_framework import status
 import requests, json
 
 class FriendList(APIView):
-    '''get friend of mine, for all friend request send a request to check their status'''
+    '''不知道行不行，如何让前端get到friends'''
     def get(self, request):
         current_user = request.user.author
 
-        friendrequests = FriendRequest.objects.filter(url = current_user.url)
-        friendlist = list()
-        #for friendrequest in friendrequests:
-            # GET http://service/author/de305d54-75b4-431b-adb2-eb6b9e546013/friends/127.0.0.1%3A5454%2Fauthor%2Fae345d54-75b4-431b-adb2-fb6b9e547891
-            # url_content = friendrequest.host + '/author/' #http://service/author
-            # friend_obj = friendrequest.friend_with
-            # if not str(friend_obj.host).endwith('/'):
-            #     friend_host = friend_obj.host + '/'
-            # friend_id = friend_obj.url.replace(str(friend_host),"") #get id out
-            #
-            # url = current_user.url
-            # try:
-            #     url = url.replace('https://', "")
-            # except:
-            #     url = url.replace('http://', '')
-            #
-            # url_content += '/' + str(friend_id) + '/friends/' + url
-            # if not url_content.endwith('/'):
-            #     url_content += '/'
-            #
-            # resp = requests.get(url_content, headers={'Content-Type': 'application/json'})
-            # if json.loads(resp.content).get('friends'):
-            #     friendlist.append(friend_obj)
-            #
-            #     friendrequest.friend_status = 'friend'
-            #     friendrequest.save()
-        for friend in friendrequests:
-            author_id = current_user.id  # de305d54-75b4-431b-adb2-eb6b9e546013
-            friend_url = friend.url  # 127.0.0.1%3A5454%2Fauthor%2Fae345d54-75b4-431b-adb2-fb6b9e547891
-            friend_id = friend_url.replace(friend.host, "")
-            friend_host = friend.host
-            url = current_user.url
-            try:
-                url = url.replace('https://', "")
-            except:
-                url = url.replace('http://', '')
-            url = url.replace(str(author_id), '')
-
-            if not friend_host.endwith("/"):
-                friend_host += '/'
-            # ask other host if its local author has our local author as friend
-            # GET http://service/author/de305d54-75b4-431b-adb2-eb6b9e546013/friends/127.0.0.1%3A5454%2Fauthor%2Fae345d54-75b4-431b-adb2-fb6b9e547891
-            url_content = friend_host + 'author/' + friend_id + '/friends/' + url + '/author/' + str(author_id)
-            if not url_content.endwith('/'):
-                url_content += '/'
-            resp = requests.get(url_content, headers={'Content-Type': 'application/json'})
-            if json.loads(resp.content).get('friends'):
-                friendlist.append(friend)
-                friend.friend_status = "friend"
-                friend.save()
-
-        return render(request, "DisplayFriends.html",{'author': current_user, 'friends': friendlist})
+        friends = FriendRequest.objects.filter(url = current_user.url, friend_status = 'friend')
+        serializer = FriendSerializer(friends, many=True)
+        return render(request, "DisplayFriends.html",{'author': current_user, 'serializer': serializer})
 
 
 class DeleteFriend(APIView):
@@ -102,47 +53,34 @@ class DeleteFriend(APIView):
 class CheckIfFriend(APIView):
     '''get a request asking if author1 and author2 is friend, author1 is local and author2 is remote'''
     def get(self, request, authorid1, service2, authorid2):
-        author1 = get_object_or_404(Author, id = authorid1)
-        author2_url = service2 + '/'+authorid2
-        '''Check if author1 follows author2 = Check if local host stores author2'''
+        is_friend = False
         try:
-            friend = Author.objects.filter(url = author2_url)
+            author1 = Author.objects.filter(id = authorid1)
         except:
-            authors = list()
-            authors.append(author1.url)
-            authors.append(author2_url)
-            response = OrderedDict([
-                ("query", "friends"),
-                ("authors", authors),
-                ("friends", False),
-            ])
-
+            pass
         try:
-            #Check if author1 follows author2
-            checkfriend = FriendRequest.objects.filter(url = author1.url, friend_with = friend, friend_status = 'friend')
+            author2 = Author.objects.filter(id = authorid2)
         except:
-            authors = list()
-            authors.append(author1.url)
-            authors.append(author2_url)
-            response = OrderedDict([
-                ("query", "friends"),
-                ("authors", authors),
-                ("friends", False),
-            ])
+            pass
 
-        if checkfriend:
-            authors = list()
+        if author1 and author2:
+            friendrequest1 = FriendRequest.objects.filter(url = author1.url, friend_with = author2, friend_status = 'friend')
+            friendrequest2 = FriendRequest.objects.filter(url = author2.url, friend_with = author1, friend_status = 'friend')
+            if friendrequest1 or friendrequest2:
+                is_friend = True
+
+            authors = []
             authors.append(author1.url)
-            authors.append(author2_url)
-            response = OrderedDict([
-                ("query", "friends"),
-                ("authors", authors),
-                ("friends", True),
-            ])
+            authors.append(author2.url)
+            response_body = {
+                "query": "friends",
+                "authors": authors,
+                "friends": is_friend,
+            }
 
         else:
-            return Response("Impossible", status=404)
-        return Response(response, status=status.HTTP_200_OK)
+            return Response("Users not defined", status=404)
+        return Response(response_body, status=status.HTTP_200_OK)
 
 # ask a service GET http://service/author/<authorid>/friends/
 # responds with:
@@ -158,53 +96,35 @@ class FriendsOfAuthor(APIView):
     '''get friendquery of an author given his author url'''
     def get(self, request, authorid):
         author = get_object_or_404(Author, pk = authorid)
-        friends = FriendRequest.objects.filter(url = author.url)
         friendlist = list()
+
+        friends = FriendRequest.objects.filter(url = author.url, friend_status = 'friend')
         for friend in friends:
-            author_id = author.id #de305d54-75b4-431b-adb2-eb6b9e546013
-            friend_url = friend.url #127.0.0.1%3A5454%2Fauthor%2Fae345d54-75b4-431b-adb2-fb6b9e547891
-            friend_id = friend_url.replace(friend.host, "")
-            friend_host = friend.host
-            url = author.url
-            try:
-                url = url.replace('https://', "")
-            except:
-                url = url.replace('http://','')
-            url = url.replace(str(author_id),'')
+            friend_obj = friend.friend_with
+            friend_url = friend_obj.url
+            friendlist.append(friend_url)
 
-            if not friend_host.endwith("/"):
-                friend_host += '/'
-            #ask other host if its local author has our local author as friend
-            # GET http://service/author/de305d54-75b4-431b-adb2-eb6b9e546013/friends/127.0.0.1%3A5454%2Fauthor%2Fae345d54-75b4-431b-adb2-fb6b9e547891
-            url_content = friend_host + 'author/' + friend_id + '/friends/' + url + '/author/' + str(author_id)
-            if not url_content.endwith('/'):
-                url_content += '/'
-            resp = requests.get(url_content, headers={'Content-Type': 'application/json'})
-            if json.loads(resp.content).get('friends'):
-                friendlist.append(friend)
-                friend.friend_status = "friend"
-                friend.save()
+        response_body = {
+            "query": "friends",
+            "authors": friendlist,
+        }
+        return Response(response_body, status=status.HTTP_200_OK)
 
-        response = OrderedDict([
-            ('query', friends),
-            ('authors', friendlist),
-        ])
-        return Response(response, status=status.HTTP_200_OK)
-
-
+    # ask a service if anyone in the list is a friend
+    # POST to http://service/author/<authorid>/friends
     def post(self, request, authorid):
         data = request.data
         try:
             author = get_object_or_404(Author, authorid)
             data = request.data
             if data['query'] == 'friends':
-                friends_list = FriendRequest.objects.filter(url = author.url)
+                friends_list = FriendRequest.objects.filter(url = author.url, friend_status = 'friend')
                 authors = data['authors']
                 confirm_friends = []
                 for author_url in authors:
                     for friend_obj in friends_list:
-                        firend_id = str(friend_obj.id)
-                        if firend_id in author_url:
+                        friend_id = str(friend_obj.url)
+                        if friend_id in author_url:
                             confirm_friends.append(author_url)
                 responsBody = {
                     "query": "friends",

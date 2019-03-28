@@ -20,6 +20,11 @@ import uuid
 
 # https://docs.djangoproject.com/en/2.1/topics/http/sessions/
 
+
+'''
+Post这部分有哪些要改：
+1. remote 请求post会
+'''
 class visible_post(APIView):
     def get(self, request, format=None):
         posts = []
