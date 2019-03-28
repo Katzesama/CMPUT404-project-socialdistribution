@@ -10,41 +10,34 @@
   function show_request(data) {
       var holder = document.getElementById("holder");
         for (var i = 0; i < data.length; i++) {
-          let friend_request = document.createElement("div");
-          holder.appendChild(friend_request);
+          let friend_block = document.createElement("div");
+          holder.appendChild(friend_block);
 
-          var sender = document.createElement("p");
-          sender.innerHTML = data[i].displayName;
-          sender.style.fontSize='25px';
-          sender.style.display = "inline-block";
-          friend_request.appendChild(sender);
+          var friend = document.createElement("a");
+          friend.innerHTML = data[i].displayName;
+          friend.style.fontSize='25px';
+          friend.style.display = "inline-block";
+          friend_block.appendChild(friend);
           var line = document.createElement("br");
-          friend_request.appendChild(line);
-          var sender_url = document.createElement("a");
-          sender_url.innerHTML = data[i].url;
-          sender_url.href = data[i].url;
-          friend_request.appendChild(sender_url);
+          friend_block.appendChild(line);
+          var friend_url = document.createElement("a");
+          friend_url.innerHTML = data[i].url;
+          friend_url.href = data[i].url;
+          friend_block.appendChild(friend_url);
           var line = document.createElement("br");
-          var decline = document.createElement("button");
-          decline.innerHTML = 'Decline';
-          var accept = document.createElement("button");
-          accept.innerHTML = 'Accept';
-          decline.onclick=function(){
-            HandleFriendRequest('/friendrequest/', 'decline', this.parentNode.getElementByTagName('a').innerHTML);
+          var delete_friend = document.createElement("button");
+          delete_friend.innerHTML = 'Delete Friend';
+          var friend_obj_id = data[i].id;
+          delete_friend.onclick=function(){
+            HandleFriendRequest('/myfriends/views/'+friend_obj_id+'/delete/');
           };
-          accept.onclick=function(){
-            HandleFriendRequest('/friendrequest/', 'accept', this.parentNode.getElementByTagName('a').innerHTML);
-          };
-          friend_request.appendChild(decline);
-          friend_request.appendChild(accept);
-          function HandleFriendRequest(url, decision, friend_url) {
+          friend_block.appendChild(delete_friend);
+          function HandleFriendRequest(url) {
             var request = new Request(url, {
-                        method: 'PUT',
+                        method: 'Delete',
                         headers: {
                              'Content-Type': 'application/json'
                         },
-                       data: {'decision': decision,
-                              'friend_url': friend_url},
                         });
             return fetch(request).then((response) => {
               if (response.status === 200) { // OK
@@ -55,7 +48,7 @@
             });
           }
           var line = document.createElement("hr");
-          friend_request.appendChild(line);
+          friend_block.appendChild(line);
     }
   }
 

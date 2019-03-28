@@ -59,6 +59,9 @@ def comments_render(request, post_id):
 def FriendRequest_render(request):
     return render(request, 'FriendRequest.html', {'fetch_url': '/friendrequest/'})
 
+def FriendList(request):
+    return render(request, 'FriendList.html', {'fetch_url': '/myfriends/'})
+
 # a reponse if friends or not
 # GET http://service/author/<authorid>/friends/
 # Ask if 2 authors are friends

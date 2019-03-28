@@ -62,4 +62,6 @@ urlpatterns = [
     path('friends/<friendid>/delete_friend/',freeridersocial.FriendList.DeleteFriend, name = 'delete_friend'),
     path('author/<authorid>/friends', freeridersocial.FriendList.FriendsOfAuthor, name='get_user_friends'),
     path('myfriends/', freeridersocial.FriendList.FriendList.as_view(), name= 'myfriends'),
+    path('myfriends/views/', freeridersocial.views.FriendList, name= 'myfriends_render'),
+    path('myfriends/views/<friendid>/delete/', freeridersocial.FriendList.DeleteFriend.as_view(), name= 'delete_friend'),
 ]

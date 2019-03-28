@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404, redirect
 from .serializer import AuthorSerializer
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.renderers import JSONRenderer
 from .serializer import FriendSerializer
@@ -12,6 +12,8 @@ from django.shortcuts import render, redirect
 from collections import OrderedDict
 from rest_framework import status
 import requests, json
+from django.urls import reverse
+
 
 class FriendList(APIView):
     '''不知道行不行，如何让前端get到friends'''
@@ -20,7 +22,7 @@ class FriendList(APIView):
 
         friends = FriendRequest.objects.filter(url = current_user.url, friend_status = 'friend')
         serializer = FriendSerializer(friends, many=True)
-        return render(request, "DisplayFriends.html",{'author': current_user, 'serializer': serializer})
+        return Response({'serializer': serializer.data})
 
 
 class DeleteFriend(APIView):
@@ -30,7 +32,7 @@ class DeleteFriend(APIView):
         except:
             HttpResponse('friend not found', status=404)
         friend.delete()
-        return HttpResponse('friend is removed', status = 200)
+        return HttpResponseRedirect(reverse('myfriends_render'))
 
 # Ask if 2 authors are friends
 # GET http://service/author/<authorid>/friends/<authorid2>
@@ -136,16 +138,3 @@ class FriendsOfAuthor(APIView):
                 return Response("Wrong query format", status=400)
         except:
             return Response("Author doesn't exist", status=404)
-
-
-
-
-
-
-
-
-
-
-
-
-

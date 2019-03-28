@@ -99,7 +99,6 @@ class FriendRequest(APIView):
         1. friendrequest exist or not
         2. Local friendrequest or remote
         3. Assume request has attributes: sender_url
-
         '''
         data = request.data
         receiver = request.user.author
