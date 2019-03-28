@@ -27,7 +27,7 @@
 <p>Number of comments: {{count}}</p>
 
 <div id="holder"></div>
-<script type="application/javascript" src="https://raw.githubusercontent.com/jgm/commonmark.js/master/dist/commonmark.js"></script>
+<script type="application/javascript" src="https://cdn.rawgit.com/jgm/commonmark.js/master/dist/commonmark.js"></script>
 <script type="text/javascript">
 function show_comment(data) {
     var holder = document.getElementById("holder");
@@ -63,7 +63,7 @@ function show_comment(data) {
           var parsed = reader.parse(content_value); // parsed is a 'Node' tree
           // transform parsed if you like...
           var result = writer.render(parsed);
-          content.insertAdjacentHTM('beforeend', parsed);
+          content.insertAdjacentHTML('beforeend', result);
         }
         comment.appendChild(content);
         if (data.next != null) {

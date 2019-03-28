@@ -7,7 +7,7 @@
 <html><body>
 
 <h1>Post - {{ serializer.title }}</h1>
-    
+
 </script>
 
 <button id="home" class="float-left submit-button" >Home</button>
@@ -32,7 +32,7 @@
 <input type="hidden" value="{{serializer.contentType}}" id="contentType">
 <input type="hidden" value="{{serializer.content}}" id="content">
 <!-- <script src="https://raw.githubusercontent.com/jgm/commonmark.js/master/dist/commonmark.js"></script> -->
-<script type="text/javascript" src="https://raw.githubusercontent.com/jgm/commonmark.js/master/dist/commonmark.js"></script>
+<script type="application/javascript" src="https://cdn.rawgit.com/jgm/commonmark.js/master/dist/commonmark.js"></script>
 <script type="text/javascript">
  var contentType = document.getElementById("contentType").value;
  var content_value = document.getElementById("content").value
@@ -56,10 +56,11 @@ else if (contentType == "text/markdown")
   var parsed = reader.parse(content_value); // parsed is a 'Node' tree
   // transform parsed if you like...
   var result = writer.render(parsed);
-  content.insertAdjacentHTM('beforeend', parsed);
+  console.info(typeof(result));
+  content.insertAdjacentHTML('beforeend', result);
 }
 var container = document.getElementById("container");
 container.appendChild(content);
 
-
+</script>
 </body></html>
