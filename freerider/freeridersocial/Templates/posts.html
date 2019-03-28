@@ -3,10 +3,27 @@
 {% load rest_framework %}
 <title>Posts</title>
 <link rel="stylesheet" href="{% static 'posts.css' %}">
-
+<STYLE>A {text-decoration: none;} </STYLE>
 <html><body>
 
 <h1>Posts</h1>
+    
+<button id="home" class="float-left submit-button" ><span>Home</span></button>
+
+<script type="text/javascript">
+    document.getElementById("home").onclick = function () {
+        location.href = "{% url 'home' %}";
+    };
+</script>
+
+
+<button id='addpost' class='float-right submit-button'><span>ADD POST </span></button>
+<script type="text/javascript">
+    document.getElementById("addpost").onclick = function() {
+        location.href = "{% url 'add_post' %}";
+    };
+  </script>
+    
 <div id="holder"></div>
 <script type="text/javascript">
 function show_post(data) {
@@ -35,7 +52,7 @@ function show_post(data) {
         var description = document.createElement("p");
         description.innerHTML = "description: " + data.posts[i].description
         post.appendChild(description);
-        if ({{my_post|safe}}===true){
+        if ({{is_my_post|safe}}===true){
           var edit_button = document.createElement("button");
           edit_button.innerHTML = 'Edit';
           var del_button = document.createElement("button");
@@ -95,15 +112,6 @@ function get_data_display(url) {
 }
 
 get_data_display("{{fetch_url}}");
-
-
 </script>
 
-<button id="home" class="float-left submit-button" >Home</button>
-
-<script type="text/javascript">
-    document.getElementById("home").onclick = function () {
-        location.href = "{% url 'home' %}";
-    };
-</script>
 </body></html>

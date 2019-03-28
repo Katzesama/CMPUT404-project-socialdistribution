@@ -40,3 +40,7 @@ Contributors:
 Heroku app
 ========================
 https://natto.herokuapp.com/
+
+For more Information or Documentation, please visit our Wiki Page !
+========================
+https://github.com/Katzesama/CMPUT404-project-socialdistribution/wiki 

@@ -29,9 +29,9 @@ class visible_post(APIView):
             current_user_profile = request.user.author
         except:
             return HttpResponse(status=404)
-        posts = Post.objects.filter(visibility='PUBLIC')
+        public_posts = Post.objects.filter(visibility='PUBLIC', unlisted=False)
         posts_only_visible = Post.objects.filter(visibleTo__contains = current_user_profile.url)
-        posts += posts_only_visible
+        posts = public_posts | posts_only_visible
         pg_obj=PaginationModel()
         pg_res=pg_obj.paginate_queryset(queryset=posts, request=request)
         res=PostSerializer(instance=pg_res, many=True)
@@ -39,8 +39,7 @@ class visible_post(APIView):
 
 class public_post(APIView):
     def get(self, request, format=None):
-        posts = Post.objects.filter(visibility='PUBLIC')
-        posts.objects.filter(unlisted=False)
+        posts = Post.objects.filter(visibility='PUBLIC', unlisted=False)
         pg_obj=PaginationModel()
         pg_res=pg_obj.paginate_queryset(queryset=posts, request=request)
         res=PostSerializer(instance=pg_res, many=True)
@@ -94,7 +93,7 @@ class my_post(APIView):
         pg_obj=PaginationModel()
         pg_res=pg_obj.paginate_queryset(queryset=posts, request=request)
         res=PostSerializer(instance=pg_res, many=True)
-        print(res.data)
+        print("Get My Post!!!!!!!!!!!!!")
         return pg_obj.get_paginated_response(res.data)
 
 def del_post(request, post_id):
@@ -145,7 +144,7 @@ class get_one_post(APIView):
             print("get here")
             post = get_object_or_404(Post, pk = post_id)
             if not request.user:
-                if post.unlisted=True or post.contentType='image/png;base64' or post.contentType='image/png;base64':
+                if post.unlisted==True or post.contentType=='image/png;base64' or post.contentType=='image/png;base64':
                     return HttpResponse(status=404)
         except:
             return HttpResponse(status=404)

@@ -31,14 +31,14 @@ class PaginationModel(PageNumberPagination):
             type = "comments"
         else:
             type = "posts"
-        response_body = {
-            "query": type,
-            'count': self.page.paginator.count,
-            "size": self.page_size,
-            "next": self.get_next_link(),
-            "previous": self.get_previous_link(),
-            type: data
-        }
+        response_body = OrderedDict([
+            ("query", type),
+            ('count', self.page.paginator.count),
+            ("size", self.page_size),
+            ("next", self.get_next_link()),
+            ("previous", self.get_previous_link()),
+            (type, data)
+        ])
 
         if self.get_previous_link() is None:
             del response_body["previous"]

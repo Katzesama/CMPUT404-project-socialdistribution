@@ -39,9 +39,9 @@ class FriendRequest(APIView):
         sender_url = data['sender_url']
         decision = data['decision']
         friend_request = Friend.objects.filter(url=sender_url, friend_with=receiver)
-        if decision = 'accept':
+        if decision == 'accept':
             friend_request.friend_status = "friend"
-        elif decision = 'decline':
+        elif decision == 'decline':
             friend_request.friend_status = "rejected"
         friend_request.save()
         return Response(status=200)

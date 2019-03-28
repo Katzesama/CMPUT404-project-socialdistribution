@@ -26,14 +26,13 @@ body{
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
-}
-div
+    background-size: cover;}
+div b
 {
     display: block;
     font-family: Snell Roundhand, cursive;
-    font-size: 40px;
-    background-color: #7C9EE1;
+    font-size: 60px;
+    background-color: #6C5881;
     color: white;
     height: 80px;
     margin-top: 0px;
@@ -41,17 +40,34 @@ div
     text-align: center;
     line-height: 1.5em;
     margin: 0px;
-}
-div a {
     font-weight: bold;
-    color:white;
-    font-size: 60px;
 }
 
-h2 {
-    margin-left: 5%;
-}
+div b:hover, div b.current {
+    font-weight: bold;
+    color: white;}
+  
+  #logout {
+    margin: auto;
+    margin-top: 80px;
+    width: 50%;
+    margin-left: 25%;
+    height:200px;
+  }
 
 a {
-    margin-left: 5%;
+ margin-left: 15%;
 }
+
+
+h2 {
+ font-family:"Arial Black", Gadget, sans-serif;
+ color: black;
+ margin-left: 100px;
+ margin-top: 10px;
+ font-size: 20px;
+ font-style: bold;
+ display: block;
+
+}
+
