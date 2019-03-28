@@ -161,13 +161,13 @@ nav img {
 {
     display: block;
     font-family: Gill Sans, sans-serif;
-    margin-left: 100px;
+    margin-left: 0px;
     margin-right:0px;
     font-size: 32px;
     background-color: #735C81;
     color: white;
     height: 60px;
-    margin-top: 100px;
+    margin-top: 0px;
     margin-bottom:0px;
     text-align: center;
     line-height: 1.5em;
@@ -285,6 +285,17 @@ color: #6C5881;
   padding-top: 23px;
 }
 
+#container a {
+  color: white;
+  font-family:Optima, sans-serif;
+  font-size:17pt;
+  padding-top:10px;
+  padding-bottom: 0px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 0px;
+  list-style-type: none;
+}
 #container textarea {
   background-color: white;
   color: #6C5881;
