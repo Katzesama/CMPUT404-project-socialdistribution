@@ -78,8 +78,7 @@ function myFunction() {
 </div>
 <input type="hidden" value="{{serializer.contentType}}" id="contentType">
 <input type="hidden" value="{{serializer.content}}" id="content">
-<!-- <script src="https://raw.githubusercontent.com/jgm/commonmark.js/master/dist/commonmark.js"></script> -->
-<script type="text/javascript" src="https://raw.githubusercontent.com/jgm/commonmark.js/master/dist/commonmark.js"></script>
+<script type="application/javascript" src="https://cdn.rawgit.com/jgm/commonmark.js/master/dist/commonmark.js"></script>
 <script type="text/javascript" >
 var container = document.getElementById("container");
  var contentType = document.getElementById("contentType").value;
@@ -107,7 +106,7 @@ else if (contentType == "text/markdown")
   var parsed = reader.parse(content_value); // parsed is a 'Node' tree
   // transform parsed if you like...
   var result = writer.render(parsed);
-  content.insertAdjacentHTM('beforeend', parsed);
+  content.insertAdjacentHTM('beforeend', result);
 }
 var container = document.getElementById("container");
 container.appendChild(content);
