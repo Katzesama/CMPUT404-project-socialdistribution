@@ -17,7 +17,8 @@ class Author(models.Model):
     lastName = models.CharField(max_length=200,blank=True,default='')
     email = models.CharField(max_length=400,blank=True,default='')
     bio = models.CharField(max_length=2000,blank=True,default='')
-    image = models.ImageField(default='default.img', upload_to="profile_pics")
+    # image = models.ImageField(default='default.img', upload_to="profile_pics")
+    image = models.ImageField(null=True, blank=True)
 
     def __str__(self):  # __unicode__ for Python 2
         return f'{self.user.username} Profile'

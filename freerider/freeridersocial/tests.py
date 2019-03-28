@@ -88,6 +88,7 @@ class profileTest(TestCase):
         self.assertEqual = (author1.github, "https://github.com/Katzesama/CMPUT404-project-socialdistribution")          
         self.assertNotEqual = (author1.firstName, "Assignment")
         self.assertNotEqual = (author1.lastName, "cmput466")
+<<<<<<< HEAD
 
 class post_comment_Test(TestCase):
 
@@ -131,6 +132,92 @@ class post_comment_Test(TestCase):
     
     def test_self_comment(self):
         author = Author.objects.get(user_id = user_id1)
+=======
+
+class post_comment_Test(TestCase):
+
+    def setUp(self):
+        global user_id1
+        password1 = make_password("12202stst")
+        user1 = User.objects.create(username="TestUser1", password=password1)
+        user_id1 = user1.id
+        author1 = Author.objects.create(user_id = user_id1)
+
+        global author_id2, user_id2
+        password2 = make_password("122ststst")
+        user2 = User.objects.create(username="TestUser2", password=password2)
+        user_id2 = user2.id
+        author2 = Author.objects.create(user_id = user_id2)
+        author_id2 = author2.id
+
+    def test_post(self):
+        author = Author.objects.get(user_id = user_id1)
+        
+        title = "First Post"
+        content = "Test Post"
+        description = "Testing"
+        contentType = "text/plain"
+
+        post = Post.objects.create(
+            title = title,
+            content = content,
+            description = description,
+            contentType = contentType,
+            author = author
+        )
+
+        self.assertTrue(post)
+        self.assertEqual(post.title, title)
+        self.assertEqual(post.content, content)
+        self.assertEqual(post.description, description)
+        self.assertEqual(post.contentType, contentType)
+        self.assertEqual(post.author, author)
+        self.assertEqual(post.visibility, "PUBLIC")
+    
+    def test_self_comment(self):
+        author = Author.objects.get(user_id = user_id1)
+
+        post = Post.objects.create(
+            content = "testing",
+            author = author
+        )
+
+        comment = Comment.objects.create(
+            post_id = post,
+            comment = 'test comment',
+            contentType = 'text/plain',
+            author = author
+        )
+
+        self.assertEqual(comment.comment, "test comment")
+        self.assertEqual(comment.post_id, post)
+        self.assertEqual(comment.contentType, 'text/plain')
+        self.assertEqual(comment.author, author)
+        self.assertIsInstance(comment, Comment)
+
+
+    def test_comment_to_others(self):
+        author1 = Author.objects.get(user_id = user_id1)
+        author2 = Author.objects.get(user_id = user_id2)
+
+        post = Post.objects.create(
+            content = "testing",
+            author = author1
+        )
+
+        comment = Comment.objects.create(
+            post_id = post,
+            comment = 'test comment',
+            contentType = 'text/plain',
+            author = author2
+        )
+
+        self.assertEqual(comment.comment, "test comment")
+        self.assertEqual(comment.post_id, post)
+        self.assertEqual(comment.contentType, 'text/plain')
+        self.assertEqual(comment.author, author2)
+        self.assertIsInstance(comment, Comment)
+>>>>>>> 6a3a38832bf1611da17d32c3d44a62264b43bb01
 
         post = Post.objects.create(
             content = "testing",
