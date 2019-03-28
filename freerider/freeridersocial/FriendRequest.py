@@ -105,28 +105,11 @@ class FriendRequest(APIView):
         receiver = request.user.author
         sender_url = data['sender_url']
         decision = data['decision']
-        friend_request = FriendRequest.objects.filter(url=sender_url, friend_with=receiver)
-
-        '''if both authors are in local host'''
-        sender = Author.objects.filter(url = sender_url)
-        if receiver.host == sender.host:
-
-            if decision == 'accept':
-                friend_request.friend_status = "friend"
-            elif decision == 'decline':
-                friend_request.friend_status = "rejected"
-            friend_request.save()
-
-            return Response('local friendrequest updated',status=200)
-        else:
-            if decision == 'accept':
-                friend_request.friend_status = "friend"
-            elif decision == 'decline':
-                friend_request.friend_status = "rejected"
-            friend_request.save()
-
-            return Response("remote status updated", status=200)
-
-
-
-
+        friend_request = Friend.objects.filter(url=sender_url, friend_with=receiver)
+        if decision == 'accept':
+            friend_request.friend_status = "friend"
+        elif decision == 'decline':
+            friend_request.friend_status = "rejected"
+        friend_request.save()
+        return Response(status=200)
+        return Response(status=200)
