@@ -26,7 +26,7 @@
             </ul>
         </nav>
     </div>
-    <script>
+    <!-- <script>
     window.onscroll = function() {myFunction()};
     // Get the navbar
     var navbar = document.getElementById("nav");
@@ -40,7 +40,7 @@
         navbar.classList.remove("sticky");
       }
     }
-    </script>
+    </script> -->
 <div class="pro">
 <h1>Comments</h1>
 <a id = "home" class="float-left submit-button" href = "{% url 'my_posts' %}"><span>Posts</span></a>
@@ -85,17 +85,17 @@ function show_comment(data) {
             content.style.width = "50%";
             content.style.height = "50%";
         }
-        else if (contentType == "text/plain")
+        else if (data.comments[i].contentType == "text/plain")
         {
-          var content = document.createElement("p");
-          content.innerHTML = content_value;
+          var content = document.createElement("textarea");
+          content.innerHTML = data.comments[i].comment;
         }
-        else if (contentType == "text/markdown")
+        else if (data.comments[i].contentType == "text/markdown")
         {
           var content = document.createElement("div");
           var reader = new commonmark.Parser();
           var writer = new commonmark.HtmlRenderer({softbreak: "<br />"});
-          var parsed = reader.parse(content_value); // parsed is a 'Node' tree
+          var parsed = reader.parse(data.comments[i].comment); // parsed is a 'Node' tree
           // transform parsed if you like...
           var result = writer.render(parsed);
           content.insertAdjacentHTML('beforeend', result);

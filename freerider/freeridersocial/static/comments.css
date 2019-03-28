@@ -194,7 +194,47 @@ box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
 
 }
-
+#holder textarea {
+  background-color: white;
+  color: #6C5881;
+  font-family:Optima, sans-serif;
+  font-size:12pt;
+  resize: none;
+  /* position:fixed; */
+  border: none;
+  text-decoration: none;
+  margin-left: 40px;
+  width:420px;
+  font-weight: bold;
+  list-style-type: none;
+  border: none;
+  border-radius: 8px;
+  min-height: 15em;
+  /* height:100px; */
+  overflow: auto;
+  pointer-events: none;
+  
+}
+#holder p {
+  background-color: white;
+  color: #6C5881;
+  font-family:Optima, sans-serif;
+  font-size:12pt;
+  resize: none;
+  /* position:fixed; */
+  border: none;
+  text-decoration: none;
+  margin-left: 40px;
+  width:420px;
+  font-weight: bold;
+  list-style-type: none;
+  border: none;
+  border-radius: 8px;
+  min-height: 15em;
+  /* height:100px; */
+  overflow: auto;
+  pointer-events: none;
+}
 #holder div{
   background-color: white;
   margin-bottom:20px;
