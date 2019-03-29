@@ -296,7 +296,7 @@ color:rgb(159, 136, 184);
   /* transform: translateY(4px); */
 }
 
-.pro #home {
+.pro #mypost {
 display:inline-block;
   font-size:14pt;
   background-color: white;
@@ -306,9 +306,10 @@ display:inline-block;
   text-align: center;
   width: 150px;
   margin-left:47%;
-  height:33px;
+  height:auto;
   font-family:Optima, sans-serif;
   border-radius: 8px;
+  overflow-wrap: break-word;
 
 }
 
@@ -329,7 +330,7 @@ display:inline-block;
 
 }
 
-#home:hover {
+#mypost:hover {
 background-color: white;
 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
@@ -337,7 +338,7 @@ box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 background-color: #FED901;
 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
-#home:active {
+#mypost:active {
   background-color: white;
   /* box-shadow: 0 3px #666; */
 }
@@ -346,21 +347,21 @@ background-color: #FED901;
 /* box-shadow: 0 3px #666; */
 }
 
-.pro #home {
+.pro #mypost {
   margin-left:10px;
 
   margin-top: -20px;
   width: 80px;
 
 }
-.pro #home span {
+.pro #mypost span {
   cursor: pointer;
   display: inline-block;
   position: relative;
   transition: 0.5s;
 }
 
-.pro #home span:after {
+.pro #mypost span:after {
   content:'\00ab';
   position: absolute;
   opacity: 0;
@@ -369,11 +370,11 @@ background-color: #FED901;
   transition: 0.5s;
 }
 
-.pro #home:hover span {
+.pro #mypost:hover span {
   padding-left: 18px;
 }
 
-.pro #home:hover span:after {
+.pro #mypost:hover span:after {
   opacity: 1;
   left: 0;
 }
