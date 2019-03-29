@@ -237,4 +237,3 @@ class EditProfile(APIView):
 
         print(serializer.errors)
         return Response({'serializer': serializer, 'profile': current_user_profile})
-
