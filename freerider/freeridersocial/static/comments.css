@@ -148,7 +148,7 @@ float: right;
 margin-top: 150px;
 margin-bottom:40px;
 background-color: #735C81;
-height: 1000px;
+
 margin-left: 400px;
 margin-right:400px;
 
@@ -163,7 +163,7 @@ margin-right:400px;
   background-color: #735C81;
   color: white;
   height: 50px;
-  margin-top: 60px;
+  margin-top: 0px;
   margin-bottom:0px;
   text-align: center;
   line-height: 1.5em;
@@ -173,19 +173,16 @@ margin-right:400px;
 }
 
 
-#holder{
-
-list-style-type: none;
-font-size: 20px;
-margin-left: 10px;
-margin-right:10px;
-margin-top:0px;
-background-color: white;
-margin-bottom:10px;
-
-bottom:0px;
-
-box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+#holder a {
+  color: #FED901;
+  font-family:Optima, sans-serif;
+  font-size:17pt;
+  padding-top:0px;
+  padding-bottom: 0px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 20px;
+  list-style-type: none;
 }
 
 .pro hr{
@@ -203,16 +200,17 @@ box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
   /* position:fixed; */
   border: none;
   text-decoration: none;
-  margin-left: 40px;
-  width:420px;
+  margin-left: 16px;
+  width:450px;
   font-weight: bold;
   list-style-type: none;
   border: none;
   border-radius: 8px;
-  min-height: 15em;
+  min-height: 5em;
   /* height:100px; */
   overflow: auto;
   pointer-events: none;
+  margin-bottom:0px;
   
 }
 #holder p {
@@ -225,20 +223,18 @@ box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
   border: none;
   text-decoration: none;
   margin-left: 40px;
-  width:420px;
+  width:400px;
   font-weight: bold;
   list-style-type: none;
   border: none;
   border-radius: 8px;
-  min-height: 15em;
+  min-height: 5em;
   /* height:100px; */
   overflow: auto;
   pointer-events: none;
-}
-#holder div{
-  background-color: white;
   margin-bottom:20px;
 }
+
 
 .pro a{
 font-family: Gill Sans, sans-serif;
@@ -266,9 +262,9 @@ color: #6C5881;
   font-family: Gill Sans, sans-serif;
   font-size: 20px;
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 
-  line-height: 1.5em;
+  line-height: 5em;
   font-weight: bold;
   margin-left: 20px;
 
@@ -300,7 +296,7 @@ color:rgb(159, 136, 184);
   /* transform: translateY(4px); */
 }
 
-.pro #home {
+.pro #mypost {
 display:inline-block;
   font-size:14pt;
   background-color: white;
@@ -310,9 +306,10 @@ display:inline-block;
   text-align: center;
   width: 150px;
   margin-left:47%;
-  height:33px;
+  height:auto;
   font-family:Optima, sans-serif;
   border-radius: 8px;
+  overflow-wrap: break-word;
 
 }
 
@@ -333,7 +330,7 @@ display:inline-block;
 
 }
 
-#home:hover {
+#mypost:hover {
 background-color: white;
 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
@@ -341,7 +338,7 @@ box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 background-color: #FED901;
 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
-#home:active {
+#mypost:active {
   background-color: white;
   /* box-shadow: 0 3px #666; */
 }
@@ -350,21 +347,21 @@ background-color: #FED901;
 /* box-shadow: 0 3px #666; */
 }
 
-.pro #home {
+.pro #mypost {
   margin-left:10px;
 
   margin-top: -20px;
   width: 80px;
 
 }
-.pro #home span {
+.pro #mypost span {
   cursor: pointer;
   display: inline-block;
   position: relative;
   transition: 0.5s;
 }
 
-.pro #home span:after {
+.pro #mypost span:after {
   content:'\00ab';
   position: absolute;
   opacity: 0;
@@ -373,11 +370,11 @@ background-color: #FED901;
   transition: 0.5s;
 }
 
-.pro #home:hover span {
+.pro #mypost:hover span {
   padding-left: 18px;
 }
 
-.pro #home:hover span:after {
+.pro #mypost:hover span:after {
   opacity: 1;
   left: 0;
 }
