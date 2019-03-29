@@ -46,7 +46,7 @@ urlpatterns = [
     path('author/posts/views/', freeridersocial.views.get_visible_post_render, name='get_post_for_user'),
     path('posts/views/', freeridersocial.views.get_posts_render, name='public_posts'),
     path('author/myPosts/views/', freeridersocial.views.get_my_posts_render, name='my_posts'),
-    path('author/<authorid>', freeridersocial.profile.HandleProfile.as_view(), name = "handle_profile"),
+    path('author/<authorid>/', freeridersocial.profile.HandleProfile.as_view(), name = "handle_profile"),
 
     path('posts/<uuid:post_id>/', freeridersocial.Posts.get_one_post.as_view(), name="get_one_post"),
     path('addpost/', freeridersocial.Posts.upload_post.as_view(), name='add_post'),
@@ -56,7 +56,7 @@ urlpatterns = [
     path('posts/<uuid:post_id>/comments/', freeridersocial.Comments.get_comments.as_view(), name='comments_view'),
     path('posts/<uuid:post_id>/comments/view/', freeridersocial.views.comments_render, name='comments'),
 
-    path('friendrequest/', freeridersocial.FriendRequest.FriendRequest.as_view(), name='friend_request'),
+    path('friendrequest/', freeridersocial.FriendRequest.FriendRequestHandler.as_view(), name='friend_requests'),
     path('friendrequest/view/', freeridersocial.views.FriendRequest_render, name='friend_request'),
     path('author/<authorid1>/friends/<service2>/author/<authorid2>/', freeridersocial.FriendList.CheckIfFriend, name='check_if_friend'),
     path('friends/<friendid>/delete_friend/',freeridersocial.FriendList.DeleteFriend, name = 'delete_friend'),

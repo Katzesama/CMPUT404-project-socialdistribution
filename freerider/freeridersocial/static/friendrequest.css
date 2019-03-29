@@ -65,7 +65,7 @@ nav {
     text-align: center;
     line-height: 1.5em;
     font-weight: bold;
-    text-decoration: none;
+
 
 }
 
@@ -145,32 +145,27 @@ nav img {
   
   float: right;
   }
-
 .pro{
   margin-top: 150px;
   margin-bottom:40px;
-  background-color: #735C81;
-  
-  margin-left: 400px;
-  margin-right:400px;
   
 }
 .pro h1
 {
-  display: block;
-  font-family: Gill Sans, sans-serif;
-  margin-left: 140px;
-  margin-right:0px;
-  font-size: 50px;
-  background-color: #735C81;
-  color: white;
-  height: 50px;
-  margin-top: 60px;
-  margin-bottom:0px;
-  text-align: center;
-  line-height: 1.5em;
-  font-weight: bold;
-    /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
+    display: block;
+    font-family: Gill Sans, sans-serif;
+    margin-left: 300px;
+    margin-right:300px;
+    font-size: 30px;
+    background-color: #735C81;
+    color: white;
+    height: 50px;
+    margin-top: 60px;
+    margin-bottom:0px;
+    text-align: center;
+    line-height: 1.5em;
+    font-weight: bold;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
 }
 
@@ -179,12 +174,11 @@ nav img {
   
   list-style-type: none;
   font-size: 20px;
-  margin-left: 10px;
-  margin-right:10px;
+  margin-left: 300px;
+  margin-right:300px;
   margin-top:0px;
   background-color: white;
-  margin-bottom:10px;
-  
+  margin-bottom:0px;
   bottom:0px;
   
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
@@ -200,13 +194,14 @@ nav img {
 #holder div{
     background-color: white;
     margin-bottom:20px;
+   
 }
 
 .pro a{
   font-family: Gill Sans, sans-serif;
   font-size: 20px;
   color: #6C5881;
-  /* height: 20px; */
+  height: 20px;
   margin-top: 10px;
   margin-left: 30px;
   line-height: 1.5em;
@@ -225,16 +220,15 @@ color: #6C5881;
 }
 .pro p
 {
+    
     font-family: Gill Sans, sans-serif;
     font-size: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    
+    height: 100px;
+    margin-top: 30px;
     line-height: 1.5em;
     font-weight: bold;
-    margin-left: 20px;
-    
-    color:white;
+    margin-left: 30px;
+    color:rgb(159, 136, 184);
 }
 
 .pro button  {
@@ -252,8 +246,9 @@ color: #6C5881;
     display:inline-block;
   } 
 .pro button:hover {
+  font-size:12pt;
+  margin-bottom:0px;
   background-color: white;
-  /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
   color:rgb(159, 136, 184);
 }
 .pro button:active {
@@ -262,151 +257,39 @@ color: #6C5881;
     /* transform: translateY(4px); */
 }
 
-#container {
-
-  padding-bottom: 20px;
-
-}
-
-#container ul{
-  color: white;
-  font-family:Optima, sans-serif;
-  font-size:15pt;
-  padding-bottom: 0px;
-  text-decoration: none;
-  font-weight: bold;
-  list-style-type: none;
-}
-
-#container li{
-  padding-top: 10px;
-}
-#container h1{
-  margin-top: 0px;
-  margin-left: 40px;
-  font-size: 20px;
-  margin-bottom: 20px;
-  text-align: left;
-
-}
-
-#container li h1 {
-  margin-top: 0px;
-  margin-left: 0px;
-  font-size: 30px;
-  margin-bottom: 20px;
-  text-align: left;
-}
-
-#container a {
-  color: #FED901;
-  font-family:Optima, sans-serif;
-  font-size:17pt;
-  padding-top:10px;
-  padding-bottom: 0px;
-  text-decoration: none;
-  font-weight: bold;
-  margin-left: 0px;
-  list-style-type: none;
-}
-#container textarea {
-  background-color: white;
-  color: #6C5881;
-  font-family:Optima, sans-serif;
-  font-size:12pt;
-  resize: none;
-  /* position:fixed; */
-  border: none;
-  text-decoration: none;
-  margin-left: 40px;
-  width:420px;
-  font-weight: bold;
-  list-style-type: none;
-  border: none;
-  border-radius: 8px;
-  min-height: 15em;
-  /* height:100px; */
-  overflow: auto;
-  pointer-events: none;
-  
-}
-#container p {
-  background-color: white;
-  color: #6C5881;
-  font-family:Optima, sans-serif;
-  font-size:12pt;
-  resize: none;
-  /* position:fixed; */
-  border: none;
-  text-decoration: none;
-  margin-left: 40px;
-  width:420px;
-  font-weight: bold;
-  list-style-type: none;
-  border: none;
-  border-radius: 8px;
-  min-height: 15em;
-  /* height:100px; */
-  overflow: auto;
-  pointer-events: none;
-}
-.pro #home {
+.pro #home,#addpost {
   display:inline-block;
     font-size:14pt;
-    background-color: white;
-    color: #6C5881;
-    padding-top:0px;
+    background-color: #6C5881;
+    color: white;
+    padding-top:5px;
     border: none;
     text-align: center;
     width: 150px;
     margin-left:47%;
     height:33px;
     font-family:Optima, sans-serif;
-    border-radius: 8px;
+    position: fixed;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
-
-}
-
-
-#comment {
-  display:inline-block;
-    font-size:14pt;
-    background-color: #FED901;
-    color: white;
-    padding-top:5px;
-    border: none;
-    text-align: center;
-    width: 200px;
-    height:40px;
-    font-family:Optima, sans-serif;
     margin-top: -50px;
-    border-radius: 8px;
-
 
 }
 
-#home:hover {
-  background-color: white;
+#home,#addpost:hover {
+  background-color: #6C5881;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
-#comment:hover {
-  background-color: #FED901;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-}
-#home:active {
-    background-color: white;
-    /* box-shadow: 0 3px #666; */
-}
-#comment:active {
-  background-color: #FED901;
-  /* box-shadow: 0 3px #666; */
+#home,#addpost:active {
+    background-color: #6C5881;
 }
 
 .pro #home {
-  margin-left:40px;
+    margin-left:10px;
     
-  margin-top: -20px;
-  width: 80px;
+    margin-bottom: 0px;
+    width: 150px;
+    
 }
 .pro #home span {
     cursor: pointer;
@@ -432,20 +315,20 @@ color: #6C5881;
     opacity: 1;
     left: 0;
   }
-  .pro #comment {
-    margin-left:230px;
-    width: 200px;
+  .pro #addpost {
+    margin-left:1110px;
+    width: 150px;
     
 }
 
-.pro #comment span {
+.pro #addpost span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
   }
   
-  .pro #comment span:after {
+  .pro #addpost span:after {
     content: '\00bb';
     position: absolute;
     opacity: 0;
@@ -454,15 +337,14 @@ color: #6C5881;
     transition: 0.5s;
   }
   
-  .pro #comment:hover span {
-    padding-right: 13px;
+  .pro #addpost:hover span {
+    padding-right: 25px;
   }
   
-  .pro #comment:hover span:after {
+  .pro #addpost:hover span:after {
     opacity: 1;
     right: 0;
   }
-
   #sticky {
     position: fixed;
     top: 0;

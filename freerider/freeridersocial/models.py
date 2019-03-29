@@ -85,6 +85,14 @@ class FriendRequest(models.Model):
     host = models.URLField(blank=True)
     url = models.URLField()
     friend_with = models.ForeignKey(Author, related_name="request_sender", on_delete=models.CASCADE)
-    friend_status = (('friend','friend'),('proceeding','proceeding'),('rejected','rejected'))
+    status = (('friend','friend'),('proceeding','proceeding'),('rejected','rejected'))
+    friend_status = models.CharField(max_length=50, choices=status, default='proceeding')
     def __str__(self):
         return self.displayName
+
+class ServerNode(models.Model):
+    HostName = models.URLField(primary_key=True, editable=False)
+    Image_visibility = models.BooleanField(default=True)
+    Post_visibility = models.BooleanField(default=True)
+    username = models.CharField(max_length=50, null=True, blank=True)
+    password = models.CharField(max_length=200, null=True, blank=True)

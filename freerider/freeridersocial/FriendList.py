@@ -34,27 +34,17 @@ class DeleteFriend(APIView):
         friend.delete()
         return HttpResponseRedirect(reverse('myfriends_render'))
 
-# Ask if 2 authors are friends
-# GET http://service/author/<authorid>/friends/<authorid2>
-# STRIP the http:// and https:// from the URI in the restful query
-# If you need a template (optional): GET http://service/author/<authorid1>/friends/<service2>/author/<authorid2>
-# where authorid1 = de305d54-75b4-431b-adb2-eb6b9e546013 (actually author http://service/author/de305d54-75b4-431b-adb2-eb6b9e546013 )
-# where authorid2 =
-# GET http://service/author/de305d54-75b4-431b-adb2-eb6b9e546013/friends/127.0.0.1%3A5454%2Fauthor%2Fae345d54-75b4-431b-adb2-fb6b9e547891
-# Please escape / of IDs with %2F e.g. urllib.parse.quote( "http://service/author/whatever" , safe='~()*!.\'')
-# responds with:
-# {	"query":"friends",
-#         # Array of Author UUIDs
-#         "authors":[
-#             "http://127.0.0.1:5454/author/de305d54-75b4-431b-adb2-eb6b9e546013",
-#             "http://127.0.0.1:5454/author/ae345d54-75b4-431b-adb2-fb6b9e547891"
-#         ],
-#         # boolean true or false
-#         "friends": true
-# }
+# GET http://service/author/<author_id>/friends/service2/author/<friend_id>/
+# Get author/<authorid1>/friends/<service2>/author/<authorid2>/
 class CheckIfFriend(APIView):
     '''get a request asking if author1 and author2 is friend, author1 is local and author2 is remote'''
     def get(self, request, authorid1, service2, authorid2):
+
+        if request.user.is_authenticated:
+            pass
+        else:
+            return Response('unidentified user', status=403)
+
         is_friend = False
         try:
             author1 = Author.objects.filter(id = authorid1)
@@ -97,6 +87,11 @@ class CheckIfFriend(APIView):
 class FriendsOfAuthor(APIView):
     '''get friendquery of an author given his author url'''
     def get(self, request, authorid):
+        if request.user.is_authenticated:
+            pass
+        else:
+            return Response('unidentified user', status=403)
+
         author = get_object_or_404(Author, pk = authorid)
         friendlist = list()
 
@@ -115,6 +110,12 @@ class FriendsOfAuthor(APIView):
     # ask a service if anyone in the list is a friend
     # POST to http://service/author/<authorid>/friends
     def post(self, request, authorid):
+
+        if request.user.is_authenticated:
+            pass
+        else:
+            return Response('unidentified user', status=403)
+
         data = request.data
         try:
             author = get_object_or_404(Author, authorid)

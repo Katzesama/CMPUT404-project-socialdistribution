@@ -1,4 +1,4 @@
-from .models import Author, FriendRequest
+from .models import *
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -11,15 +11,21 @@ from rest_framework import status
 from .serializer import FriendSerializer
 import requests
 import json
+from django.contrib.auth.models import User, AnonymousUser
 
-class FriendRequest(APIView):
+class FriendRequestHandler(APIView):
 
     def get(self, request):
         '''get all friendrequest to me 前端可以了吗？'''
-        me = self.request.user.author
-        friendrequests = FriendRequest.objects.filter(friend_with = me, friend_status = "proceeding")
-        serializer = FriendSerializer(friendrequests, many=True)
+            #current_user_id = get_current_user_id(request)
+        if request.user.is_authenticated:
+            pass
+        else:
+            return Response('unidentified user', status=403)
 
+        current_author = request.user.author
+        friendrequests = FriendRequest.objects.filter(friend_with = current_author, friend_status = "proceeding")
+        serializer = FriendSerializer(friendrequests, many=True)
         return Response({'serializer': serializer.data})
 
     def post(self, request):
@@ -49,7 +55,13 @@ class FriendRequest(APIView):
         4. Handle error case
         大问题： url是host + /author/ + uuid
         '''
+        if request.user.is_authenticated:
+            pass
+        else:
+            return Response('unidentified user', status=403)
+
         data = request.data
+
         if not data['query'] == 'friendrequest':
             return Response('Invalid request', status=status.HTTP_400_BAD_REQUEST)
 
@@ -104,7 +116,7 @@ class FriendRequest(APIView):
         receiver = request.user.author
         sender_url = data['sender_url']
         decision = data['decision']
-        friend_request = Friend.objects.filter(url=sender_url, friend_with=receiver)
+        friend_request = FriendRequest.objects.filter(url=sender_url, friend_with=receiver)
         if decision == 'accept':
             friend_request.friend_status = "friend"
         elif decision == 'decline':

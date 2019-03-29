@@ -26,11 +26,15 @@ Post这部分有哪些要改：
 1. remote 请求post会
 '''
 class visible_post(APIView):
+    #author/posts/
     def get(self, request, format=None):
+        if request.user.is_authenticated:
+            pass
+        else:
+            return Response('unidentified user', status=403)
         posts = []
         try:
             #print(user_id)
-
             current_user_profile = request.user.author
         except:
             return HttpResponse(status=404)

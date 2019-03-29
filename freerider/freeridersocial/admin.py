@@ -11,3 +11,5 @@ admin.site.register(Post)
 admin.site.register(Images)
 admin.site.register(Comment)
 admin.site.register(FriendRequest)
+admin.site.register(ServerNode)
+
