@@ -95,8 +95,3 @@ class ServerNode(models.Model):
     password = models.CharField(max_length=200)
     Image_visibility = models.BooleanField(default=True)
     Post_visibility = models.BooleanField(default=True)
-
-class RemoteUser(models.Model):
-    authorid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    server = models.ForeignKey(ServerNode,related_name="remote_host", on_delete=models.CASCADE)
-    

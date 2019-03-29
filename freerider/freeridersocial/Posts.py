@@ -31,6 +31,8 @@ class visible_post(APIView):
         try:
             #print(user_id)
             current_user_profile = request.user.author
+            if !current_user_profile:
+                return HttpResponse(status=404)
         except:
             return HttpResponse(status=404)
         public_posts = Post.objects.filter(visibility='PUBLIC', unlisted=False)
@@ -76,6 +78,8 @@ class upload_post(APIView):
             #id = request.session["new_post_id"]
             id = uuid.UUID(request.session['new_post_id']).hex
             new_post = Post.objects.get(id=id)
+            if !new_post:
+                new_post = Post.objects.create(author=request.user.author)
         except:
             new_post = Post.objects.create(author=request.user.author)
         serializer = PostSerializer(new_post, data = request.data)
@@ -91,6 +95,8 @@ class my_post(APIView):
         try:
             #print(user_id)
             current_user_profile = request.user.author
+            if !current_user_profile:
+                return HttpResponse(status=404)
         except:
             return HttpResponse(status=404)
         posts = Post.objects.filter(author=current_user_profile)
