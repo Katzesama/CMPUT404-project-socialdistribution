@@ -45,6 +45,7 @@ class public_post(APIView):
         res=PostSerializer(instance=pg_res, many=True)
         return pg_obj.get_paginated_response(res.data)
 
+
 class upload_post(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'addpost.html'
@@ -75,6 +76,7 @@ class upload_post(APIView):
         except:
             new_post = Post.objects.create(author=request.user.author)
         serializer = PostSerializer(new_post, data = request.data)
+        print(serializer.initial_data)
         if serializer.is_valid():
             print("what's the matter")
             serializer.save()

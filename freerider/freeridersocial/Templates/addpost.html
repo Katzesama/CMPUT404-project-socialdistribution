@@ -31,8 +31,18 @@
 <form action="" method="POST">
     {% csrf_token %}
     {% render_form serializer %}
+
 </div>
-        <input type="submit" value = "Save">
+    <script>
+        var ele = document.getElementsByName("title");
+        if (ele == "No Title") {
+            // document.getElementsByName("title").values = "Title";
+            alert("Got");
+        }
+    </script>
+
+    <input type="submit" value = "Save">
+
 </form>
 
 
