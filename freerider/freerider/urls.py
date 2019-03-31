@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+<<<<<<< HEAD
 """
 http://service/author/posts (posts that are visible to the currently authenticated user)
 http://service/posts (all posts marked as public on the server)
@@ -24,6 +25,10 @@ http://service/posts/{post_id}/comments access to the comments in a post
 
 
 """
+=======
+from django.conf.urls.static import static
+from django.conf import settings
+>>>>>>> 9f8e8720405a02b200c2b12d4d8e5b4ccd1c7776
 from django.contrib import admin
 from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
@@ -55,6 +60,7 @@ urlpatterns = [
     path('posts/<uuid:post_id>/comments/view/add_comment/', freeridersocial.Comments.addComment.as_view() , name='addcomment'),
     path('posts/<uuid:post_id>/comments/', freeridersocial.Comments.get_comments.as_view(), name='comments_view'),
     path('posts/<uuid:post_id>/comments/view/', freeridersocial.views.comments_render, name='comments'),
+    path('posts/<uuid:post_id>/del_comment/', freeridersocial.Comments.del_comment, name='del_comment'),
 
     path('friendrequest/', freeridersocial.FriendRequest.FriendRequest.as_view(), name='friend_request'),
     path('friendrequest/view/', freeridersocial.views.FriendRequest_render, name='friend_request'),
@@ -65,3 +71,6 @@ urlpatterns = [
     path('myfriends/views/', freeridersocial.views.FriendList, name= 'myfriends_render'),
     path('myfriends/views/<friendid>/delete/', freeridersocial.FriendList.DeleteFriend.as_view(), name= 'delete_friend'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -47,7 +47,15 @@ class addComment(APIView):
         print(serializer.errors)
         return Response({'serializer': serializer})
 
+<<<<<<< HEAD
 # POST to http://service/posts/{POST_ID}/comments
+=======
+def del_comment(request, comment_id):
+    post = get_object_or_404(Comment, pk=comment_id)
+    post.delete()
+    return redirect("comments")
+
+>>>>>>> 9f8e8720405a02b200c2b12d4d8e5b4ccd1c7776
 class get_comments(APIView):
     def get(self, request, post_id, **kwargs):
         try:

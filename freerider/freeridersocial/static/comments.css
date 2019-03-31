@@ -296,7 +296,11 @@ color:rgb(159, 136, 184);
   /* transform: translateY(4px); */
 }
 
+<<<<<<< HEAD
 .pro #mypost {
+=======
+.pro #home {
+>>>>>>> 9f8e8720405a02b200c2b12d4d8e5b4ccd1c7776
 display:inline-block;
   font-size:14pt;
   background-color: white;
@@ -306,10 +310,16 @@ display:inline-block;
   text-align: center;
   width: 150px;
   margin-left:47%;
+<<<<<<< HEAD
   height:auto;
   font-family:Optima, sans-serif;
   border-radius: 8px;
   overflow-wrap: break-word;
+=======
+  height:33px;
+  font-family:Optima, sans-serif;
+  border-radius: 8px;
+>>>>>>> 9f8e8720405a02b200c2b12d4d8e5b4ccd1c7776
 
 }
 
@@ -330,7 +340,11 @@ display:inline-block;
 
 }
 
+<<<<<<< HEAD
 #mypost:hover {
+=======
+#home:hover {
+>>>>>>> 9f8e8720405a02b200c2b12d4d8e5b4ccd1c7776
 background-color: white;
 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
@@ -338,7 +352,11 @@ box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 background-color: #FED901;
 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
+<<<<<<< HEAD
 #mypost:active {
+=======
+#home:active {
+>>>>>>> 9f8e8720405a02b200c2b12d4d8e5b4ccd1c7776
   background-color: white;
   /* box-shadow: 0 3px #666; */
 }
@@ -347,21 +365,33 @@ background-color: #FED901;
 /* box-shadow: 0 3px #666; */
 }
 
+<<<<<<< HEAD
 .pro #mypost {
+=======
+.pro #home {
+>>>>>>> 9f8e8720405a02b200c2b12d4d8e5b4ccd1c7776
   margin-left:10px;
 
   margin-top: -20px;
   width: 80px;
 
 }
+<<<<<<< HEAD
 .pro #mypost span {
+=======
+.pro #home span {
+>>>>>>> 9f8e8720405a02b200c2b12d4d8e5b4ccd1c7776
   cursor: pointer;
   display: inline-block;
   position: relative;
   transition: 0.5s;
 }
 
+<<<<<<< HEAD
 .pro #mypost span:after {
+=======
+.pro #home span:after {
+>>>>>>> 9f8e8720405a02b200c2b12d4d8e5b4ccd1c7776
   content:'\00ab';
   position: absolute;
   opacity: 0;
@@ -370,11 +400,19 @@ background-color: #FED901;
   transition: 0.5s;
 }
 
+<<<<<<< HEAD
 .pro #mypost:hover span {
   padding-left: 18px;
 }
 
 .pro #mypost:hover span:after {
+=======
+.pro #home:hover span {
+  padding-left: 18px;
+}
+
+.pro #home:hover span:after {
+>>>>>>> 9f8e8720405a02b200c2b12d4d8e5b4ccd1c7776
   opacity: 1;
   left: 0;
 }
@@ -412,4 +450,8 @@ background-color: #FED901;
   position: fixed;
   top: 0;
   width: 100%;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9f8e8720405a02b200c2b12d4d8e5b4ccd1c7776

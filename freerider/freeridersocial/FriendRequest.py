@@ -50,6 +50,7 @@ class FriendRequest(APIView):
         大问题： url是host + /author/ + uuid
         '''
         data = request.data
+<<<<<<< HEAD
         if not data['query'] == 'friendrequest':
             return Response('Invalid request', status=status.HTTP_400_BAD_REQUEST)
 
@@ -90,6 +91,19 @@ class FriendRequest(APIView):
             friend_request = FriendRequest.objects.create(url = sender_url, friend_with = receiver_obj, friend_status = 'proceeding')
             friend_request.save()
             return Response("Friend request sent", status=status.HTTP_200_OK)
+=======
+        receiver = Author.objects.filter(url=data['friend']['url'])
+        sender_url = data['author']['url']
+        sender_host = data['author']['host']
+        sender_name = data['author']['displayName']
+        firend_request = Friend.objects.create(url=sender_url, friend_with=receiver, host=sender_host, displayName=sender_name)
+        firend_request.friend_status = "proceeding"
+        firend_request.save()
+        return Response(status=200)
+        #assume current user id contains host name
+        #assume not friends yet
+        #if me.url == receiver_url:
+>>>>>>> 9f8e8720405a02b200c2b12d4d8e5b4ccd1c7776
 
     def put(self, request):
         '''
@@ -106,9 +120,9 @@ class FriendRequest(APIView):
         decision = data['decision']
         friend_request = Friend.objects.filter(url=sender_url, friend_with=receiver)
         if decision == 'accept':
-            friend_request.friend_status = "friend"
+            friend_request.friend_status = 'friend'
         elif decision == 'decline':
-            friend_request.friend_status = "rejected"
+            friend_request.friend_status = 'rejected'
         friend_request.save()
         return Response(status=200)
         return Response(status=200)
