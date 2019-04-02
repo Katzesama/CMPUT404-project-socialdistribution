@@ -35,7 +35,7 @@ class Post(models.Model):
         ('image/png;base64', 'image/png;base64'),
         ('image/jpeg;base64', 'image/jpeg;base64'),
     )
-    image = models.ImageField(null=True, blank=True)
+    image = models.ImageField(upload_to='image/',blank = True, null = True)
     contentType = models.CharField(max_length=2000, choices=contentType_choice, default='text/markdown')
     content = models.TextField()
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
@@ -58,8 +58,10 @@ class Post(models.Model):
 
 
 class Images(models.Model):
-	associated_post = models.ForeignKey(Post, on_delete=models.CASCADE)
-	img = models.ImageField(null=True, blank=True)
+    model_name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='image/')
+    def __unicode__(self):
+        return self.model_name
 
 class Comment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

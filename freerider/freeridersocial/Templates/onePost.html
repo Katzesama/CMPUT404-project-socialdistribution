@@ -77,7 +77,7 @@
 if ( contentType == "image/png;base64" || contentType == "image/jpeg;base64")
 {
   var content = document.createElement("img");
-  content.src = content_value;
+  content.src = "{{ serializer.image }}";
   content.style.width = "50%";
   content.style.height = "50%";
 }
@@ -101,4 +101,7 @@ container.appendChild(content);
 
 </script>
 </div>
+
+
+
 </body></html>
