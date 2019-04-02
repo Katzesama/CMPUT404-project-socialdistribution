@@ -38,9 +38,20 @@ class visible_post(APIView):
             current_user_profile = request.user.author
         except:
             return HttpResponse(status=404)
+
+        ''' those posts visible to me '''
         public_posts = Post.objects.filter(visibility='PUBLIC', unlisted=False)
         posts_only_visible = Post.objects.filter(visibleTo__contains = current_user_profile.url)
+        ''' get friend's post '''
+        friends = FriendRequest.objects.filter(friend_with = request.user.author, status='friend')
+        friend_authors = Author.objects.none()
+        for friend in friends:
+            friend_authors = friend_authors | Author.objects.filter(url=friend.url)
+        friend_posts = Post.objects.none()
+        for a_author in friend_authors:
+            friend_posts = friend_posts | Post.objects.filter(visibility='FRIENDS', author=a_author)
         posts = public_posts | posts_only_visible
+        posts = posts | friend_posts
         pg_obj=PaginationModel()
         pg_res=pg_obj.paginate_queryset(queryset=posts, request=request)
         res=PostSerializer(instance=pg_res, many=True)
