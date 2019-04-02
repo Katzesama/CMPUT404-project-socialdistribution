@@ -7,7 +7,10 @@ from .serializer import *
 from django.http import HttpResponse, JsonResponse
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.renderers import JSONRenderer
-import uuid
+from uuid import UUID
+from django.db.models import F
+from .tools import *
+from django.core import serializers
 
 # http://service/author/{AUTHOR_ID}/posts (all posts made by {AUTHOR_ID} visible to the currently authenticated user)
 # http://service/author/posts (posts that are visible to the currently authenticated user)
@@ -22,36 +25,98 @@ import uuid
 
 
 '''
-Post这部分有哪些要改：
-1. remote 请求post会
+# http://service/author/posts (posts that are visible to the currently authenticated user)
 '''
 class visible_post(APIView):
     #author/posts/
     def get(self, request, format=None):
-        if request.user.is_authenticated:
-            pass
-        else:
-            return Response('unidentified user', status=403)
-        posts = []
-        try:
-            #print(user_id)
-            current_user_profile = request.user.author
-        except:
-            return HttpResponse(status=404)
+        # if request.user.is_authenticated:
+        #     pass
+        # else:
+        #     return Response('unidentified user', status=403)
+        # posts = []
+        # try:
+        #     #print(user_id)
+        #     current_user_profile = request.user.author
+        #     if not current_user_profile:
+        #         return HttpResponse(status=404)
+        # except:
+        #     return HttpResponse(status=404)
+        # public_posts = Post.objects.filter(visibility='PUBLIC', unlisted=False)
+        # posts_only_visible = Post.objects.filter(visibleTo__contains = current_user_profile.url)
+        # posts = public_posts | posts_only_visible
+        check_authentication()
+        is_remote = check_if_request_is_remote(request)
+        local_posts = []
+        remote_posts = []
+        if is_remote:
+            try:
+                user_id = request.META.get('HTTP_X_REQUEST_USER_ID', '')
+                current_author = Author.objects.get(pk=user_id)
+            except:
+                return Response('remote user uuid not found', status=404)
+        if not is_remote:
+            current_author = Author.objects.get
 
-        ''' those posts visible to me '''
-        public_posts = Post.objects.filter(visibility='PUBLIC', unlisted=False)
-        posts_only_visible = Post.objects.filter(visibleTo__contains = current_user_profile.url)
-        ''' get friend's post '''
-        friends = FriendRequest.objects.filter(friend_with = request.user.author, status='friend')
-        friend_authors = Author.objects.none()
-        for friend in friends:
-            friend_authors = friend_authors | Author.objects.filter(url=friend.url)
-        friend_posts = Post.objects.none()
-        for a_author in friend_authors:
-            friend_posts = friend_posts | Post.objects.filter(visibility='FRIENDS', author=a_author)
-        posts = public_posts | posts_only_visible
-        posts = posts | friend_posts
+            #Get all posts posted by current user
+            if Post.objects.filter(author = current_author).exist():
+                for post in Post.objects.filter(author=current_author):
+                    local_posts.append(post)
+
+            #Get all public posts in local server
+            if Post.objects.filter(visibility='PUBLIC').exist():
+                for post in Post.objects.filter(visibility="PUBLIC"):
+                    local_posts.append(post)
+
+            #Get all posts sent by local friend
+            local_friends = []
+            if FriendRequest.objects.filter(url = current_author.url, friend_status = 'friend').exist():
+                friendrequests = FriendRequest.objects.filter(url = current_author.url, friend_status = 'friend')
+                for friendrequest in friendrequests:
+                    friend = friendrequest.friend_with
+                    if friend.host == request.get_host():
+                        local_friends.append(friend)
+
+            for local_friend in local_friends:
+                if Post.objects.filter(author = local_friend).exist():
+                    for post in Post.objects.filter(author = local_friend):
+                        local_posts.append(post)
+
+            #Get all posts private but visible to current user
+            if Post.objects.filter(visibility='PRIVATE').exist():
+                for post in Post.objects.filter(visibility = "PRIVATE").exist():
+                    visible_to = change_visibleTo_to_list(post.visibleTo)
+                    if current_author.url in visible_to:
+                        local_posts.append(post)
+
+            local_posts |= Post.objects.filter(visibility="SERVERONLY", unlisted=False)
+
+            #Get all visible posts from remote server
+            for node in ServerNode.objects.all():
+                url = node.foreignHost + '/author/posts'
+                header = {'X-Request-User-ID': current_author.host + '/author/' + str(current_author.id)}
+                host = node.HostName
+                authentication = HTTPBasicAuth(node.remoteUsername, node.remotePassword)
+                try:
+                    res = requests.get(url, auth=authentication, headers=header) #tell server current user url
+                except:
+                    return Response('cannot get posts from other server', status=status.HTTP_403_FORBIDDEN)
+                # make sure json dumps
+                res = res.json()
+
+                remote_posts |= res['posts']
+
+        #Convert local posts to json format
+        posts = remote_posts
+        try:
+            local_posts = serializers.serialize('json', local_posts)
+        except Exception:
+            print("Unable to convert model objects to json")
+
+
+        posts = remote_posts | local_posts
+
+        #TODO
         pg_obj=PaginationModel()
         pg_res=pg_obj.paginate_queryset(queryset=posts, request=request)
         res=PostSerializer(instance=pg_res, many=True)
@@ -92,6 +157,8 @@ class upload_post(APIView):
             #id = request.session["new_post_id"]
             id = uuid.UUID(request.session['new_post_id']).hex
             new_post = Post.objects.get(id=id)
+            if not new_post:
+                new_post = Post.objects.create(author=request.user.author)
         except:
             new_post = Post.objects.create(author=request.user.author)
         serializer = PostSerializer(new_post, data = request.data)
@@ -107,6 +174,8 @@ class my_post(APIView):
         try:
             #print(user_id)
             current_user_profile = request.user.author
+            if not current_user_profile:
+                return HttpResponse(status=404)
         except:
             return HttpResponse(status=404)
         posts = Post.objects.filter(author=current_user_profile)
@@ -155,7 +224,7 @@ class edit_post(APIView):
         print(serializer.data["contentType"])
         return JsonResponse({'serializer': serializer.data})
 
-
+# http://service/posts/{POST_ID} access to a single post with id = {POST_ID}
 class get_one_post(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'onePost.html'
@@ -170,3 +239,85 @@ class get_one_post(APIView):
             return HttpResponse(status=404)
         serializer = PostSerializer(post)
         return Response({"serializer": serializer.data})
+
+
+
+
+# author/{author_id}/posts
+# all posts made by author_id visible to authenticated user
+class posts_from_an_author(APIView):
+    '''
+    1. Handle Authentication
+    '''
+    check_authentication()
+    def get(self, request, author_id):
+        is_remote = check_if_request_is_remote(request)
+        posts = []
+        if is_remote:
+            try:
+                user_id = request.META.get('HTTP_X_REQUEST_USER_ID', '')
+                current_author = Author.objects.get(pk = user_id)
+            except:
+                return Response('remote user uuid not found', status=404)
+
+        try:
+            author = Author.objects.get(pk = author_id)
+        except:
+            return Response("author not found",status=404)
+
+        if not is_remote:
+            current_author = request.user.author
+
+        if current_author == author:
+            for post in Post.objects.filter(author = current_author):
+                posts.append(post)
+        else:
+            '''public, friend, foaf, visible_to'''
+            for post in Post.objects.filter(visibility='PUBLIC'):
+                posts.append(post)
+
+            author_url = author.url
+            if FriendRequest.objects.filter(url = author_url, friend_with = current_author, friend_status = 'friend').exist():
+                for post in Post.objects.filter(author = author, visibility='FRIENDS'):
+                    posts.append(post)
+
+            for post in Post.objects.filter(author = author, visibility='PRIVATE'):
+                if current_author.id in post.visibleTo:
+                    if post not in posts:
+                        posts.append(post)
+
+            #get post foaf, only local foaf
+            friendrequests = []
+            friend_objs = []
+            if FriendRequest.objects.filter(url=author_url, friend_status='friend').exist():
+                for friendrequest in FriendRequest.objects.filter(url = author_url, friend_status = 'friend'):
+                    friendrequests.append(friendrequest)
+                    friend_objs.append(friendrequest.friend_with)
+                for friend in friend_objs:
+                    friend_url = friend.url
+                    if FriendRequest.objects.filter(url = friend_url, friend_with = current_author, friend_status = 'friend').exist():
+                        for post in Post.objects.filter(author = author, visibility='FOAF'):
+                            if post not in posts:
+                                posts.append(post)
+
+        posts = posts.order_by(F("published").desc())
+
+        response_body = {}
+        response_body['query'] = 'posts'
+        response_body['count'] = str(len(posts))
+        response_body['previous'] = current_author.host + "/author/posts?page=1"
+        response_body['next'] = current_author.host + "/author/posts?page=2"
+
+        response_body['posts'] = []
+        for post in posts:
+            serializer = PostSerializer(post).data
+            serializer['postid'] = str(serializer['postid'])
+            response_body['posts'].append(serializer)
+
+        return Response(json.dumps(response_body), status=status.HTTP_200_OK)
+
+
+
+
+
+
