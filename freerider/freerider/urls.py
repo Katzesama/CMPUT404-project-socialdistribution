@@ -38,7 +38,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('home/', freeridersocial.views.home, name='home'),
     path('author/<uuid:user_id>/', freeridersocial.profile.ProfileDetail.as_view(), name='profile'),
-    path('author/<uuid:user_id>/editprofile', freeridersocial.profile.EditProfile.as_view(),name = 'edit_profile'),
+    path('author/<uuid:user_id>/editprofile/', freeridersocial.profile.EditProfile.as_view(),name = 'edit_profile'),
 
     path('author/posts/', freeridersocial.Posts.visible_post.as_view(), name='get_post_for_user_view'),
     path('posts/', freeridersocial.Posts.public_post.as_view(), name='public_posts_view'),
@@ -46,7 +46,9 @@ urlpatterns = [
     path('author/posts/views/', freeridersocial.views.get_visible_post_render, name='get_post_for_user'),
     path('posts/views/', freeridersocial.views.get_posts_render, name='public_posts'),
     path('author/myPosts/views/', freeridersocial.views.get_my_posts_render, name='my_posts'),
-    path('author/<authorid>/', freeridersocial.profile.HandleProfile.as_view(), name = "handle_profile"),
+    path('author/<authorid>/api/', freeridersocial.profile.HandleProfile.as_view(), name = "handle_profile"),
+
+    path('author/<uuid:authorid>/posts', freeridersocial.Posts.posts_from_an_author.as_view(), name='posts_from_an_author'),
 
     path('posts/<uuid:post_id>/', freeridersocial.Posts.get_one_post.as_view(), name="get_one_post"),
     path('addpost/', freeridersocial.Posts.upload_post.as_view(), name='add_post'),
@@ -64,4 +66,5 @@ urlpatterns = [
     path('myfriends/', freeridersocial.FriendList.FriendList.as_view(), name= 'myfriends'),
     path('myfriends/views/', freeridersocial.views.FriendList, name= 'myfriends_render'),
     path('myfriends/views/<friendid>/delete/', freeridersocial.FriendList.DeleteFriend.as_view(), name= 'delete_friend'),
+    path('updatefriend/', freeridersocial.FriendRequest.UpdateFriendRequestHandler.as_view(), name= 'update_friend_request'),
 ]

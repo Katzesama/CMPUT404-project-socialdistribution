@@ -48,40 +48,42 @@ function myFunction() {
   <div id="holder"></div>
   <script type="text/javascript">
   function show_request(data) {
+      console.info(data.serializer.length);
       var holder = document.getElementById("holder");
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < data.serializer.length; i++) {
           let friend_request = document.createElement("div");
           holder.appendChild(friend_request);
 
           var sender = document.createElement("p");
-          sender.innerHTML = data[i].displayName;
+          sender.innerHTML = data.serializer[i].displayName;
           sender.style.fontSize='25px';
           sender.style.display = "inline-block";
           friend_request.appendChild(sender);
           var line = document.createElement("br");
           friend_request.appendChild(line);
           var sender_url = document.createElement("a");
-          sender_url.innerHTML = data[i].url;
-          sender_url.href = data[i].url;
+          sender_url.innerHTML = data.serializer[i].url;
+          sender_url.href = data.serializer[i].url;
           friend_request.appendChild(sender_url);
           var line = document.createElement("br");
           var decline = document.createElement("button");
           decline.innerHTML = 'Decline';
           var accept = document.createElement("button");
           accept.innerHTML = 'Accept';
-          decline.onclick=function(){
-            HandleFriendRequest('/friendrequest/', 'decline', this.parentNode.getElementByTagName('a').innerHTML);
-          };
-          accept.onclick=function(){
-            HandleFriendRequest('/friendrequest/', 'accept', this.parentNode.getElementByTagName('a').innerHTML);
-          };
+          decline.addEventListener("click", function(e){
+            HandleFriendRequest('/updatefriend/', 'decline', this.parentNode.getElementsByTagName('a').innerHTML);
+          });
+          accept.addEventListener("click", function(e){
+            HandleFriendRequest('/updatefriend/', 'accept', this.parentNode.getElementsByTagName('a').innerHTML);
+          });
           friend_request.appendChild(decline);
           friend_request.appendChild(accept);
           function HandleFriendRequest(url, decision, friend_url) {
             var request = new Request(url, {
-                        method: 'PUT',
+                        method: 'POST',
                         headers: {
                              'Content-Type': 'application/json'
+
                         },
                        data: {'decision': decision,
                               'friend_url': friend_url},
@@ -119,7 +121,7 @@ function myFunction() {
 
 
   function get_data_display(url) {
-      fetchJSON(url).then(show_request)
+      fetchJSON(url).then(show_request);
   }
 
   get_data_display("{{fetch_url}}");
