@@ -46,6 +46,7 @@ class visible_post(APIView):
         # posts_only_visible = Post.objects.filter(visibleTo__contains = current_user_profile.url)
         # posts = public_posts | posts_only_visible
         check_authentication()
+        #print('im here')
         is_remote = check_if_request_is_remote(request)
         local_posts = []
         remote_posts = []
@@ -56,21 +57,21 @@ class visible_post(APIView):
             except:
                 return Response('remote user uuid not found', status=404)
         if not is_remote:
-            current_author = Author.objects.get
+            current_author = request.user.author
+            #print('im here')
 
             #Get all posts posted by current user
-            if Post.objects.filter(author = current_author).exist():
+            if Post.objects.filter(author = current_author).exists():
                 for post in Post.objects.filter(author=current_author):
                     local_posts.append(post)
-
+            print('look at here')
             #Get all public posts in local server
-            if Post.objects.filter(visibility='PUBLIC').exist():
+            if Post.objects.filter(visibility='PUBLIC').exists():
                 for post in Post.objects.filter(visibility="PUBLIC"):
                     local_posts.append(post)
-
             #Get all posts sent by local friend
             local_friends = []
-            if FriendRequest.objects.filter(url = current_author.url, friend_status = 'friend').exist():
+            if FriendRequest.objects.filter(url = current_author.url, friend_status = 'friend').exists():
                 friendrequests = FriendRequest.objects.filter(url = current_author.url, friend_status = 'friend')
                 for friendrequest in friendrequests:
                     friend = friendrequest.friend_with
@@ -78,20 +79,21 @@ class visible_post(APIView):
                         local_friends.append(friend)
 
             for local_friend in local_friends:
-                if Post.objects.filter(author = local_friend).exist():
+                if Post.objects.filter(author = local_friend).exists():
                     for post in Post.objects.filter(author = local_friend):
                         local_posts.append(post)
 
             #Get all posts private but visible to current user
-            if Post.objects.filter(visibility='PRIVATE').exist():
-                for post in Post.objects.filter(visibility = "PRIVATE").exist():
+            if Post.objects.filter(visibility='PRIVATE').exists():
+                for post in Post.objects.filter(visibility = "PRIVATE").exists():
                     visible_to = change_visibleTo_to_list(post.visibleTo)
                     if current_author.url in visible_to:
                         local_posts.append(post)
 
-            local_posts |= Post.objects.filter(visibility="SERVERONLY", unlisted=False)
+            local_posts += Post.objects.filter(visibility="SERVERONLY", unlisted=False)
 
             #Get all visible posts from remote server
+            #TODO if author object not stored locally store it
             for node in ServerNode.objects.all():
                 url = node.foreignHost + '/author/posts'
                 header = {'X-Request-User-ID': current_author.host + '/author/' + str(current_author.id)}
@@ -102,19 +104,29 @@ class visible_post(APIView):
                 except:
                     return Response('cannot get posts from other server', status=status.HTTP_403_FORBIDDEN)
                 # make sure json dumps
+
+                remote_author = res['posts']['author'] #a dictionary
+                author_id = remote_author['id']
+                has_author_already = check_local_has_author(author_id)
+                if not has_author_already:
+                    create_local_author(remote_author)
+
+
                 res = res.json()
 
-                remote_posts |= res['posts']
+                remote_posts += res['posts']
 
         #Convert local posts to json format
         posts = remote_posts
-        try:
-            local_posts = serializers.serialize('json', local_posts)
-        except Exception:
-            print("Unable to convert model objects to json")
+        # try:
+        #     print(str(type(local_posts)))
+        #     local_posts = serializers.serialize('json', local_posts)
+        # except Exception:
+        #     print("Unable to convert model objects to json")
 
-
-        posts = remote_posts | local_posts
+        print(remote_posts)
+        print(local_posts)
+        posts = remote_posts + local_posts
 
         #TODO
         pg_obj=PaginationModel()
@@ -289,7 +301,7 @@ class posts_from_an_author(APIView):
             #get post foaf, only local foaf
             friendrequests = []
             friend_objs = []
-            if FriendRequest.objects.filter(url=author_url, friend_status='friend').exist():
+            if FriendRequest.objects.filter(url=author_url, friend_status='friend').exists():
                 for friendrequest in FriendRequest.objects.filter(url = author_url, friend_status = 'friend'):
                     friendrequests.append(friendrequest)
                     friend_objs.append(friendrequest.friend_with)
