@@ -58,8 +58,8 @@ urlpatterns = [
     path('posts/<uuid:post_id>/comments/', freeridersocial.Comments.get_comments.as_view(), name='comments_view'),
     path('posts/<uuid:post_id>/comments/view/', freeridersocial.views.comments_render, name='comments'),
 
-    path('friendrequest/', freeridersocial.FriendRequest.FriendRequestHandler.as_view(), name='friend_requests'),
-    path('friendrequest/view/', freeridersocial.views.FriendRequest_render, name='friend_request'),
+    path('friendrequest/', freeridersocial.FriendRequest.FriendRequestHandler.as_view(), name='friend_request_api'),
+    path('friendrequest/view/', freeridersocial.views.FriendRequest_render, name='friend_requests'),
     path('author/<authorid1>/friends/<service2>/author/<authorid2>/', freeridersocial.FriendList.CheckIfFriend, name='check_if_friend'),
     path('friends/<friendid>/delete_friend/',freeridersocial.FriendList.DeleteFriend, name = 'delete_friend'),
     path('author/<authorid>/friends', freeridersocial.FriendList.FriendsOfAuthor, name='get_user_friends'),
