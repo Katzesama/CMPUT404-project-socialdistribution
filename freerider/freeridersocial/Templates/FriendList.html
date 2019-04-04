@@ -9,27 +9,27 @@
   <script type="text/javascript">
   function show_request(data) {
       var holder = document.getElementById("holder");
-      alert(data.serializer.length)
+      //alert(data.serializer.length)
         for (var i = 0; i < data.serializer.length; i++) {
-            alert('arrive ehre')
+            //alert('arrive ehre')
           let friend_block = document.createElement("div");
           holder.appendChild(friend_block);
 
           var friend = document.createElement("a");
-          friend.innerHTML = data[i].displayName;
+          friend.innerHTML = data.serializer[i].displayName;
           friend.style.fontSize='25px';
           friend.style.display = "inline-block";
           friend_block.appendChild(friend);
           var line = document.createElement("br");
           friend_block.appendChild(line);
           var friend_url = document.createElement("a");
-          friend_url.innerHTML = data[i].url;
-          friend_url.href = data[i].url;
+          friend_url.innerHTML = data.serializer[i].url;
+          friend_url.href = data.serializer[i].url;
           friend_block.appendChild(friend_url);
           var line = document.createElement("br");
           var delete_friend = document.createElement("button");
           delete_friend.innerHTML = 'Delete Friend';
-          var friend_obj_id = data[i].id;
+          var friend_obj_id = data.serializer[i].id;
           delete_friend.onclick=function(){
             HandleFriendRequest('/myfriends/views/'+friend_obj_id+'/delete/');
           };
@@ -38,6 +38,7 @@
             var request = new Request(url, {
                         method: 'Delete',
                         headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
                              'Content-Type': 'application/json'
                         },
                         });
