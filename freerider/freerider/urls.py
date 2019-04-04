@@ -66,5 +66,5 @@ urlpatterns = [
     path('myfriends/', freeridersocial.FriendList.FriendList.as_view(), name= 'myfriends'),
     path('myfriends/views/', freeridersocial.views.FriendList, name= 'myfriends_render'),
     path('myfriends/views/<friendid>/delete/', freeridersocial.FriendList.DeleteFriend.as_view(), name= 'delete_friend'),
-    path('updatefriend/', freeridersocial.FriendRequest.UpdateFriendRequestHandler.as_view(), name= 'update_friend_request'),
+    path('updatefriend/', freeridersocial.FriendRequest.updateFriendRequestHandler.as_view(), name= 'update_friend_request'),
 ]
