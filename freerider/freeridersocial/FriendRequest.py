@@ -9,6 +9,7 @@ from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.renderers import JSONRenderer
 from rest_framework import status
 from .serializer import FriendSerializer
+from django.urls import converters
 from .tools import *
 import requests
 import json
@@ -27,10 +28,10 @@ class FriendRequestHandler(APIView):
         current_author = request.user.author
         friendrequests = FriendRequest.objects.filter(friend_with = current_author, friend_status = "proceeding")
         serializer = FriendSerializer(friendrequests, many=True)
-        serializer_list = []
-        for s in serializer.data:
-            serializer_list.append(s)
-        print(serializer_list)
+        # serializer_list = []
+        # for s in serializer.data:
+        #     serializer_list.append(s)
+        #print(serializer_list)
         return Response({'serializer': serializer.data})
 
     def post(self, request):
@@ -135,26 +136,29 @@ class FriendRequestHandler(APIView):
 class updateFriendRequestHandler(APIView):
     def post(self, request):
         '''
-        貌似不需要这个了...
-        Other server update the status of friendrequest 那local server呢？
-        idea:
-        1. friendrequest exist or not
-        2. Local friendrequest or remote
-        3. Assume request has attributes: sender_url
+        data['friend_url']
+        data['decision']
         '''
-        print('fjaifjaiejf')
         data = request.data
-        #print(data)
         receiver = request.user.author
         sender_url = data['friend_url']
-        decision = data['decision']
+
+        # for fr in FriendRequest.objects.all():
+        #     print(fr.friend_with) #laoshu
+        #     print(fr.url)
+        # a = sender_url.replace(fr.url,"")
+        sender_url = sender_url.replace('"','')
         print(sender_url)
-        friend_requests = FriendRequest.objects.filter(url=sender_url, friend_with=receiver)
-        for friend_request in friend_requests:
-            if decision == 'accept':
-                friend_request.friend_status = "friend"
-            elif decision == 'decline':
-                friend_request.friend_status = "rejected"
-            friend_request.save()
-            print(friend_request.friend_status)
+        #print(str(sender_url==fr.url))
+
+        decision = data['decision']
+        friend_request = FriendRequest.objects.filter(url = sender_url,friend_with=receiver)[0]
+        print(friend_request)
+        if decision == 'accept':
+            friend_request.friend_status = "friend"
+        elif decision == 'decline':
+            friend_request.friend_status = "rejected"
+        friend_request.save()
+
+        #send friendrequest back to
         return Response(status=200)

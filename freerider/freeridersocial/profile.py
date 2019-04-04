@@ -10,6 +10,7 @@ from rest_framework.renderers import JSONRenderer
 import requests, json
 from rest_framework import status
 from collections import OrderedDict
+from .tools import *
 from rest_framework import status
 from django.core import serializers
 from django.contrib.auth.models import User, AnonymousUser
@@ -35,15 +36,17 @@ from django.contrib.auth.models import User, AnonymousUser
 class HandleProfile(APIView):
     '''api: handle get an author's profile request'''
     def get(self, request, authorid):
-        if request.user.is_authenticated:
-            pass
-        else:
-            return Response('unidentified user', status=403)
+        #if request.user.is_authenticated:
+        #     remote_user = request.user
+        #     node = ServerNode.objects.filter(source = remote_user)[0]
+        #     remote_host = node.HostName
+        # else:
+        #     return Response('unidentified user', status=403)
+        check_authentication()
+        is_remote = check_if_request_is_remote(request)
 
         try:
             author = get_object_or_404(Author, pk=authorid)
-            # serializer = AuthorSerializer(author)
-            # return JsonResponse(serializer.data)
             host = author.host + '/'
             id = host + 'author/'+author.id
             displayName = author.displayName
@@ -77,49 +80,20 @@ class HandleProfile(APIView):
 
 class ProfileDetail(APIView):
     '''
-    本地author可以吗？好像可以。。。
-    1. render author info to front-end
-    2. check if local has user as author object, if not store it
-    3. check if friend
-    4. check if its my own profile
+    check if author is remote, if so send request for author data
     '''
 
-
+    check_authentication()
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'Profile.html'
     def get(self, request, user_id, **kwargs):
-        '''require user_id to be an url'''
-        # nodes = ServerNode.objects.all()
-        # for node in nodes:
-        #     username = node.username
-        #     pwd = node.password
-        #     remote_url = node.HostName + 'author/' +user_id + '/'
-        #
-        #     global foundProfile
-        #     foundProfile = False
-        #     author = {}
-        #
-        #     try:
-        #         resp = requests.get(remote_url, auth=(username,pwd))
-        #         author = json.loads(resp.text)
-        #         author['id'] = user_id
-        #         foundProfile = True
-        #     except:
-        #         pass
-        #
-        #     if foundProfile:
-        #         remote_host = node.HostName
-        #
-        #         break
-        author = Author.objects.filter(id=user_id)
-        # author_friend = AuthorSerializer(data=author)
-        # author_friend.is_valid(raise_exception=True)
-        # author_friend.save()
-            #Save author locally
-        author = Author.objects.filter(id = user_id)
+        #Only handles local request, check if local has author, otherwise send request to get his profile
+        try:
+            author = Author.objects.get(id = user_id)
+        except:
+            return Response("author does not exist", status=status.HTTP_404_NOT_FOUND)
         serializer = AuthorSerializer(author)
         current_author = False
-        print("i am here")
         me = request.user.author
         if (me.id == user_id):
             current_author = True
@@ -142,50 +116,38 @@ class ProfileDetail(APIView):
 
         return Response({'serializer':serializer.data, 'if_author': current_author, 'able_friend': able_friend})
 
-    def post(self, request, profile_id, **kwargs):
-        '''
-        1. Local friendrequest?
-        2. Should already has author in local
-        3. Authentication
-        '''
-
-        nodes = self.UserNode.objects.all()
-        for node in nodes:
-            username = node.username
-            pwd = node.password
-            remote_url = node.HostName + 'author/' + profile_id + '/'
-
-            global foundProfile
-            foundProfile = False
-            author = {}
-
-            try:
-                resp = requests.get(remote_url, auth=(username, pwd))
-                author = json.loads(resp.text)
-                author['id'] = profile_id
-                foundProfile = True
-            except:
-                pass
-
-            if foundProfile:
-                remote_host = node.HostName
-
-                break
-
-        me = request.user.author
+    def post(self, request, user_id, **kwargs):
 
         '''if locally add friend'''
-        if remote_host == 'http://' + request.get_host() + '/':
-            author = Author.objects.filter(id = profile_id)
-            friendrequest = FriendRequest.objects.create(id=me.url, displayName=me.displayName, host=me.host, url=me.url, friend_with=author, friend_status='proceeding')
+        is_remote = check_if_request_is_remote(request)
+        if not is_remote:
+            author = Author.objects.get(id = user_id)
+            me = request.user.author
+            friendrequest = FriendRequest.objects.create(id=me.id, displayName=me.displayName, host=me.host, url=me.url, friend_with=author, friend_status='proceeding')
             friendrequest.save()
             serializer = AuthorSerializer(author)
             return Response({'serializer': serializer.data, 'if_author': False, 'able_friend': False})
+            #TODO 前端发个消息：friendrequest已发送
+
+        author = Author.objects.get(id = user_id)
+        remote_host = author.host #"http://127.0.0.1:5454/"
+        print('remote host' + remote_host)
+        me = request.user.author
+        node = ServerNode.objects.get(HostName = remote_host)
+        username = node.username
+        pwd = node.password
+        print('username'+username)
+        if remote_host == 'http://' + request.get_host() + '/':
+            print('im inside')
+            author = Author.objects.filter(id = user_id)
+            friendrequest = FriendRequest.objects.create(id=me.url, displayName=me.displayName, host=me.host, url=me.url, friend_with=author, friend_status='proceeding')
+            friendrequest.save()
+
 
 
 
         url = remote_host + '/friendrequest/'
-        author = Author.objects.filter(id = profile_id)
+        author = Author.objects.filter(id = user_id)
         request_body = {
             "query": 'friendrequest',
             "author": {
@@ -201,39 +163,16 @@ class ProfileDetail(APIView):
                     "displayName": author.displayName,
                 },
             }
-        resp = requests.post(url, data=json.dumps(request_body), auth = (username, pwd),
+        authentication = HTTPBasicAuth(node.remoteUsername, node.remotePassword)
+        resp = requests.post(url, data=json.dumps(request_body), auth = authentication,
                              headers={'Content-Type': 'application/json'})
-        friendrequest = FriendRequest.objects.create(id=me.url, displayName=me.displayName, host=me.host, url=me.url, friend_with=author, friend_status='proceeding')
         #Handle error case
         if resp['success'] == False:
             error_message = resp['message']
-            #前端打出error message
-        friendrequest.save()
 
-        serializer = AuthorSerializer(author)
+        #serializer = AuthorSerializer(author)
 
         return Response({'serializer': serializer.data, 'if_author': False, 'able_friend': False})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 class EditProfile(APIView):
@@ -259,22 +198,3 @@ class EditProfile(APIView):
 
         print(serializer.errors)
         return Response({'serializer': serializer, 'profile': current_user_profile})
-
-
-# def get_current_user_id(request):
-#     if request.user.is_authenticated:
-#         try:
-#             User.objects.filter(pk=request.user.id)
-#         except:
-#             return Response('unidentified user', status=404)
-#
-#         current_user = User.objects.get(pk=request.user.id)
-#         try:
-#             Author.objects.filter(user =current_user)
-#         except:
-#             return Response('unidentified author object', status=404)
-#
-#         author = get_object_or_404(Author, user=current_user)
-#         return author.id
-
-

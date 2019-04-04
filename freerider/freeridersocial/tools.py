@@ -13,7 +13,9 @@ def check_authentication():
 
 def check_if_request_is_remote(request):
     #print(request.user.node)
+    print(request.user.author.host)
     if (ServerNode.objects.filter(auth_user = request.user).exists()):
+        #print(request.user.author.host)
         return True
     else:
         return False

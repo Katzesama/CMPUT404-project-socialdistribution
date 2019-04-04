@@ -21,14 +21,16 @@ class FriendList(APIView):
         current_user = request.user.author
 
         friends = FriendRequest.objects.filter(url = current_user.url, friend_status = 'friend')
+        print(friends)
         serializer = FriendSerializer(friends, many=True)
+        print(serializer.data)
         return Response({'serializer': serializer.data})
 
 
 class DeleteFriend(APIView):
     def delete(self, request, friendid):
         try:
-            friend = FriendRequest.objects.filter(pk = friendid)
+            friend = FriendRequest.objects.get(pk = friendid)
         except:
             HttpResponse('friend not found', status=404)
         friend.delete()
