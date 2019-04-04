@@ -1,0 +1,352 @@
+/*
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+       http://www.apache.org/licenses/LICENSE-2.0
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
+html
+{
+    width: 100%;
+    height: 100%;
+    background-color:#F7F9FE;
+    margin: 0px;
+
+
+}
+#end{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  color:rgb(228, 221, 231);
+  text-align: center;
+  margin-bottom:15px;
+}
+body{
+    background-position: center;
+    line-height: 1.5em;
+    margin: 0px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+nav {
+    width: 160px;
+    position: fixed;
+
+    top: 80px;
+
+    width: 100%;
+    height: 50px;
+    background-color: #F0F1F1;
+    overflow-x: hidden;
+    padding-top: 0px;
+    text-align: center;
+    font-family:Gill Sans, sans-serif;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+  }
+.nav .title
+{
+    display: block;
+    font-family: Snell Roundhand, cursive;
+    font-size: 60px;
+    background-color: #6C5881;
+    color: white;
+    height: 80px;
+    margin-top: 0px;
+    left:0;
+    text-align: center;
+    line-height: 1.5em;
+    font-weight: bold;
+
+
+}
+
+.nav  nav ul {
+    margin: 0px;
+    padding: 10px 0px 0px 0px;
+    width: 100%;
+
+  }
+  .nav  nav li {
+    display: inline;
+    margin-left: 0px;
+    background-position: right;
+  }
+  .nav  nav li a {
+
+  text-decoration: none;
+  padding-top: 15px;
+  padding-left: 10px;
+  margin-left: 20px;
+  font-size: 17px;
+  color:#4060A1;
+  font-weight: bold;
+}
+
+
+.nav  nav li a:hover, .nav  nav li a.current {
+  color: #6F78AA;
+  /* background-color: white; */
+  /* background:rgba(245, 248, 254, 0.5); */
+  font-size: 20px;
+}
+
+#logout {
+  font-family: Helvetica, sans-serif ;
+  text-decoration: none;
+  padding-top: 15px;
+  padding-left: 0px;
+  margin-left: 20px;
+  font-size: 13px;
+
+  color:#DD678C;
+
+  font-weight: bold;
+  }
+
+  #logout:hover, #logout.current {
+    color: #491A4F;
+  /* background-color: white; */
+  /* background:rgba(245, 248, 254, 0.5); */
+  font-size: 15px;
+}
+
+  .main {
+    margin-left: 160px;
+    padding: 0px 10px;
+  }
+
+
+nav input[type=text] {
+  float: right;
+  padding: 6px;
+  border: none;
+  margin-top: 9px;
+  margin-right: 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid white;
+  }
+nav img {
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  border: 2px solid #000;
+  margin-right:60px;
+  margin-top:8px;
+
+  float: right;
+  }
+.pro{
+  margin-top: 150px;
+  margin-bottom:40px;
+
+}
+.pro h1
+{
+    display: block;
+    font-family: Gill Sans, sans-serif;
+    margin-left: 300px;
+    margin-right:300px;
+    font-size: 30px;
+    background-color: #735C81;
+    color: white;
+    height: 50px;
+    margin-top: 60px;
+    margin-bottom:0px;
+    text-align: center;
+    line-height: 1.5em;
+    font-weight: bold;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+}
+
+
+#holder{
+
+  list-style-type: none;
+  font-size: 20px;
+  margin-left: 300px;
+  margin-right:300px;
+  margin-top:0px;
+  background-color: white;
+  margin-bottom:0px;
+  bottom:0px;
+
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.pro hr{
+    color: #EEEDED;
+    margin-top:0px;
+
+
+}
+
+#holder div{
+    background-color: white;
+    margin-bottom:20px;
+
+}
+
+.pro a{
+  font-family: Gill Sans, sans-serif;
+  font-size: 20px;
+  color: #6C5881;
+  height: 20px;
+  margin-top: 10px;
+  margin-left: 30px;
+  line-height: 1.5em;
+  font-weight: bold;
+}
+.pro a:hover {
+color: #6C5881;
+}
+.pro a:active {
+  color:rgb(159, 136, 184);
+  /* box-shadow: 0 3px #666; */
+  transform: translateY(4px);
+  }
+.pro a:link, a:visited {
+  color: #6C5881;
+}
+.pro p
+{
+
+    font-family: Gill Sans, sans-serif;
+    font-size: 20px;
+    height: 100px;
+    margin-top: 30px;
+    line-height: 1.5em;
+    font-weight: bold;
+    margin-left: 30px;
+    color:rgb(159, 136, 184);
+}
+
+.pro button  {
+
+    font-size:13pt;
+    background-color: white;
+    color: #6C5881;
+    border: none;
+    text-align: center;
+    width: 70px;
+    margin-left:110px;
+    font-family:Optima, sans-serif;
+    margin-bottom:4px;
+    font-weight: bold;
+    display:inline-block;
+  }
+.pro button:hover {
+  font-size:12pt;
+  margin-bottom:0px;
+  background-color: white;
+  color:rgb(159, 136, 184);
+}
+.pro button:active {
+    background-color: white;
+    /* box-shadow: 0 3px #666; */
+    /* transform: translateY(4px); */
+}
+
+.pro #home,#addpost {
+  display:inline-block;
+    font-size:14pt;
+    background-color: #6C5881;
+    color: white;
+    padding-top:5px;
+    border: none;
+    text-align: center;
+    width: 150px;
+    margin-left:47%;
+    height:33px;
+    font-family:Optima, sans-serif;
+    position: fixed;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+    margin-top: -50px;
+
+}
+
+#home,#addpost:hover {
+  background-color: #6C5881;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+#home,#addpost:active {
+    background-color: #6C5881;
+}
+
+.pro #home {
+    margin-left:10px;
+
+    margin-bottom: 0px;
+    width: 150px;
+
+}
+.pro #home span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+
+  .pro #home span:after {
+    content:'\00ab';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: -20px;
+    transition: 0.5s;
+  }
+
+  .pro #home:hover span {
+    padding-left: 18px;
+  }
+
+  .pro #home:hover span:after {
+    opacity: 1;
+    left: 0;
+  }
+  .pro #addpost {
+    margin-left:1110px;
+    width: 150px;
+
+}
+
+.pro #addpost span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+
+  .pro #addpost span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+
+  .pro #addpost:hover span {
+    padding-right: 25px;
+  }
+
+  .pro #addpost:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+  #sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
