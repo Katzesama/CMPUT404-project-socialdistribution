@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 {% load static %}
 {% load rest_framework %}
+{% csrf_token %}
+
 <title>Friend Requests</title>
 <link rel="stylesheet" href="{% static 'friendrequest.css' %}">
 <STYLE>A {text-decoration: none;} </STYLE>
@@ -23,6 +25,7 @@
             <li><a id='logout' href="{% url 'logout' %}">LOGOUT</a></li>
 
         </ul>
+        </form>
     </nav>
 </div>
 
@@ -41,14 +44,14 @@ function myFunction() {
   }
 } 
 </script>
-
+  const csrf_token = "{{ csrf_token }}";
   <div class="pro">
   <h1>Friend Request</h1>
   <a id = "home" class="float-left submit-button" href = "{% url 'home' %}"><span>Home</span></a>
+
   <div id="holder"></div>
   <script type="text/javascript">
   function show_request(data) {
-      console.info(data.serializer.length);
       var holder = document.getElementById("holder");
         for (var i = 0; i < data.serializer.length; i++) {
           let friend_request = document.createElement("div");
@@ -70,29 +73,34 @@ function myFunction() {
           decline.innerHTML = 'Decline';
           var accept = document.createElement("button");
           accept.innerHTML = 'Accept';
+          friend_request.appendChild(decline);
+          friend_request.appendChild(accept);
           decline.addEventListener("click", function(e){
             HandleFriendRequest('/updatefriend/', 'decline', this.parentNode.getElementsByTagName('a').innerHTML);
           });
           accept.addEventListener("click", function(e){
+              // alert(sender_url)
+                alert(this.parentNode.getElementsByTagName('a').innerHTML)
             HandleFriendRequest('/updatefriend/', 'accept', this.parentNode.getElementsByTagName('a').innerHTML);
           });
-          friend_request.appendChild(decline);
-          friend_request.appendChild(accept);
+
           function HandleFriendRequest(url, decision, friend_url) {
             var request = new Request(url, {
                         method: 'POST',
                         headers: {
-                             'Content-Type': 'application/json'
+                            'X-CSRFToken': '{{ csrf_token }}',
+                             'Content-Type': 'application/json',
+
 
                         },
-                       data: {'decision': decision,
-                              'friend_url': friend_url},
+                       body: {'decision': decision,
+                              'friend_url': JSON.stringify(friend_url)},
                         });
             return fetch(request).then((response) => {
               if (response.status === 200) { // OK
                 return response.json(); // return a Promise
               } else {
-                alert("Something went wrong: " + response.status);
+                alert("fetch request then response fail: " + response.status);
               }
             });
           }
@@ -129,6 +137,6 @@ function myFunction() {
 
   </script>
 
-  
+
 </body>
 </html>
