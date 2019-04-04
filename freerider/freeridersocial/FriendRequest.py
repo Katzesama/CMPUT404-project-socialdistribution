@@ -132,7 +132,7 @@ class FriendRequestHandler(APIView):
         else:
             return Response("Already friends", status=status.HTTP_400_BAD_REQUEST)
 
-class UpdateFriendRequestHandler(APIView):
+class updateFriendRequestHandler(APIView):
     def post(self, request):
         '''
         貌似不需要这个了...
@@ -142,9 +142,11 @@ class UpdateFriendRequestHandler(APIView):
         2. Local friendrequest or remote
         3. Assume request has attributes: sender_url
         '''
+        print('fjaifjaiejf')
         data = request.data
+        #print(data)
         receiver = request.user.author
-        sender_url = data['sender_url']
+        sender_url = data['friend_url']
         decision = data['decision']
         friend_request = FriendRequest.objects.filter(url=sender_url, friend_with=receiver)
         if decision == 'accept':
@@ -152,5 +154,4 @@ class UpdateFriendRequestHandler(APIView):
         elif decision == 'decline':
             friend_request.friend_status = "rejected"
         friend_request.save()
-        return Response(status=200)
         return Response(status=200)
