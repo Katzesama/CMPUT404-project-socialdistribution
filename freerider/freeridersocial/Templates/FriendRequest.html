@@ -42,7 +42,7 @@ function myFunction() {
   } else {
     navbar.classList.remove("sticky");
   }
-} 
+}
 </script>
   const csrf_token = "{{ csrf_token }}";
   <div class="pro">
@@ -76,15 +76,17 @@ function myFunction() {
           friend_request.appendChild(decline);
           friend_request.appendChild(accept);
           decline.addEventListener("click", function(e){
-            HandleFriendRequest('/updatefriend/', 'decline', this.parentNode.getElementsByTagName('a').innerHTML);
+            HandleFriendRequest('/updatefriend/', 'decline', this.parentNode.getElementsByTagName('a')[0].innerHTML);
           });
           accept.addEventListener("click", function(e){
               // alert(sender_url)
-                alert(this.parentNode.getElementsByTagName('a').innerHTML)
-            HandleFriendRequest('/updatefriend/', 'accept', this.parentNode.getElementsByTagName('a').innerHTML);
+              var url_string = this.parentNode.getElementsByTagName('a')[0].innerHTML;
+            HandleFriendRequest('/updatefriend/', 'accept', url_string);
           });
 
           function HandleFriendRequest(url, decision, friend_url) {
+            console.info(decision);
+            console.info(JSON.stringify(friend_url));
             var request = new Request(url, {
                         method: 'POST',
                         headers: {
@@ -93,14 +95,14 @@ function myFunction() {
 
 
                         },
-                       body: {'decision': decision,
-                              'friend_url': JSON.stringify(friend_url)},
+                       body: JSON.stringify({'decision': decision,
+                              'friend_url': JSON.stringify(friend_url)}),
                         });
             return fetch(request).then((response) => {
               if (response.status === 200) { // OK
-                return response.json(); // return a Promise
+                alert("done");// return a Promise
               } else {
-                alert("fetch request then response fail: " + response.status);
+                alert("fetch request then response fail: " + response.error);
               }
             });
           }

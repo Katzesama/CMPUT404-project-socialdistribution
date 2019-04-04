@@ -148,10 +148,13 @@ class updateFriendRequestHandler(APIView):
         receiver = request.user.author
         sender_url = data['friend_url']
         decision = data['decision']
-        friend_request = FriendRequest.objects.filter(url=sender_url, friend_with=receiver)
-        if decision == 'accept':
-            friend_request.friend_status = "friend"
-        elif decision == 'decline':
-            friend_request.friend_status = "rejected"
-        friend_request.save()
+        print(sender_url)
+        friend_requests = FriendRequest.objects.filter(url=sender_url, friend_with=receiver)
+        for friend_request in friend_requests:
+            if decision == 'accept':
+                friend_request.friend_status = "friend"
+            elif decision == 'decline':
+                friend_request.friend_status = "rejected"
+            friend_request.save()
+            print(friend_request.friend_status)
         return Response(status=200)
