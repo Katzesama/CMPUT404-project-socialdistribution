@@ -97,9 +97,10 @@ class visible_post(APIView):
 
             #Get all posts private but visible to current user
             if Post.objects.filter(visibility='PRIVATE').exists():
-                for post in Post.objects.filter(visibility = "PRIVATE").exists():
+                for post in Post.objects.filter(visibility = "PRIVATE"):
+                    print(post.visibleTo)
                     visible_to = change_visibleTo_to_list(post.visibleTo)
-                    if current_author.url in visible_to:
+                    if current_author.displayName in visible_to:
                         local_posts.append(post)
 
             local_posts += Post.objects.filter(visibility="SERVERONLY", unlisted=False)
