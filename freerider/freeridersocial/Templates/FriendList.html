@@ -9,7 +9,9 @@
   <script type="text/javascript">
   function show_request(data) {
       var holder = document.getElementById("holder");
-        for (var i = 0; i < data.length; i++) {
+      alert(data.serializer.length)
+        for (var i = 0; i < data.serializer.length; i++) {
+            alert('arrive ehre')
           let friend_block = document.createElement("div");
           holder.appendChild(friend_block);
 
@@ -41,6 +43,7 @@
                         });
             return fetch(request).then((response) => {
               if (response.status === 200) { // OK
+                  alert('here')
                 return response.json(); // return a Promise
               } else {
                 alert("Something went wrong: " + response.status);
@@ -62,7 +65,7 @@
                 },
                 });
     return fetch(request).then((response) => {
-      if (response.status === 200) { // OK
+      if (response.status === 200) { // O
         return response.json(); // return a Promise
       } else {
         alert("Something went wrong: " + response.status);
@@ -76,7 +79,6 @@
   }
 
   get_data_display("{{fetch_url}}");
-
 
   </script>
 
