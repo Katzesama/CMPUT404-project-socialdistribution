@@ -24,8 +24,6 @@ http://service/posts/{post_id}/comments access to the comments in a post
 
 
 """
-from django.conf.urls.static import static
-from django.conf import settings
 from django.contrib import admin
 from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
@@ -70,5 +68,3 @@ urlpatterns = [
     path('myfriends/views/<friendid>/delete/', freeridersocial.FriendList.DeleteFriend.as_view(), name= 'delete_friend'),
     path('updatefriend/', freeridersocial.FriendRequest.updateFriendRequestHandler.as_view(), name= 'update_friend_request'),
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -9,10 +9,7 @@ from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.renderers import JSONRenderer
 from rest_framework import status
 from .serializer import FriendSerializer
-<<<<<<< HEAD
-from django.urls import converters
-=======
->>>>>>> wyang2
+
 from .tools import *
 import requests
 import json
@@ -31,17 +28,11 @@ class FriendRequestHandler(APIView):
         current_author = request.user.author
         friendrequests = FriendRequest.objects.filter(friend_with = current_author, friend_status = "proceeding")
         serializer = FriendSerializer(friendrequests, many=True)
-<<<<<<< HEAD
-        # serializer_list = []
-        # for s in serializer.data:
-        #     serializer_list.append(s)
-        #print(serializer_list)
-=======
+
         serializer_list = []
         for s in serializer.data:
             serializer_list.append(s)
         print(serializer_list)
->>>>>>> wyang2
         return Response({'serializer': serializer.data})
 
     def post(self, request):
