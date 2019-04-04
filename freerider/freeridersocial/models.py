@@ -8,7 +8,7 @@ import json
 # Profile With User
 class Author(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, editable=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, editable=False, null=True, blank=True)
     host = models.URLField()
     displayName = models.CharField(max_length=200,blank=False,null=False)
     url = models.URLField(editable=False)
@@ -20,7 +20,7 @@ class Author(models.Model):
     image = models.ImageField(null=True, blank=True, upload_to="profile_pics")
 
     def __str__(self):  # __unicode__ for Python 2
-        return f'{self.user.username} Profile'
+        return self.displayName
 
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -85,13 +85,16 @@ class FriendRequest(models.Model):
     host = models.URLField(blank=True)
     url = models.URLField()
     friend_with = models.ForeignKey(Author, related_name="request_sender", on_delete=models.CASCADE)
-    friend_status = (('friend','friend'),('proceeding','proceeding'),('rejected','rejected'))
+    status = (('friend','friend'),('proceeding','proceeding'),('rejected','rejected'),)
+    friend_status = models.CharField(max_length=50, choices=status, default='proceeding')
     def __str__(self):
         return self.displayName
 
 class ServerNode(models.Model):
-    HostName = models.URLField(primary_key=True, editable=False)
-    username = models.CharField(max_length=50)
-    password = models.CharField(max_length=200)
+    HostName = models.URLField(primary_key=True, default="")
+    auth_user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='node', null=True, blank=True)
     Image_visibility = models.BooleanField(default=True)
     Post_visibility = models.BooleanField(default=True)
+    username = models.CharField(max_length=50, null=True, blank=True)
+    password = models.CharField(max_length=200, null=True, blank=True)
+

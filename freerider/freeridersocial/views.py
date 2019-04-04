@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from  django.contrib.auth.hashers import make_password
-
+from .models import *
 
 # Create your views here.
 # reference: https://medium.freecodecamp.org/user-authentication-in-django-bae3a387f77d
@@ -57,6 +57,14 @@ def comments_render(request, post_id):
     return render(request, 'comments.html', {'fetch_url': '/posts/'+str(post_id)+ '/comments/'})
 
 def FriendRequest_render(request):
+    #if request.method == 'GET':
+        # me = request.user.author
+        # friendrequest_list = []
+        # if FriendRequest.objects.filter(url = me.url, friend_status = 'proceeding').exists():
+        #     friendrequests = FriendRequest.objects.filter(url = me.url, friend_status = 'proceeding')
+        #     for fr in friendrequests:
+        #         friendrequest_list.append(fr)
+
     return render(request, 'FriendRequest.html', {'fetch_url': '/friendrequest/'})
 
 def FriendList(request):

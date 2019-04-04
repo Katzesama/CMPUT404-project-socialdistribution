@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 {% load static %}
 {% load rest_framework %}
+{% csrf_token %}
+
 <title>Friend Requests</title>
 <link rel="stylesheet" href="{% static 'friendrequest.css' %}">
 <STYLE>A {text-decoration: none;} </STYLE>
@@ -14,15 +16,16 @@
             <img src="{% static 'profile.png' %}" class="image-circle">
         <input type="text" placeholder="Search..">
         <ul>
-            <li><a href="../../{{user_id}}/">Profile</a></li>
+            <li><a href="../../author/{{user_id}}/">Profile</a></li>
             <li><a href="{% url 'my_posts' %}">My Post</a></li>
             <li><a href="{% url 'get_post_for_user' %}">Other's Posts</a></li>
             <li><a href="#">Followers</a></li>
             <li><a href="#">My photos</a></li>
-            <li><a href="{% url 'friend_request' %}">Friend Requests</a></li>
+            <li><a href="{% url 'friend_requests' %}">Friend Requests</a></li>
             <li><a id='logout' href="{% url 'logout' %}">LOGOUT</a></li>
 
         </ul>
+        </form>
     </nav>
 </div>
 
@@ -39,58 +42,67 @@ function myFunction() {
   } else {
     navbar.classList.remove("sticky");
   }
-} 
+}
 </script>
-
+  const csrf_token = "{{ csrf_token }}";
   <div class="pro">
   <h1>Friend Request</h1>
   <a id = "home" class="float-left submit-button" href = "{% url 'home' %}"><span>Home</span></a>
+
   <div id="holder"></div>
   <script type="text/javascript">
   function show_request(data) {
       var holder = document.getElementById("holder");
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < data.serializer.length; i++) {
           let friend_request = document.createElement("div");
           holder.appendChild(friend_request);
 
           var sender = document.createElement("p");
-          sender.innerHTML = data[i].displayName;
+          sender.innerHTML = data.serializer[i].displayName;
           sender.style.fontSize='25px';
           sender.style.display = "inline-block";
           friend_request.appendChild(sender);
           var line = document.createElement("br");
           friend_request.appendChild(line);
           var sender_url = document.createElement("a");
-          sender_url.innerHTML = data[i].url;
-          sender_url.href = data[i].url;
+          sender_url.innerHTML = data.serializer[i].url;
+          sender_url.href = data.serializer[i].url;
           friend_request.appendChild(sender_url);
           var line = document.createElement("br");
           var decline = document.createElement("button");
           decline.innerHTML = 'Decline';
           var accept = document.createElement("button");
           accept.innerHTML = 'Accept';
-          decline.onclick=function(){
-            HandleFriendRequest('/friendrequest/', 'decline', this.parentNode.getElementByTagName('a').innerHTML);
-          };
-          accept.onclick=function(){
-            HandleFriendRequest('/friendrequest/', 'accept', this.parentNode.getElementByTagName('a').innerHTML);
-          };
           friend_request.appendChild(decline);
           friend_request.appendChild(accept);
+          decline.addEventListener("click", function(e){
+            HandleFriendRequest('/updatefriend/', 'decline', this.parentNode.getElementsByTagName('a')[0].innerHTML);
+          });
+          accept.addEventListener("click", function(e){
+              // alert(sender_url)
+              var url_string = this.parentNode.getElementsByTagName('a')[0].innerHTML;
+            HandleFriendRequest('/updatefriend/', 'accept', url_string);
+          });
+
           function HandleFriendRequest(url, decision, friend_url) {
+            console.info(decision);
+            console.info(JSON.stringify(friend_url));
             var request = new Request(url, {
-                        method: 'PUT',
+                        method: 'POST',
                         headers: {
-                             'Content-Type': 'application/json'
+                            'X-CSRFToken': '{{ csrf_token }}',
+                             'Content-Type': 'application/json',
+
+
                         },
-                       data: {'decision': decision,
-                              'friend_url': friend_url},
+                       body: JSON.stringify({'decision': decision,
+                              'friend_url': JSON.stringify(friend_url)}),
                         });
             return fetch(request).then((response) => {
               if (response.status === 200) { // OK
-                return response.json(); // return a Promise
+                alert("done");// return a Promise
               } else {
-                alert("Something went wrong: " + response.status);
+                alert("fetch request then response fail: " + response.error);
               }
             });
           }
@@ -119,7 +131,7 @@ function myFunction() {
 
 
   function get_data_display(url) {
-      fetchJSON(url).then(show_request)
+      fetchJSON(url).then(show_request);
   }
 
   get_data_display("{{fetch_url}}");
@@ -127,6 +139,6 @@ function myFunction() {
 
   </script>
 
-  
+
 </body>
 </html>
