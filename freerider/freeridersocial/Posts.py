@@ -48,21 +48,17 @@ class visible_post(APIView):
         check_authentication()
         #print('im here')
         is_remote = check_if_request_is_remote(request)
-
-        print('is remote?'+ str(is_remote))
         local_posts = []
         remote_posts = []
         if is_remote:
             try:
                 user_id = request.META.get('HTTP_X_REQUEST_USER_ID', '')
-                #print(' user id '+ str(user_id))
                 current_author = Author.objects.get(pk=user_id)
-                #print(current_author.displayName)
             except:
                 return Response('remote user uuid not found', status=404)
         if not is_remote:
-            print('here')
             current_author = request.user.author
+            #print('im here')
 
             #Get all posts posted by current user
             if Post.objects.filter(author = current_author).exists():
@@ -95,18 +91,16 @@ class visible_post(APIView):
                         local_posts.append(post)
 
             local_posts += Post.objects.filter(visibility="SERVERONLY", unlisted=False)
-            print('request host name: '+request.get_host())
+
             #Get all visible posts from remote server
             #TODO if author object not stored locally store it
             for node in ServerNode.objects.all():
-                print('node host name: '+node.HostName)
-                url = node.HostName + '/author/posts/'
+                url = node.foreignHost + '/author/posts'
                 header = {'X-Request-User-ID': current_author.host + '/author/' + str(current_author.id)}
                 host = node.HostName
-                authentication = HTTPBasicAuth(node.username, node.password)
+                authentication = HTTPBasicAuth(node.remoteUsername, node.remotePassword)
                 try:
                     res = requests.get(url, auth=authentication, headers=header) #tell server current user url
-                    print(res)
                 except:
                     return Response('cannot get posts from other server', status=status.HTTP_403_FORBIDDEN)
                 # make sure json dumps
@@ -333,9 +327,3 @@ class posts_from_an_author(APIView):
             response_body['posts'].append(serializer)
 
         return Response(json.dumps(response_body), status=status.HTTP_200_OK)
-
-
-
-
-
-

@@ -50,6 +50,8 @@ urlpatterns = [
     path('author/myPosts/views/', freeridersocial.views.get_my_posts_render, name='my_posts'),
     path('author/<authorid>/api/', freeridersocial.profile.HandleProfile.as_view(), name = "handle_profile"),
 
+    path('author/<uuid:authorid>/posts', freeridersocial.Posts.posts_from_an_author.as_view(), name='posts_from_an_author'),
+
     path('posts/<uuid:post_id>/', freeridersocial.Posts.get_one_post.as_view(), name="get_one_post"),
     path('addpost/', freeridersocial.Posts.upload_post.as_view(), name='add_post'),
     path('posts/<uuid:post_id>/del_post/', freeridersocial.Posts.del_post, name='del_post'),
@@ -58,14 +60,15 @@ urlpatterns = [
     path('posts/<uuid:post_id>/comments/', freeridersocial.Comments.get_comments.as_view(), name='comments_view'),
     path('posts/<uuid:post_id>/comments/view/', freeridersocial.views.comments_render, name='comments'),
 
-    path('friendrequest/', freeridersocial.FriendRequest.FriendRequest.as_view(), name='friend_request'),
-    path('friendrequest/view/', freeridersocial.views.FriendRequest_render, name='friend_request'),
+    path('friendrequest/', freeridersocial.FriendRequest.FriendRequestHandler.as_view(), name='friend_request_api'),
+    path('friendrequest/view/', freeridersocial.views.FriendRequest_render, name='friend_requests'),
     path('author/<authorid1>/friends/<service2>/author/<authorid2>/', freeridersocial.FriendList.CheckIfFriend, name='check_if_friend'),
     path('friends/<friendid>/delete_friend/',freeridersocial.FriendList.DeleteFriend, name = 'delete_friend'),
     path('author/<authorid>/friends', freeridersocial.FriendList.FriendsOfAuthor, name='get_user_friends'),
     path('myfriends/', freeridersocial.FriendList.FriendList.as_view(), name= 'myfriends'),
     path('myfriends/views/', freeridersocial.views.FriendList, name= 'myfriends_render'),
     path('myfriends/views/<friendid>/delete/', freeridersocial.FriendList.DeleteFriend.as_view(), name= 'delete_friend'),
+    path('updatefriend/', freeridersocial.FriendRequest.updateFriendRequestHandler.as_view(), name= 'update_friend_request'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
