@@ -13,9 +13,7 @@ def check_authentication():
 
 def check_if_request_is_remote(request):
     #print(request.user.node)
-    print(request.user.author.host)
     if (ServerNode.objects.filter(auth_user = request.user).exists()):
-        #print(request.user.author.host)
         return True
     else:
         return False
@@ -51,10 +49,11 @@ def reply_remote_friendrequest(data, node):
         data = json.dumps(data)
     except: pass
     response = requests.post(url, headers=header, data=data, auth=HTTPBasicAuth(node.username,node.remotePassword))
-    if response.status_code == 200:
-        return Response("friendrequest sent back", status=status.HTTP_200_OK)
-    else:
-        return Response("friendrequest failed", status=response.status_code)
+    return response
+    # if response.status_code == 200:
+    #     return Response("friendrequest sent back", status=status.HTTP_200_OK)
+    # else:
+    #     return Response("friendrequest failed", status=response.status_code)
 
 def calculate_page_for_post():
    # https: // stackoverflow.com / questions / 150505 / capturing - url - parameters - in -request - get

@@ -51,6 +51,8 @@ function myFunction() {
 
   <div id="holder"></div>
   <script type="text/javascript">
+  request_sender = {}
+
   function show_request(data) {
       var holder = document.getElementById("holder");
         for (var i = 0; i < data.serializer.length; i++) {

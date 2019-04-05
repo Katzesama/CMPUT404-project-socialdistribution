@@ -67,32 +67,46 @@ class visible_post(APIView):
             #Get all posts posted by current user
             if Post.objects.filter(author = current_author).exists():
                 for post in Post.objects.filter(author=current_author):
-                    local_posts.append(post)
+                    if not post in local_posts:
+                        local_posts.append(post)
             print('look at here')
             #Get all public posts in local server
             if Post.objects.filter(visibility='PUBLIC').exists():
-                for post in Post.objects.filter(visibility="PUBLIC"):
-                    local_posts.append(post)
+                for post in Post.objects.filter(visibility="PUBLIC", unlisted=False):
+                    if not post in local_posts:
+                        local_posts.append(post)
             #Get all posts sent by local friend
             local_friends = []
-            if FriendRequest.objects.filter(url = current_author.url, friend_status = 'friend').exists():
-                friendrequests = FriendRequest.objects.filter(url = current_author.url, friend_status = 'friend')
+            # print('here is'+current_author.displayName)
+            # print(FriendRequest.objects.all())
+
+
+
+            if FriendRequest.objects.filter(url = current_author.url, friend_status = 'friend').exists() or FriendRequest.objects.filter(friend_with=current_author, friend_status = 'friend').exists():
+                friendrequests_sender = FriendRequest.objects.filter(url = current_author.url, friend_status = 'friend')
+                friendrequests_receiver = FriendRequest.objects.filter(friend_with = current_author, friend_status = 'friend')
+                friendrequests = friendrequests_sender | friendrequests_receiver
                 for friendrequest in friendrequests:
                     friend = friendrequest.friend_with
-                    if friend.host == request.get_host():
-                        local_friends.append(friend)
+                    if friend.host == current_author.host:
+                        if not post in local_posts:
+                            local_friends.append(friend)
+            #print('local friends' + str(local_friends))
 
             for local_friend in local_friends:
                 if Post.objects.filter(author = local_friend).exists():
                     for post in Post.objects.filter(author = local_friend):
-                        local_posts.append(post)
+                        if not post in local_posts:
+                            local_posts.append(post)
 
             #Get all posts private but visible to current user
             if Post.objects.filter(visibility='PRIVATE').exists():
-                for post in Post.objects.filter(visibility = "PRIVATE").exists():
+                for post in Post.objects.filter(visibility = "PRIVATE"):
+                    print(post.visibleTo)
                     visible_to = change_visibleTo_to_list(post.visibleTo)
-                    if current_author.url in visible_to:
-                        local_posts.append(post)
+                    if current_author.displayName in visible_to:
+                        if not post in local_posts:
+                            local_posts.append(post)
 
             local_posts += Post.objects.filter(visibility="SERVERONLY", unlisted=False)
             print('request host name: '+request.get_host())

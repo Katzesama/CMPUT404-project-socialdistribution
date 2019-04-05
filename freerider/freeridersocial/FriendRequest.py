@@ -9,7 +9,8 @@ from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.renderers import JSONRenderer
 from rest_framework import status
 from .serializer import FriendSerializer
-from django.urls import converters
+import json
+
 from .tools import *
 import requests
 import json
@@ -28,10 +29,11 @@ class FriendRequestHandler(APIView):
         current_author = request.user.author
         friendrequests = FriendRequest.objects.filter(friend_with = current_author, friend_status = "proceeding")
         serializer = FriendSerializer(friendrequests, many=True)
-        # serializer_list = []
-        # for s in serializer.data:
-        #     serializer_list.append(s)
-        #print(serializer_list)
+
+        serializer_list = []
+        for s in serializer.data:
+            serializer_list.append(s)
+        print(serializer_list)
         return Response({'serializer': serializer.data})
 
     def post(self, request):
@@ -59,6 +61,11 @@ class FriendRequestHandler(APIView):
         check_authentication()
         is_remote = check_if_request_is_remote(request)
         data = request.data
+
+        # receiver = request.user.author
+        # sender_url = data['friend_url']
+        #
+        # sender_url = sender_url.replace('"', '')
 
         if not data['query'] == 'friendrequest':
             return Response('Invalid request', status=status.HTTP_400_BAD_REQUEST)
@@ -95,41 +102,38 @@ class FriendRequestHandler(APIView):
         if not is_friend:
             if FriendRequest.objects.filter(url=receiver_url, friend_with=sender_obj, status="proceeding").exists():
 
-                friend_request = FriendRequest.objects.filter(url = receiver_url, receiver = sender_obj, friend_status = "proceeding")
-                friend_request.friend_status = 'friend'
-                friend_request.save()
-                if remote_tell_accept:
-                    reply_remote_friendrequest(data, connect_server)
+                    friend_request = FriendRequest.objects.filter(url = sender_url, friend_with=receiver_obj)[0]
 
-            elif FriendRequest.objects.filter(url=receiver_url, friend_with=sender_obj, status="Decline").exists():
+                    friend_request.friend_status = 'friend'
+                    friend_request.save()
+                    resp = reply_remote_friendrequest(data, connect_server)
+                    if resp.status_code != 200:
+                        return Response('Friend request fail', status=status.HTTP_400_BAD_REQUEST)
+                    return Response("Friend request sent", status=status.HTTP_200_OK)
 
-                friend_request = FriendRequest.objects.filter(url=receiver_url, receiver=sender_obj, friend_status="declined")
+            elif FriendRequest.objects.filter(url=receiver_url, friend_with=sender_obj, status="rejected").exists():
+
+                friend_request = FriendRequest.objects.filter(url = receiver_url, friend_with=sender_obj, friend_status='rejected')[0]
                 friend_request.friend_status = 'proceeding'
                 friend_request.save()
-                if remote_tell_accept:
-                    reply_remote_friendrequest(data, connect_server)
-                return Response("Friend request sent", status=status.HTTP_200_OK)
+                return Response('friendrequest received', status=status.HTTP_200_OK)
 
-            elif FriendRequest.objects.filter(url=sender_url, friend_with=receiver_obj, status="Decline").exists():
 
-                friend_request = FriendRequest.objects.filter(url=sender_url, receiver=receiver_obj, friend_status="declined")
+            elif FriendRequest.objects.filter(url=sender_url, friend_with=receiver_obj, status="rejected").exists():
+
+                friend_request = FriendRequest.objects.filter(url=receiver_url, friend_with=sender_obj, friend_status='rejected')[0]
                 friend_request.friend_status = 'proceeding'
                 friend_request.save()
-                if remote_tell_accept:
-                    reply_remote_friendrequest(data, connect_server)
-                return Response("Friend request sent", status=status.HTTP_200_OK)
-
-            elif FriendRequest.objects.filter(url=sender_url, friend_with=receiver_obj, status="proceeding").exists():
-
-                return Response("Friend request already sent", status=status.HTTP_400_BAD_REQUEST)
+                return Response('friendrequest received', status=status.HTTP_200_OK)
 
             elif FriendRequest.objects.filter(url=sender_url, friend_with=receiver_obj, status="friend").exists():
 
                 return Response("Already friends", status=status.HTTP_400_BAD_REQUEST)
 
             else:
-
-                return Response('Something is wrong when receiving friendrequest', status=status.HTTP_400_BAD_REQUEST)
+                friend_request = FriendRequest.objects.create(url = sender_url, friend_with=receiver_obj)
+                friend_request.save()
+                return Response('Receive friendrequest', status=status.HTTP_200_OK)
         else:
             return Response("Already friends", status=status.HTTP_400_BAD_REQUEST)
 
@@ -140,25 +144,52 @@ class updateFriendRequestHandler(APIView):
         data['decision']
         '''
         data = request.data
-        receiver = request.user.author
+
+        me = request.user.author
         sender_url = data['friend_url']
 
-        # for fr in FriendRequest.objects.all():
-        #     print(fr.friend_with) #laoshu
-        #     print(fr.url)
-        # a = sender_url.replace(fr.url,"")
         sender_url = sender_url.replace('"','')
-        print(sender_url)
-        #print(str(sender_url==fr.url))
+        sender_obj = Author.objects.filter(url = sender_url)[0]
+        sender_host = sender_obj.host
+
+
+        '''Find which node is source of friend request'''
+        nodes = ServerNode.objects.all()
+        connect_server = None
+        remote_tell_accept = False
+        for node in nodes:
+            if str(node.HostName)==sender_host:
+                remote_tell_accept = True
+                connect_server = node
 
         decision = data['decision']
-        friend_request = FriendRequest.objects.filter(url = sender_url,friend_with=receiver)[0]
-        print(friend_request)
+        friend_request = FriendRequest.objects.filter(url = sender_url,friend_with=me, friend_status='proceeding')[0]
         if decision == 'accept':
             friend_request.friend_status = "friend"
+
+            if remote_tell_accept:
+                request_form = {
+                    "query": "friendrequest",
+                    "author": {
+                        'id': me.id,
+                        'host': me.host,
+                        'displayName': me.displayName,
+                        'url': me.url,
+                    },
+                    "friend": {
+                        'id': sender_obj.id,
+                        'host': sender_host,
+                        'displayName': sender_obj.displayName,
+                        'url': sender_url,
+                    }
+                }
+            resp = reply_remote_friendrequest(json.dumps(data), connect_server)
+            if resp.status_code != 200:
+                return Response('Fail to send friendrequest back', status=status.HTTP_400_BAD_REQUEST)
         elif decision == 'decline':
             friend_request.friend_status = "rejected"
         friend_request.save()
 
-        #send friendrequest back to
+
+
         return Response(status=200)
