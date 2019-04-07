@@ -141,7 +141,7 @@ nav img {
   float: right;
   }
 .pro{
-  margin-top: 150px;
+  margin-top: 126px;
   margin-bottom:40px;
 
 }
@@ -253,8 +253,7 @@ color: #6C5881;
     /* transform: translateY(4px); */
 }
 
-.pro #home,#addpost {
-  display:inline-block;
+.pro #home {
     font-size:14pt;
     background-color: #6C5881;
     color: white;
@@ -282,8 +281,7 @@ color: #6C5881;
 
 .pro #home {
     margin-left:10px;
-    margin-top: 0px;
-
+    margin-top:0px;
     margin-bottom: 0px;
     width: 150px;
 
@@ -312,8 +310,7 @@ color: #6C5881;
     opacity: 1;
     left: 0;
   }
-  
-  
+
   #sticky {
     position: fixed;
     top: 0;
