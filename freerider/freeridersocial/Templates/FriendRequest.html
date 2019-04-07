@@ -13,15 +13,15 @@
     <nav>
 
         <form  arial-label="profile picture" accept-charset="UTF-8" method="post">
-        
+            <img src="{% static 'profile.png' %}" class="image-circle">
+        <input type="text" placeholder="Search..">
         <ul>
             <li><a href="../../author/{{user_id}}/">Profile</a></li>
             <li><a href="{% url 'my_posts' %}">My Post</a></li>
             <li><a href="{% url 'get_post_for_user' %}">Other's Posts</a></li>
-
+            <li><a href="#">Followers</a></li>
+            <li><a href="#">My photos</a></li>
             <li><a href="{% url 'friend_requests' %}">Friend Requests</a></li>
-            <li><a href="{% url 'myfriends_render' %}">My Friends</a></li>
-
             <li><a id='logout' href="{% url 'logout' %}">LOGOUT</a></li>
 
         </ul>
@@ -50,8 +50,9 @@ function myFunction() {
   <a id = "home" class="float-left submit-button" href = "{% url 'home' %}"><span>Home</span></a>
 
   <div id="holder"></div>
-
   <script type="text/javascript">
+  request_sender = {}
+
   function show_request(data) {
       var holder = document.getElementById("holder");
         for (var i = 0; i < data.serializer.length; i++) {

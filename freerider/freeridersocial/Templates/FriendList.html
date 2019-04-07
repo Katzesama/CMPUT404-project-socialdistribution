@@ -13,14 +13,15 @@
     <nav>
 
         <form  arial-label="profile picture" accept-charset="UTF-8" method="post">
-        
+            <img src="{% static 'profile.png' %}" class="image-circle">
+        <input type="text" placeholder="Search..">
         <ul>
             <li><a href="../../author/{{user_id}}/">Profile</a></li>
             <li><a href="{% url 'my_posts' %}">My Post</a></li>
             <li><a href="{% url 'get_post_for_user' %}">Other's Posts</a></li>
+            <li><a href="#">Followers</a></li>
+            <li><a href="#">My photos</a></li>
             <li><a href="{% url 'friend_requests' %}">Friend Requests</a></li>
-            <li><a href="{% url 'myfriends_render' %}">My Friends</a></li>
-
             <li><a id='logout' href="{% url 'logout' %}">LOGOUT</a></li>
 
         </ul>
@@ -44,9 +45,7 @@ function myFunction() {
 </script>
   const csrf_token = "{{ csrf_token }}";
   <div class="pro">
-      <a id = "home" class="float-left submit-button" href = "{% url 'home' %}"><span>Home</span></a>
-
-<h1>My Friends</h1>
+<title>My Friends</title>
   <div id="holder"></div>
   <script type="text/javascript">
   function show_request(data) {
@@ -125,8 +124,13 @@ function myFunction() {
 
   </script>
 
+  <button id="home" class="float-left submit-button" >Home</button>
 </div>
-
+  <script type="text/javascript">
+      document.getElementById("home").onclick = function () {
+          location.href = "{% url 'home' %}";
+      };
+  </script>
 
 </body>
 </html>
