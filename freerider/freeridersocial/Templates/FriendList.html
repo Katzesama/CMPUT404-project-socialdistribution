@@ -44,6 +44,8 @@ function myFunction() {
 </script>
   const csrf_token = "{{ csrf_token }}";
   <div class="pro">
+      <a id = "home" class="float-left submit-button" href = "{% url 'home' %}"><span>Home</span></a>
+
 <title>My Friends</title>
   <div id="holder"></div>
   <script type="text/javascript">
@@ -123,13 +125,8 @@ function myFunction() {
 
   </script>
 
-  <button id="home" class="float-left submit-button" >Home</button>
 </div>
-  <script type="text/javascript">
-      document.getElementById("home").onclick = function () {
-          location.href = "{% url 'home' %}";
-      };
-  </script>
+
 
 </body>
 </html>
