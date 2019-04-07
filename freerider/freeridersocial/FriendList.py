@@ -18,10 +18,12 @@ from django.urls import reverse
 class FriendList(APIView):
     '''不知道行不行，如何让前端get到friends'''
     def get(self, request):
+        print('in friendlist')
         current_user = request.user.author
 
-        friends = FriendRequest.objects.filter(url = current_user.url, friend_status = 'friend')
-        print(friends)
+        friends_add_me = FriendRequest.objects.filter(url = current_user.url, friend_status = 'friend')
+        me_add_friends = FriendRequest.objects.filter(friend_with=current_user, friend_status='friend')
+        friends = friends_add_me | me_add_friends
         serializer = FriendSerializer(friends, many=True)
         print(serializer.data)
         return Response({'serializer': serializer.data})
