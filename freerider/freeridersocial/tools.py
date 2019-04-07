@@ -5,9 +5,11 @@ from rest_framework.permissions import IsAuthenticated
 from .models import *
 from rest_framework.response import Response
 from rest_framework import status
+from uuid import UUID
 
 #https://www.django-rest-framework.org/api-guide/authentication/
 def check_authentication():
+    print('check auth')
     authentication_classes = (SessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
 
@@ -21,7 +23,7 @@ def check_if_request_is_remote(request):
 
 def check_local_has_author(author_id):
     try:
-        author = Author.objects.get(pk = author_id)
+        author = Author.objects.get(pk = UUID(author_id))
         return True
     except:
         return False
@@ -29,8 +31,13 @@ def check_local_has_author(author_id):
 def create_local_author(data):
     host = data["host"]
     host = host.replace("localhost", "127.0.0.1")
-    author = Author.objects.create(id=data['id'], displayName=data["displayName"], url = data['url'], host=host)
-    author.save()
+    if not Author.objects.filter(id=UUID(data['id'].split('author/')[1])).exists():
+        author = Author.objects.create(id=UUID(data['id'].split('author/')[1]), displayName=data["displayName"],
+                                       url=data['url'], host=host)
+        author.save()
+    else:
+        author = Author.objects.filter(id=UUID(data['id'].split('author/')[1]))[0]
+    return author
 
 def check_already_friends(sender_url, receiver_obj):
 
@@ -62,3 +69,26 @@ def calculate_page_for_post():
 def change_visibleTo_to_list(visibleTo):
     visibleTo = visibleTo.split(',')
     return visibleTo
+
+def get_requestor_info_with_url(request, url):
+    print(url)
+    print(request)
+    id = url.split('author/')[1]
+    current_author_host = url.split('/author/')[0]
+    if current_author_host == 'http://natto.herokuapp.com':
+        current_author_host = request.scheme + '://127.0.0.1:8000'
+
+    request_url = current_author_host + '/author/' + id + '/api/'
+        # print(request_url)
+    print(request_url)
+    node = ServerNode.objects.filter(HostName=current_author_host)[0]
+    username = node.username
+    pwd = node.password
+        # print(username)
+        # print(pwd)
+    authentication = HTTPBasicAuth(username, pwd)
+        # print('send request')
+    resp = requests.get(request_url, auth=authentication)
+    print(resp.content)
+
+    return resp

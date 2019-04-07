@@ -14,6 +14,7 @@ from .tools import *
 from rest_framework import status
 from django.core import serializers
 from django.contrib.auth.models import User, AnonymousUser
+from uuid import UUID
 
 # Profile API calls
 # GET http://service/author/9de17f29c12e8f97bcbbd34cc908f1baba40658e
@@ -35,6 +36,7 @@ from django.contrib.auth.models import User, AnonymousUser
   # ],
 class HandleProfile(APIView):
     '''api: handle get an author's profile request'''
+
     def get(self, request, authorid):
         #if request.user.is_authenticated:
         #     remote_user = request.user
@@ -42,40 +44,44 @@ class HandleProfile(APIView):
         #     remote_host = node.HostName
         # else:
         #     return Response('unidentified user', status=403)
+        print('in handle profile')
         check_authentication()
+        print('pass auth')
         is_remote = check_if_request_is_remote(request)
+        print('isremote'+ str(is_remote))
 
-        try:
-            author = get_object_or_404(Author, pk=authorid)
-            host = author.host + '/'
-            id = host + 'author/'+author.id
-            displayName = author.displayName
-            url = id
-            friendlist = []
-            friendrequests = FriendRequest.objects.filter(url = author.url)
-            for friendrequest in friendrequests:
-                if friendrequest.friend_status == 'friend':
-                    friend = friendrequest.friend_with
-                    frienddict = {}
-                    frienddict['id'] = friend.url
-                    frienddict['host'] = friend.host
-                    frienddict['displayName'] = friend.displayName
-                    frienddict['url'] = friend.url
-                    friendlist.append(frienddict)
+        # try:
+        author = get_object_or_404(Author, pk=UUID(authorid))
+        print(author.displayName)
+        host = author.host
+        id = host + '/author/'+str(author.id)
+        displayName = author.displayName
+        url = id
+        friendlist = []
+        friendrequests = FriendRequest.objects.filter(url = author.url)
+        for friendrequest in friendrequests:
+            if friendrequest.friend_status == 'friend':
+                friend = friendrequest.friend_with
+                frienddict = {}
+                frienddict['id'] = friend.url
+                frienddict['host'] = friend.host
+                frienddict['displayName'] = friend.displayName
+                frienddict['url'] = friend.url
+                friendlist.append(frienddict)
 
-            response = {
-                'id': id,
-                'host': host,
-                'displayName': displayName,
-                'url': url,
-                'friends':friendlist,
-            }
+        response = {
+            'id': id,
+            'host': host,
+            'displayName': displayName,
+            'url': url,
+            'friends':friendlist,
+        }
 
-            return Response(json.dumps(response),status=status.HTTP_200_OK)
+        return Response(response,status=status.HTTP_200_OK)
 
 
-        except:
-            return Response(status=404)
+        # except:
+        #     return Response(status=404)
 
 
 class ProfileDetail(APIView):
@@ -120,6 +126,7 @@ class ProfileDetail(APIView):
 
         '''if locally add friend'''
         is_remote = check_if_request_is_remote(request)
+        print('is remote?', str(is_remote))
         if not is_remote:
             author = Author.objects.get(id = user_id)
             me = request.user.author
@@ -131,16 +138,18 @@ class ProfileDetail(APIView):
 
         author = Author.objects.get(id = user_id)
         remote_host = author.host #"http://127.0.0.1:5454/"
+        if remote_host == 'http://natto.herokuapp.com':
+            remote_host = request.scheme + '://127.0.0.1:8000'
         print('remote host' + remote_host)
         me = request.user.author
         node = ServerNode.objects.get(HostName = remote_host)
         username = node.username
         pwd = node.password
         print('username'+username)
-        if remote_host == 'http://' + request.get_host() + '/':
+        if remote_host == request.scheme + '://' + request.get_host() + '/':
             print('im inside')
-            author = Author.objects.filter(id = user_id)
-            friendrequest = FriendRequest.objects.create(id=me.url, displayName=me.displayName, host=me.host, url=me.url, friend_with=author, friend_status='proceeding')
+            author = Author.objects.filter(id = UUID(user_id))
+            friendrequest = FriendRequest.objects.create(id=me.id, displayName=me.displayName, host=me.host, url=me.url, friend_with=author, friend_status='proceeding')
             friendrequest.save()
 
 
@@ -170,7 +179,7 @@ class ProfileDetail(APIView):
         if resp['success'] == False:
             error_message = resp['message']
 
-        #serializer = AuthorSerializer(author)
+        serializer = AuthorSerializer(author)
 
         return Response({'serializer': serializer.data, 'if_author': False, 'able_friend': False})
 
