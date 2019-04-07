@@ -17,6 +17,7 @@ https://github.com/Katzesama/CMPUT404-project-socialdistribution/wiki
 Video Demo:
 ===================================
 
+https://youtu.be/WurNORtjI7A
 
 Contributors / Licensing
 ========================
