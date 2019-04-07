@@ -23,7 +23,7 @@ def check_if_request_is_remote(request):
 
 def check_local_has_author(author_id):
     try:
-        author = Author.objects.get(pk = UUID(author_id))
+        author = Author.objects.get(pk = author_id)
         return True
     except:
         return False
@@ -41,21 +41,22 @@ def create_local_author(data):
 
 def check_already_friends(sender_url, receiver_obj):
 
-    if FriendRequest.objects.filter(url = sender_url, friend_with = receiver_obj, friend_status = 'friend').exist():
+    if FriendRequest.objects.filter(url = sender_url, friend_with = receiver_obj, friend_status = 'friend').exists():
         return True
     else:
         return False
 
 def reply_remote_friendrequest(data, node):
-    url = node.HostName
+    url = node.HostName + '/friendrequest/'
+    print('url:'+url)
     header = {"Content-Type": "application/json"}
-    sender = data['author']
-    data['author'] = data['friend']
-    data['friend'] = sender
+    # sender = data['author']
+    # data['author'] = data['friend']
+    # data['friend'] = sender
     try:
         data = json.dumps(data)
     except: pass
-    response = requests.post(url, headers=header, data=data, auth=HTTPBasicAuth(node.username,node.remotePassword))
+    response = requests.post(url, headers=header, data=data, auth=HTTPBasicAuth(node.username,node.password))
     return response
     # if response.status_code == 200:
     #     return Response("friendrequest sent back", status=status.HTTP_200_OK)

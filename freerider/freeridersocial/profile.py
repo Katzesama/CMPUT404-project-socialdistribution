@@ -125,9 +125,17 @@ class ProfileDetail(APIView):
     def post(self, request, user_id, **kwargs):
 
         '''if locally add friend'''
-        is_remote = check_if_request_is_remote(request)
-        print('is remote?', str(is_remote))
-        if not is_remote:
+        # is_remote = check_if_request_is_remote(request)
+        is_remote_user = True
+        my_host = request.scheme + '://'+ request.get_host()
+        print('my_host: '+ my_host)
+        if Author.objects.filter(host = my_host).exists():
+            for author in Author.objects.filter(host = my_host):
+                author_id = author.id
+                if user_id == author_id:
+                    is_remote_user = False
+        print('is remote?', str(is_remote_user))
+        if not is_remote_user:
             author = Author.objects.get(id = user_id)
             me = request.user.author
             friendrequest = FriendRequest.objects.create(id=me.id, displayName=me.displayName, host=me.host, url=me.url, friend_with=author, friend_status='proceeding')
@@ -145,18 +153,23 @@ class ProfileDetail(APIView):
         node = ServerNode.objects.get(HostName = remote_host)
         username = node.username
         pwd = node.password
-        print('username'+username)
-        if remote_host == request.scheme + '://' + request.get_host() + '/':
-            print('im inside')
-            author = Author.objects.filter(id = UUID(user_id))
-            friendrequest = FriendRequest.objects.create(id=me.id, displayName=me.displayName, host=me.host, url=me.url, friend_with=author, friend_status='proceeding')
-            friendrequest.save()
+        # print('username'+username)
+        # print('aaaaaaaaa')
+        # print(remote_host)
+        # print(request.scheme + '://' + request.get_host())
+        # if remote_host == request.scheme + '://' + request.get_host():
+            #print('im inside')
+
+        author = Author.objects.filter(id = user_id)[0]
+        friendrequest = FriendRequest.objects.create(id=me.id, displayName=me.displayName, host=me.host, url=me.url, friend_with=author, friend_status='proceeding')
+        friendrequest.save()
 
 
 
 
         url = remote_host + '/friendrequest/'
-        author = Author.objects.filter(id = user_id)
+        print(url)
+        author = Author.objects.filter(id = user_id)[0]
         request_body = {
             "query": 'friendrequest',
             "author": {
@@ -172,12 +185,12 @@ class ProfileDetail(APIView):
                     "displayName": author.displayName,
                 },
             }
-        authentication = HTTPBasicAuth(node.remoteUsername, node.remotePassword)
+        authentication = HTTPBasicAuth(node.username, node.password)
         resp = requests.post(url, data=json.dumps(request_body), auth = authentication,
                              headers={'Content-Type': 'application/json'})
         #Handle error case
-        if resp['success'] == False:
-            error_message = resp['message']
+        # if resp['success'] == False:
+        #     error_message = resp['message']
 
         serializer = AuthorSerializer(author)
 

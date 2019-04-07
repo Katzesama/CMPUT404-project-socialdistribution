@@ -31,8 +31,8 @@ class visible_post(APIView):
     #author/posts/
     print('in visible_post')
     def get(self, request, format=None):
-        # for author in Author.objects.all():
-        #     print(author.displayName + author.url)
+        for author in Author.objects.all():
+            print(author.displayName + author.url)
         check_authentication()
         print('pass authentication')
         is_remote = check_if_request_is_remote(request)
@@ -59,27 +59,26 @@ class visible_post(APIView):
                 if resp.status_code != 200:
                     return Response('Fail to get posts from other server', status=400)
                 else:
-                    # print(data.keys())
-                    # print(data['posts'])
+                    print(data.keys())
+                    print(data['posts'])
                     for post in data['posts']:
-                        #print('hi')
+                        print('hi')
                         remote_posts.append(post)
             print('get remote posts')
 
         else:
             print('remote request')
             author_url = request.META.get('HTTP_X_REQUEST_USER_ID','')
-            print('author_url'+author_url)
-            #print(str(author_url)) #None
+            print(str(author_url)) #None
             try:
                 current_author = Author.objects.filter(url=author_url)[0]
             except:
                 '''Send a request back to get requestor's profile and create author object'''
-                #print('not reach here')
+                print('not reach here')
                 #GET http://service/author/9de17f29c12e8f97bcbbd34cc908f1baba40658e
                 resp = get_requestor_info_with_url(request, author_url)
                 data = resp.json()
-                current_author = create_local_author(data)
+                create_local_author(data)
 
 
         '''We get current_author, need to get local visible posts'''
@@ -131,6 +130,16 @@ class visible_post(APIView):
         print('get private visible to me posts')
         posts = remote_posts
 
+        print(remote_posts)
+        print(local_posts)
+        # for post in local_posts:
+        #     # serializer = PostSerializer(post)
+        #
+        #     # serializer['id'] = str(serializer['id'])
+        #
+        #     # posts.append(serializer.data)
+        #     posts.append(post)
+
         if not is_remote:
             for post in remote_posts:
                 remote_author = post['author']
@@ -147,6 +156,8 @@ class visible_post(APIView):
                     temp_author = Author.objects.get(pk = remote_author['id'])
                     temp_author.displayName = remote_author['displayName']
                     temp_author.host = remote_author['host']
+                    temp_author.id = remote_author['id']
+                    temp_author.url = remote_author['url']
                     temp_author.save()
                     print('update done')
 
@@ -154,14 +165,12 @@ class visible_post(APIView):
 
 
         if is_remote:
-            data = resp.json()
-            # print(data)
-            # foreign_posts = data['posts']
-            # for f_p in foreign_posts:
-            #     author_url = f_p['id']
-            #     if not Author.objects.filter(url = author_url).exists():
-            #         author_id = author_url.split('author/')[1]
-            #         foreign_author = Author.objects.create(id = UUID(author_id), url = author_url, displayName = f_p['displayName'], host = f_p['host'], github = f_p['github'])
+            foreign_posts = resp['posts']
+            for f_p in foreign_posts:
+                author_url = f_p['id']
+                if not Author.objects.filter(url = author_url).exists():
+                    author_id = author_url.split('author/')[1]
+                    foreign_author = Author.objects.create(id = UUID(author_id), url = author_url, displayName = f_p['displayName'], host = f_p['host'], github = f_p['github'])
 
             response = {}
             response['query'] = 'posts'
