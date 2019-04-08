@@ -307,14 +307,33 @@ class get_one_post(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'onePost.html'
     def get(self, request, post_id, **kwargs):
+
         try:
-            print("get here")
+            print("get local post")
             post = get_object_or_404(Post, pk = post_id)
+            print(post.author.displayName)
             if not request.user:
                 if post.unlisted==True or post.contentType=='image/png;base64' or post.contentType=='image/png;base64':
                     return HttpResponse(status=404)
         except:
-            return HttpResponse(status=404)
+            print(str(post_id))
+            post_org = request.GET.get('origin')
+            print(post_org)
+            print(request.GET.keys())
+            host = post_org.split('/posts/')[0]
+            if host == 'http://natto.herokuapp.com':
+                host = request.scheme + '://127.0.0.1:8000'
+            url = host + '/posts/' + str(post_id)+'/api/'
+            print('jjjjjjjjjj')
+            print(host)
+            node = ServerNode.objects.filter(HostName = host)[0]
+            username = node.username
+            pwd = node.password
+
+            resp = requests.get(url, auth=HTTPBasicAuth(username, pwd))
+            data = resp.json()
+            post = data
+            #post = Post.objects.create(id = data['id'], source=data['source'], origin=data['origin'], description=data['description'], contentType = data['contentType'], content = data['content'], author = data['author'], categories=data['categories'], count=data['count'], size=data['size'], )
         serializer = PostSerializer(post)
         return Response({"serializer": serializer.data})
 

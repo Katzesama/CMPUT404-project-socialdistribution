@@ -138,7 +138,7 @@ class ProfileDetail(APIView):
         if not is_remote_user:
             author = Author.objects.get(id = user_id)
             me = request.user.author
-            friendrequest = FriendRequest.objects.create(id=author.id, displayName=me.displayName, host=me.host, url=me.url, friend_with=author, friend_status='proceeding')
+            friendrequest = FriendRequest.objects.create(displayName=me.displayName, host=me.host, url=me.url, friend_with=author, friend_status='proceeding')
             friendrequest.save()
             serializer = AuthorSerializer(author)
             return Response({'serializer': serializer.data, 'if_author': False, 'able_friend': False})
@@ -161,7 +161,7 @@ class ProfileDetail(APIView):
             #print('im inside')
 
         author = Author.objects.filter(id = user_id)[0]
-        friendrequest = FriendRequest.objects.create(id=author.id, displayName=me.displayName, host=me.host, url=me.url, friend_with=author, friend_status='proceeding')
+        friendrequest = FriendRequest.objects.create(displayName=me.displayName, host=me.host, url=me.url, friend_with=author, friend_status='proceeding')
         friendrequest.save()
 
 
