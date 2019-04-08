@@ -69,11 +69,31 @@ function show_post(data) {
         post.appendChild(author);
         var line = document.createElement("br");
         post.appendChild(line);
-        var post_link = document.createElement("a");
+        var post_link = document.createElement("button");
         let postid = data.posts[i].id
         post_link.innerHTML = "Post title: " + data.posts[i].title;
-        post_link.href = '/posts/' + postid + '/';
+        var post_href = '/posts/' + postid + '/';
+        var post_origin = data.posts[i].origin;
+
         post.appendChild(post_link);
+        post_link.addEventListener("click", function() {
+          console.info(decision);
+          console.info(JSON.stringify(friend_url));
+          var request = new Request(post_href, {
+                      method: 'GET',
+                      headers: {
+                           'Content-Type': 'application/json',
+                      },
+                     body: JSON.stringify({'origin': post_origin,
+                      });
+          return fetch(request).then((response) => {
+            if (response.status === 200) { // OK
+              alert("done");// return a Promise
+            } else {
+              alert("fetch request then response fail: " + response.error);
+            }
+          });
+        });
         var line = document.createElement("br");
         post.appendChild(line);
         var description = document.createElement("p");
