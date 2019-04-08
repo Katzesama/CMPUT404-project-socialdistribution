@@ -146,8 +146,8 @@ class ProfileDetail(APIView):
 
         author = Author.objects.get(id = user_id)
         remote_host = author.host #"http://127.0.0.1:5454/"
-        if remote_host == 'http://natto.herokuapp.com':
-            remote_host = request.scheme + '://127.0.0.1:8000'
+#         if remote_host == 'http://natto.herokuapp.com':
+#             remote_host = request.scheme + '://127.0.0.1:8000'
         print('remote host' + remote_host)
         me = request.user.author
         node = ServerNode.objects.get(HostName = remote_host)
