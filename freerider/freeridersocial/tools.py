@@ -76,8 +76,8 @@ def get_requestor_info_with_url(request, url):
     print(request)
     id = url.split('author/')[1]
     current_author_host = url.split('/author/')[0]
-    # if current_author_host == 'http://natto.herokuapp.com':
-    #     current_author_host = request.scheme + '://127.0.0.1:8000'
+    if current_author_host == 'http://natto.herokuapp.com':
+        current_author_host = request.scheme + '://myblog-6.heroku.com'
 
     request_url = current_author_host + '/author/' + id + '/api/'
         # print(request_url)
