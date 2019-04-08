@@ -49,7 +49,8 @@ class visible_post(APIView):
                 username = node.username
                 pwd = node.password
                 url = node.HostName + '/author/posts'
-                print(url)
+                print('caonima')
+                print(username)
                 authentication = HTTPBasicAuth(username, pwd)
                 header = {'X-Request-User-ID': current_author.url}
                 resp = requests.get(url, auth=authentication, headers=header)
@@ -72,13 +73,17 @@ class visible_post(APIView):
             print(str(author_url)) #None
             try:
                 current_author = Author.objects.filter(url=author_url)[0]
+                print('ruarua')
+                print(current_author.displayName)
             except:
                 '''Send a request back to get requestor's profile and create author object'''
-                print('not reach here')
-                #GET http://service/author/9de17f29c12e8f97bcbbd34cc908f1baba40658e
-                resp = get_requestor_info_with_url(request, author_url)
-                data = resp.json()
-                create_local_author(data)
+                resp_remote = get_requestor_info_with_url(request, author_url)
+                print("fuck you")
+                data = resp_remote.json()
+                print(data)
+                current_author = create_local_author(data)
+                print('rua!')
+                print(current_author.displayName)
 
 
         '''We get current_author, need to get local visible posts'''
@@ -132,12 +137,16 @@ class visible_post(APIView):
 
         print(remote_posts)
         print(local_posts)
+        for post in local_posts:
+            serializer = PostSerializer(post).data
+            serializer['id'] = str(serializer['id'])
+            posts.append(serializer)
         # for post in local_posts:
-        #     # serializer = PostSerializer(post)
+        #     serializer = PostSerializer(post)
         #
-        #     # serializer['id'] = str(serializer['id'])
+        #     serializer['id'] = str(serializer['id'])
         #
-        #     # posts.append(serializer.data)
+        #     posts.append(serializer.data)
         #     posts.append(post)
 
         if not is_remote:
@@ -165,12 +174,12 @@ class visible_post(APIView):
 
 
         if is_remote:
-            foreign_posts = resp['posts']
-            for f_p in foreign_posts:
-                author_url = f_p['id']
-                if not Author.objects.filter(url = author_url).exists():
-                    author_id = author_url.split('author/')[1]
-                    foreign_author = Author.objects.create(id = UUID(author_id), url = author_url, displayName = f_p['displayName'], host = f_p['host'], github = f_p['github'])
+            # foreign_posts = resp['posts']
+            # for f_p in foreign_posts:
+            #     author_url = f_p['id']
+            #     if not Author.objects.filter(url = author_url).exists():
+            #         author_id = author_url.split('author/')[1]
+            #         foreign_author = Author.objects.create(id = UUID(author_id), url = author_url, displayName = f_p['displayName'], host = f_p['host'], github = f_p['github'])
 
             response = {}
             response['query'] = 'posts'

@@ -129,13 +129,12 @@ function show_post(data) {
 function fetchJSON(url) {
   var request = new Request(url, {
               method: 'GET',
-              mode: 'cors',
               headers: {
                    'Content-Type': 'application/json'
-              }});
+              }, });
   return fetch(request).then((response) => {
     if (response.status === 200) { // OK
-        return response.json(); // return a Promise
+      return response.json(); // return a Promise
     } else {
       alert("Something went wrong: " + response.status);
     }

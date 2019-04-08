@@ -145,7 +145,7 @@ class FriendRequestHandler(APIView):
                 return Response('friendrequest is processing', status=status.HTTP_400_BAD_REQUEST)
             else:
                 print(receiver_obj)
-                friend_request = FriendRequest.objects.create(id = sender_id,displayName= sender_obj.displayName,url = sender_url, friend_with=receiver_obj, friend_status= 'proceeding', host=sender_obj.host)
+                friend_request = FriendRequest.objects.create(id = receiver_obj.id,displayName= sender_obj.displayName,url = sender_url, friend_with=receiver_obj, friend_status= 'proceeding', host=sender_obj.host)
                 friend_request.save()
                 print('friend saved')
                 return Response('Receive friendrequest', status=status.HTTP_200_OK)
@@ -182,6 +182,7 @@ class updateFriendRequestHandler(APIView):
         friend_request = FriendRequest.objects.filter(url = sender_url,friend_with=me, friend_status='proceeding')[0]
         if decision == 'accept':
             friend_request.friend_status = "friend"
+            friend_request.save()
 
             if remote_tell_accept:
                 request_form = {
@@ -199,9 +200,10 @@ class updateFriendRequestHandler(APIView):
                         'url': sender_url,
                     }
                 }
-            resp = reply_remote_friendrequest(request_form, connect_server)
-            if resp.status_code != 200:
-                return Response('Fail to send friendrequest back', status=status.HTTP_400_BAD_REQUEST)
+                resp = reply_remote_friendrequest(request_form, connect_server)
+
+                if resp.status_code != 200:
+                    return Response('Fail to send friendrequest back', status=status.HTTP_400_BAD_REQUEST)
         elif decision == 'decline':
             friend_request.friend_status = "rejected"
         friend_request.save()

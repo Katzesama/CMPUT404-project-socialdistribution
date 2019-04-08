@@ -90,6 +90,7 @@ def get_requestor_info_with_url(request, url):
     authentication = HTTPBasicAuth(username, pwd)
         # print('send request')
     resp = requests.get(request_url, auth=authentication)
+    print('wocao')
     print(resp.content)
 
     return resp
