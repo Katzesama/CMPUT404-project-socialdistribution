@@ -34,8 +34,6 @@ class addComment(APIView):
         try:
             id = uuid.UUID(request.session['Comment_id']).hex
             new_comment = Comment.objects.get(id=id)
-            if not new_comment:
-                new_comment = Comment.objects.create(post_id = post, author=request.user.author)
         except:
             new_comment = Comment.objects.create(post_id = post, author=request.user.author)
         serializer = CommentSerializer(new_comment, data = request.data)
